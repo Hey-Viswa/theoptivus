@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Epilogue } from "next/font/google";
-import localFont from "next/font/local";
+import { Poppins, Epilogue, Caveat } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -17,9 +16,10 @@ const epilogue = Epilogue({
   display: 'swap',
 });
 
-const caveat = localFont({
-  src: "../../../public/fonts/Caveat-VariableFont_wght.ttf",
+const caveat = Caveat({
   variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: 'swap',
 });
 
@@ -106,7 +106,6 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1e293b" />
         <meta name="color-scheme" content="dark light" />
-        <title></title>
       </head>
       <body
         className={`${poppins.variable} ${epilogue.variable} ${caveat.variable} font-sans antialiased bg-white dark:bg-slate-950 text-gray-900 dark:text-white`}
@@ -125,9 +124,9 @@ export default function RootLayout({
               "description": "Passionate Full Stack Developer creating exceptional digital experiences through clean code and innovative solutions",
               "url": process.env.NEXT_PUBLIC_SITE_URL || "https://optivus-portfolio.vercel.app",
               "sameAs": [
-                "https://github.com/optivus",
-                "https://linkedin.com/in/optivus",
-                "https://twitter.com/optivus"
+                "https://github.com/Hey-Viswa/Hey-Viswa",
+                "https://www.linkedin.com/in/biswaranjangiri/",
+                "https://x.com/Hey_viswa_"
               ],
               "knowsAbout": [
                 "React",
