@@ -18,7 +18,7 @@ const epilogue = Epilogue({
 });
 
 const caveat = localFont({
-  src: "../../public/fonts/Caveat-VariableFont_wght.ttf",
+  src: "../../../public/fonts/Caveat-VariableFont_wght.ttf",
   variable: "--font-caveat",
   display: 'swap',
 });
