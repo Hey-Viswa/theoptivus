@@ -106,6 +106,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1e293b" />
         <meta name="color-scheme" content="dark light" />
+        <title></title>
       </head>
       <body
         className={`${poppins.variable} ${epilogue.variable} ${caveat.variable} font-sans antialiased bg-white dark:bg-slate-950 text-gray-900 dark:text-white`}
