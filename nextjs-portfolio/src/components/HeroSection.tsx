@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { HeroSection as HeroSectionType } from '@/types/hero';
 
 interface HeroSectionProps {
@@ -153,12 +152,10 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
                 {/* Profile Image Container */}
                 <div className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[28rem] md:h-[28rem] lg:w-96 lg:h-96 xl:w-[28rem] xl:h-[28rem] rounded-full overflow-hidden border-4 sm:border-6 border-slate-700/50 shadow-2xl">
                   {defaultData.profileImage?.asset?.url ? (
-                    <Image
+                    <img
                       src={defaultData.profileImage.asset.url}
                       alt={`${defaultData.title} - Profile`}
-                      fill
-                      className="object-cover"
-                      priority
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <div className="w-full h-full bg-slate-800 flex items-center justify-center">
