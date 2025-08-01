@@ -3,7 +3,11 @@ export const PROJECTS_QUERY = `*[_type == "project"] | order(_createdAt desc) {
   title,
   slug,
   description,
-  image,
+  image {
+    asset-> {
+      url
+    }
+  },
   techStack,
   githubUrl,
   liveUrl
@@ -12,27 +16,37 @@ export const PROJECTS_QUERY = `*[_type == "project"] | order(_createdAt desc) {
 export const EXPERIENCES_QUERY = `*[_type == "experience"] | order(startDate desc) {
   _id,
   company,
-  position,
+  role,
   startDate,
   endDate,
-  isCurrent,
   description,
-  technologies
+  companyLogo {
+    asset-> {
+      url
+    }
+  }
 }`;
 
-export const SKILLS_QUERY = `*[_type == "skill"] | order(name asc) {
+export const TECH_STACK_QUERY = `*[_type == "tech"] | order(name asc) {
   _id,
   name,
-  icon,
-  proficiency
+  logo {
+    asset-> {
+      url
+    }
+  },
+  category
 }`;
 
 export const ABOUT_QUERY = `*[_type == "about"][0] {
   _id,
-  name,
-  role,
-  description,
-  profileImage
+  bio,
+  image {
+    asset-> {
+      url
+    }
+  },
+  skills
 }`;
 
 export const SOCIAL_LINKS_QUERY = `*[_type == "socialLink"] {
@@ -42,18 +56,31 @@ export const SOCIAL_LINKS_QUERY = `*[_type == "socialLink"] {
   icon
 }`;
 
-export const HERO_QUERY = `*[_type == "hero"][0] {
+export const HERO_QUERY = `*[_type == "heroSection"][0] {
   _id,
-  heading,
-  subheading,
-  tagline,
-  profileImage {
-    asset->{
-      url,
-      metadata
-    }
-  },
+  headline,
+  title,
+  subtitle,
+  description,
   ctaText,
-  ctaLink
+  ctaLink,
+  profileImage {
+    asset-> {
+      url
+    }
+  }
 }`;
 
+export const CONTACT_QUERY = `*[_type == "contact"][0] {
+  _id,
+  email,
+  phone,
+  linkedIn,
+  github,
+  twitter,
+  resume {
+    asset-> {
+      url
+    }
+  }
+}`;

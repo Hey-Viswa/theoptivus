@@ -1,6 +1,7 @@
 export interface HeroSection {
   _id: string;
   _type: "heroSection";
+  headline: string;
   title: string;
   subtitle?: string;
   description?: string;

@@ -1,17 +1,13 @@
 export interface AboutMe {
     _id: string;
-    name: string;
-    role: string;
-    description: string;
-    profileImage: {
+    _type: 'about';
+    bio: string;
+    image?: {
         asset: {
-            url: string;
-            metadata: {
-                dimensions: {
-                    width: number;
-                    height: number;
-                };
-            };
+            _ref: string;
+            _type: 'reference';
+            url?: string;
         };
     };
+    skills?: string[];
 }
