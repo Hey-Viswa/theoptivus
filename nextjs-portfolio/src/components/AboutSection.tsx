@@ -88,13 +88,29 @@ export default function AboutSection({ aboutData }: AboutSectionProps) {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}>
 
-        {/* Author Name Label */}
+        {/* Author Name Label - Professional UI/UX Designer Badge */}
         <div className="mb-8">
-          <div className="inline-flex items-center gap-3 px-6 py-2 bg-slate-800/40 backdrop-blur-sm rounded-full border border-slate-700/30">
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-            <span className="text-xs font-bold text-blue-400 tracking-[0.25em] uppercase font-epilogue">
+          <div className="inline-flex items-center gap-4 px-8 py-3 bg-slate-800/40 backdrop-blur-sm rounded-full border border-slate-700/30 hover:bg-slate-800/60 transition-all duration-300">
+            {/* UI/UX Design Icon */}
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+              </div>
+              <div className="w-px h-4 bg-slate-600"></div>
+              <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+
+            <span className="text-sm font-bold text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text tracking-[0.2em] uppercase font-epilogue">
               {aboutData.authorName || 'UI/UX Designer & Developer'}
             </span>
+
+            {/* Decorative dot */}
+            <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
           </div>
         </div>
 
