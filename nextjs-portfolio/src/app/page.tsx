@@ -10,7 +10,6 @@ import { AboutSection as AboutSectionType } from '@/types/about';
 async function getHeroData(): Promise<HeroSectionType | undefined> {
   try {
     const heroData = await client.fetch(HERO_QUERY);
-    console.log('Fetched Hero Data:', heroData); // Debug log
     return heroData || undefined;
   } catch (error) {
     console.error('Error fetching hero data:', error);
@@ -21,6 +20,8 @@ async function getHeroData(): Promise<HeroSectionType | undefined> {
 async function getAboutData(): Promise<AboutSectionType | undefined> {
   try {
     const aboutData = await client.fetch(ABOUT_QUERY);
+    console.log('Fetched About Data:', aboutData); // Debug log
+    console.log('Resume data:', aboutData?.resume); // Specific resume debug
     return aboutData || undefined;
   } catch (error) {
     console.error('Error fetching about data:', error);

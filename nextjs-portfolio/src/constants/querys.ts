@@ -44,18 +44,11 @@ export const ABOUT_QUERY = `*[_type == "about"][0]{
   sectionTitle,
   bio,
   "portraitImage": portraitImage{
-    asset->{
-      _id,
-      url
-    },
+    asset->,
     alt
   },
   "portraitVideo": portraitVideo{
-    asset->{
-      _id,
-      url
-    },
-    alt
+    asset->
   },
   socialLinks[]{
     platform,

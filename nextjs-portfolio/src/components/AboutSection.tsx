@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PortableText } from '@portabletext/react';
+import { PortableTextComponents } from '@portabletext/react';
 import { AboutSection as AboutSectionType } from '@/types/about';
 
 interface AboutSectionProps {
@@ -37,24 +38,31 @@ const ArrowIcon = (
 );
 
 // PortableText components for rich text rendering
-const portableTextComponents = {
+const portableTextComponents: PortableTextComponents = {
   block: {
-    normal: ({ children }: any) => <p className="mb-6 text-slate-300 leading-relaxed text-lg font-epilogue">{children}</p>,
-    h3: ({ children }: any) => <h3 className="text-2xl font-semibold text-white mb-4 font-epilogue">{children}</h3>,
-    blockquote: ({ children }: any) => (
+    normal: ({ children }) => <p className="mb-6 text-slate-300 leading-relaxed text-lg font-epilogue">{children}</p>,
+    h3: ({ children }) => <h3 className="text-2xl font-semibold text-white mb-4 font-epilogue">{children}</h3>,
+    blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-blue-500 pl-6 py-4 italic text-slate-300 mb-6 font-epilogue bg-slate-800/20 rounded-r-xl">
         {children}
       </blockquote>
     ),
   },
   marks: {
-    strong: ({ children }: any) => <strong className="text-white font-semibold">{children}</strong>,
-    em: ({ children }: any) => <em className="text-blue-400">{children}</em>,
+    strong: ({ children }) => <strong className="text-white font-semibold">{children}</strong>,
+    em: ({ children }) => <em className="text-blue-400">{children}</em>,
   },
 };
 
 export default function AboutSection({ aboutData }: AboutSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
+
+  // Debug: Log the aboutData to see what we're receiving
+  useEffect(() => {
+    console.log('AboutSection - Full aboutData:', aboutData);
+    console.log('AboutSection - Resume data specifically:', aboutData?.resume);
+    console.log('AboutSection - Resume URL:', aboutData?.resume?.asset?.url);
+  }, [aboutData]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 300);
@@ -91,21 +99,31 @@ export default function AboutSection({ aboutData }: AboutSectionProps) {
         {/* Author Name Label - Professional UI/UX Designer Badge */}
         <div className="mb-8">
           <div className="inline-flex items-center gap-4 px-8 py-3 bg-slate-800/40 backdrop-blur-sm rounded-full border border-slate-700/30 hover:bg-slate-800/60 transition-all duration-300">
-            {/* UI/UX Design Icon */}
+            {/* UI/UX Design Icon - Updated with better representation */}
             <div className="flex items-center gap-2">
-              <div className="relative">
-                <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <div className="relative flex items-center gap-1">
+                {/* UI Icon - Monitor/Screen */}
+                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="12" rx="1" strokeWidth={1.5}/>
+                  <path d="M7 20h10M12 16v4" strokeLinecap="round" strokeWidth={1.5}/>
                 </svg>
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+
+                {/* Slash separator */}
+                <div className="text-slate-400 text-sm font-light">/</div>
+
+                {/* UX Icon - User/Person */}
+                <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}/>
+                  <circle cx="12" cy="7" r="4" strokeWidth={1.5}/>
+                </svg>
               </div>
               <div className="w-px h-4 bg-slate-600"></div>
-              <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
             </div>
 
-            <span className="text-sm font-bold text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text tracking-[0.2em] uppercase font-epilogue">
+            <span className="text-sm font-bold text-white tracking-[0.2em] uppercase font-epilogue">
               {aboutData.authorName || 'UI/UX Designer & Developer'}
             </span>
 
@@ -197,7 +215,7 @@ export default function AboutSection({ aboutData }: AboutSectionProps) {
             <div className="bg-slate-800/30 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-8 hover:bg-slate-800/50 transition-all duration-300">
               <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
                 <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
               <h4 className="text-xl font-semibold text-white mb-4 font-epilogue">UI/UX Design</h4>
@@ -210,7 +228,7 @@ export default function AboutSection({ aboutData }: AboutSectionProps) {
             <div className="bg-slate-800/30 backdrop-blur-sm rounded-2xl border border-slate-700/30 p-8 hover:bg-slate-800/50 transition-all duration-300">
               <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
                 <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
               </div>
               <h4 className="text-xl font-semibold text-white mb-4 font-epilogue">Full-Stack Development</h4>
@@ -244,7 +262,7 @@ export default function AboutSection({ aboutData }: AboutSectionProps) {
         {/* Social Media Links - Full Width Layout */}
         {aboutData.socialLinks && aboutData.socialLinks.length > 0 && (
           <div className="mb-16 max-w-6xl mx-auto">
-            <h3 className="text-2xl font-semibold text-white mb-6 font-epilogue">Let's Connect</h3>
+            <h3 className="text-2xl font-semibold text-white mb-6 font-epilogue">Let&#39;s Connect</h3>
             <div className="flex flex-wrap gap-4">
               {aboutData.socialLinks.map((link, index) => (
                 <a
@@ -298,9 +316,29 @@ export default function AboutSection({ aboutData }: AboutSectionProps) {
             <button className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold font-epilogue rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25">
               View My Work
             </button>
-            <button className="px-8 py-4 border-2 border-slate-700 hover:border-blue-500 text-slate-300 hover:text-white font-semibold font-epilogue rounded-xl transition-all duration-300 hover:bg-slate-800/50">
-              Download Resume
-            </button>
+
+            {/* Resume Download Button - Updated with download functionality */}
+            {aboutData.resume?.asset?.url ? (
+              <a
+                href={aboutData.resume.asset.url}
+                download={aboutData.resume.title || 'Resume.pdf'}
+                className="inline-flex items-center gap-3 px-8 py-4 border-2 border-slate-700 hover:border-blue-500 text-slate-300 hover:text-white font-semibold font-epilogue rounded-xl transition-all duration-300 hover:bg-slate-800/50 hover:scale-105"
+                aria-label={`Download ${aboutData.resume.title || 'Resume'} as PDF`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                {aboutData.resume.title || 'Download Resume'}
+              </a>
+            ) : (
+              <button
+                className="px-8 py-4 border-2 border-slate-700/50 text-slate-500 font-semibold font-epilogue rounded-xl cursor-not-allowed opacity-50"
+                disabled
+                title="Resume not available"
+              >
+                Resume Unavailable
+              </button>
+            )}
           </div>
         </div>
       </div>

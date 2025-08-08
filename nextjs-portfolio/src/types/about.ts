@@ -1,3 +1,5 @@
+import { PortableTextBlock } from '@portabletext/types';
+
 export interface SocialLink {
   platform: string;
   url: string;
@@ -13,7 +15,7 @@ export interface AboutSection {
   _id: string;
   authorName: string;
   sectionTitle: string;
-  bio: any[]; // Sanity block content
+  bio: PortableTextBlock[]; // Sanity block content
   portraitImage?: {
     asset: {
       _ref: string;
@@ -28,6 +30,14 @@ export interface AboutSection {
       _type: string;
       url?: string;
     };
+  };
+  resume?: {
+    asset: {
+      _ref: string;
+      _type: string;
+      url?: string;
+    };
+    title?: string;
   };
   socialLinks?: SocialLink[];
   awards?: Award[];

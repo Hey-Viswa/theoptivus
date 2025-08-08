@@ -151,6 +151,9 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
 
                 {/* Profile Image Container */}
                 <div className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[28rem] md:h-[28rem] lg:w-96 lg:h-96 xl:w-[28rem] xl:h-[28rem] rounded-full overflow-hidden border-4 sm:border-6 border-slate-700/50 shadow-2xl">
+
+                  {console.log('Profile Image Data:', defaultData.profileImage)}
+
                   {defaultData.profileImage?.asset?.url ? (
                     <img
                       src={defaultData.profileImage.asset.url}
