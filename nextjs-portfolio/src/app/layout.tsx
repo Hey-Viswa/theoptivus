@@ -49,6 +49,12 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://optivus-portfolio.vercel.app'),
   alternates: {
     canonical: '/',
@@ -99,17 +105,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#1e293b" />
-        <meta name="color-scheme" content="dark light" />
-      </head>
-      <body
-        className={`${poppins.variable} ${epilogue.variable} ${caveat.variable} font-sans antialiased bg-white dark:bg-slate-950 text-gray-900 dark:text-white`}
-      >
+    <html lang="en" className={`${poppins.variable} ${epilogue.variable} ${caveat.variable}`}>
+      <body className="font-poppins antialiased">
         {children}
 
         {/* Structured Data */}

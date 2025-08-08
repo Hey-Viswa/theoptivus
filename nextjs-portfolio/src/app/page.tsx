@@ -1,13 +1,16 @@
 import React from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
 import { client } from '@/sanity/client';
-import { HERO_QUERY } from '@/constants/querys';
+import { HERO_QUERY, ABOUT_QUERY } from '@/constants/querys';
 import { HeroSection as HeroSectionType } from '@/types/hero';
+import { AboutSection as AboutSectionType } from '@/types/about';
 
 async function getHeroData(): Promise<HeroSectionType | undefined> {
   try {
     const heroData = await client.fetch(HERO_QUERY);
+    console.log('Fetched Hero Data:', heroData); // Debug log
     return heroData || undefined;
   } catch (error) {
     console.error('Error fetching hero data:', error);
@@ -15,8 +18,19 @@ async function getHeroData(): Promise<HeroSectionType | undefined> {
   }
 }
 
+async function getAboutData(): Promise<AboutSectionType | undefined> {
+  try {
+    const aboutData = await client.fetch(ABOUT_QUERY);
+    return aboutData || undefined;
+  } catch (error) {
+    console.error('Error fetching about data:', error);
+    return undefined;
+  }
+}
+
 export default async function HomePage() {
   const heroData = await getHeroData();
+  const aboutData = await getAboutData();
 
   return (
     <>
@@ -33,14 +47,13 @@ export default async function HomePage() {
       <main id="main-content" role="main">
         <HeroSection heroData={heroData} />
 
+        {/* About Section */}
+        <AboutSection aboutData={aboutData} />
+
         {/* Future sections with proper semantic structure */}
         {/*
-        <section aria-labelledby="about-heading">
+        <section aria-labelledby="tech-heading">
           <TechStackSection />
-        </section>
-
-        <section aria-labelledby="about-heading">
-          <AboutSection />
         </section>
 
         <section aria-labelledby="projects-heading">
@@ -58,6 +71,15 @@ export default async function HomePage() {
         <section aria-labelledby="contact-heading">
           <ContactSection />
         </section>
+        */}
+
+        {/* Footer */}
+        {/*
+        <footer className="bg-gray-900 text-white py-8 border-t border-gray-800">
+          <div className="container mx-auto px-4 text-center">
+            <p>&copy; 2024 Optivus. All rights reserved.</p>
+          </div>
+        </footer>
         */}
       </main>
     </>

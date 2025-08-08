@@ -38,13 +38,33 @@ export const TECH_STACK_QUERY = `*[_type == "tech"] | order(name asc) {
   category
 }`;
 
-export const ABOUT_QUERY = `*[_type == "about"][0] {
+export const ABOUT_QUERY = `*[_type == "about"][0]{
   _id,
+  authorName,
+  sectionTitle,
   bio,
-  image {
-    asset-> {
+  "portraitImage": portraitImage{
+    asset->{
+      _id,
       url
-    }
+    },
+    alt
+  },
+  "portraitVideo": portraitVideo{
+    asset->{
+      _id,
+      url
+    },
+    alt
+  },
+  socialLinks[]{
+    platform,
+    url,
+    icon
+  },
+  awards[]{
+    title,
+    year
   },
   skills
 }`;
@@ -56,19 +76,21 @@ export const SOCIAL_LINKS_QUERY = `*[_type == "socialLink"] {
   icon
 }`;
 
-export const HERO_QUERY = `*[_type == "heroSection"][0] {
+export const HERO_QUERY = `*[_type == "hero"][0]{
   _id,
   headline,
   title,
   subtitle,
   description,
-  ctaText,
-  ctaLink,
-  profileImage {
-    asset-> {
+  "profileImage": profileImage{
+    asset->{
+      _id,
       url
-    }
-  }
+    },
+    alt
+  },
+  ctaText,
+  ctaLink
 }`;
 
 export const CONTACT_QUERY = `*[_type == "contact"][0] {
