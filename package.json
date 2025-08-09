@@ -1,0 +1,17 @@
+{
+  "name": "theoptivus-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd nextjs-portfolio && npm run dev",
+    "build": "cd nextjs-portfolio && npm run build",
+    "start": "cd nextjs-portfolio && npm run start",
+    "lint": "cd nextjs-portfolio && npm run lint",
+    "install:app": "cd nextjs-portfolio && npm install"
+  },
+  "dependencies": {
+    "next": "15.4.2",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  }
+}
