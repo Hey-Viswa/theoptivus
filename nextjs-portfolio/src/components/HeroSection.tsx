@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { HeroSection as HeroSectionType } from '@/types/hero';
 
 interface HeroSectionProps {
@@ -152,28 +153,27 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
                 {/* Profile Image Container */}
                 <div className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[28rem] md:h-[28rem] lg:w-96 lg:h-96 xl:w-[28rem] xl:h-[28rem] rounded-full overflow-hidden border-4 sm:border-6 border-slate-700/50 shadow-2xl">
 
-                  {console.log('Profile Image Data:', defaultData.profileImage)}
-
-                  {defaultData.profileImage?.asset?.url ? (
-                    <img
+                    {defaultData.profileImage?.asset?.url ? (
+                    <Image
                       src={defaultData.profileImage.asset.url}
                       alt={defaultData.profileImage.alt || `${defaultData.title} - Profile`}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       onLoad={() => console.log('Image loaded successfully')}
                       onError={(e) => console.log('Image failed to load:', e)}
                     />
-                  ) : (
+                    ) : (
                     <div className="w-full h-full bg-slate-800 flex items-center justify-center">
                       <div className="w-32 h-32 bg-slate-700 rounded-full flex items-center justify-center">
-                        <svg className="w-16 h-16 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
+                      <svg className="w-16 h-16 text-slate-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                      </svg>
                       </div>
                       <div className="absolute bottom-2 left-2 text-xs text-slate-500">
-                        No Sanity Image
+                      No Sanity Image
                       </div>
                     </div>
-                  )}
+                    )}
                 </div>
 
                 {/* Floating circles - always rendered with animations */}
