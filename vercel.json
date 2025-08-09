@@ -1,4 +1,0 @@
-{
-  "buildCommand": "npm run install:app && npm run build",
-  "outputDirectory": "nextjs-portfolio/.next"
-}
