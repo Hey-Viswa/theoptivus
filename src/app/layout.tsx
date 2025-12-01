@@ -1,20 +1,29 @@
 import type { Metadata } from "next";
-import { Oswald, Inter, Caveat } from "next/font/google";
+import { Montserrat, Open_Sans, Nunito, Caveat } from "next/font/google";
 import "./globals.css";
 
-const oswald = Oswald({
-  variable: "--font-oswald",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const openSans = Open_Sans({
+  variable: "--font-opensans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const caveat = Caveat({
   variable: "--font-caveat",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -39,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning className="antialiased bg-background text-foreground cursor-none">
-        <div className={`${oswald.variable} ${inter.variable} ${caveat.variable}`}>
+        <div className={`${montserrat.variable} ${openSans.variable} ${nunito.variable} ${caveat.variable}`}>
           <GSAPEnhancer />
           <SmoothScroller />
           <Cursor />
