@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Work', path: '/#works' },
+    { name: 'Skills', path: '/#skills' },
     { name: 'About', path: '/#about' },
     { name: 'Contact', path: '/contact' },
 ];
@@ -65,7 +66,10 @@ export default function Navbar() {
                 const sections = [
                     { id: 'hero', selector: '#hero', navPath: '/' },
                     { id: 'works', selector: '#works', navPath: '/#works' },
-                    { id: 'about', selector: '#about', navPath: '/#about' }
+                    { id: 'featured-skills', selector: '#featured-skills', navPath: '/#skills' },
+                    { id: 'about', selector: '#about', navPath: '/#about' },
+                    { id: 'skills', selector: '#skills', navPath: '/#skills' },
+                    { id: 'about-more', selector: '#about-more', navPath: '/#about' }
                 ];
 
                 // Create triggers for each section
@@ -74,7 +78,7 @@ export default function Navbar() {
                     if (element) {
                         ScrollTrigger.create({
                             trigger: element,
-                            start: "top center", // Consistent trigger point
+                            start: "top 80%", // Trigger when top of section hits 80% of viewport height
                             end: "bottom center",
                             onEnter: () => setActiveSection(section.navPath),
                             onEnterBack: () => setActiveSection(section.navPath),
@@ -90,6 +94,11 @@ export default function Navbar() {
             } else {
                 setActiveSection('');
             }
+
+            // Refresh ScrollTrigger to ensure positions are correct after layout settles
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 1000);
 
         }, navRef);
 
