@@ -110,7 +110,7 @@ export default function Cursor() {
     return (
         <div
             ref={cursorRef}
-            className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference flex items-center justify-center"
+            className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[10001] mix-blend-difference flex items-center justify-center"
             style={{
                 backfaceVisibility: 'hidden',
                 WebkitFontSmoothing: 'antialiased',

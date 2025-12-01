@@ -41,32 +41,9 @@ export async function initAnimations({ root = document, enable = true }: GSAPCon
     // 5. Create GSAP Context
     ctx = gsap.context(() => {
         // --- A. Floating Nav Pill ---
-        // Selector: data-animate="nav-pill" or fallback .nav-pill
-        const navPills = root.querySelectorAll('[data-animate="nav-pill"], .nav-pill');
-        navPills.forEach((pill) => {
-            if (prefersReducedMotion) return;
+        // Removed to avoid conflict with Navbar.tsx entrance animation and fix lag.
+        // The Navbar component handles its own entrance.
 
-            // Initial bounce
-            gsap.fromTo(pill,
-                { scaleY: 0.8, y: -10 },
-                { scaleY: 1, y: 0, duration: 0.8, ease: "power2.out" }
-            );
-
-            // Parallax on scroll
-            if (!isTouch) {
-                gsap.to(pill, {
-                    y: () => -window.scrollY * 0.05,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: document.body,
-                        start: "top top",
-                        end: "bottom bottom",
-                        scrub: true,
-                        markers: false // Production rule
-                    }
-                });
-            }
-        });
 
         // --- B. Blurred Background Typo Layer ---
         // Selector: data-animate="bg-typo" or fallback .hero-typo

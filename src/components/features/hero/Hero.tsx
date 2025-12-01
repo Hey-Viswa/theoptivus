@@ -88,7 +88,7 @@ export default function Hero() {
     };
 
     return (
-        <section ref={containerRef} className="h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden bg-background">
+        <section id="hero" ref={containerRef} className="h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden bg-background">
             {/* Interactive Spotlight */}
             <div
                 ref={spotlightRef}
