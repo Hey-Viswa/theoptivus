@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -9,57 +9,45 @@ export default function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const biswaRef = useRef<HTMLHeadingElement>(null);
     const ranjanRef = useRef<HTMLHeadingElement>(null);
-    const subRef = useRef<HTMLParagraphElement>(null);
-    const spotlightRef = useRef<HTMLDivElement>(null);
+    const subRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline();
+            const tl = gsap.timeline({
+                defaults: { ease: 'power3.out' },
+                onComplete: () => ScrollTrigger.refresh() // Ensure scroll positions are recalculated
+            });
 
-            // Split text for animation (simple char staggering)
-            const charsBiswa = biswaRef.current?.querySelectorAll('.char') ?? [];
-            const charsRanjan = ranjanRef.current?.querySelectorAll('.char') ?? [];
+            // Helper to get chars
+            const getChars = (element: HTMLElement | null) => element?.querySelectorAll('.char') || [];
 
-            // Initial State
-            gsap.set([charsBiswa, charsRanjan], { y: 100, opacity: 0 });
-            gsap.set(subRef.current, { y: 20, opacity: 0 });
-
-            // Entrance Animation
-            tl.to(charsBiswa, {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                stagger: 0.05,
-                ease: 'power4.out',
-                delay: 0.2
-            })
-                .to(charsRanjan, {
+            // Entrance Animation using fromTo for robustness
+            tl.fromTo(getChars(biswaRef.current),
+                { y: 100, opacity: 0 },
+                {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
                     stagger: 0.05,
+                    duration: 1,
                     ease: 'power4.out'
-                }, '-=0.8')
-                .to(subRef.current, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: 'power2.out'
-                }, '-=0.5');
-
-            // Spotlight Effect
-            const handleMouseMove = (e: MouseEvent) => {
-                if (!spotlightRef.current) return;
-                const { clientX, clientY } = e;
-                gsap.to(spotlightRef.current, {
-                    x: clientX,
-                    y: clientY,
-                    duration: 0.5,
-                    ease: 'power2.out'
-                });
-            };
-
-            window.addEventListener('mousemove', handleMouseMove);
+                }
+            )
+                .fromTo(getChars(ranjanRef.current),
+                    { y: 100, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.05,
+                        duration: 1,
+                        ease: 'power4.out'
+                    }, '-=0.8')
+                .fromTo(subRef.current,
+                    { y: 20, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1
+                    }, '-=0.5');
 
             // Parallax
             gsap.to([biswaRef.current, ranjanRef.current], {
@@ -73,9 +61,6 @@ export default function Hero() {
                 }
             });
 
-            return () => {
-                window.removeEventListener('mousemove', handleMouseMove);
-            };
         }, containerRef);
 
         return () => ctx.revert();
@@ -88,28 +73,37 @@ export default function Hero() {
     };
 
     return (
-        <section id="hero" ref={containerRef} className="h-screen flex flex-col justify-center items-center px-4 relative overflow-hidden bg-background">
-            {/* Interactive Spotlight */}
-            <div
-                ref={spotlightRef}
-                className="absolute top-0 left-0 w-[800px] h-[800px] bg-white/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-soft-light z-0"
-            />
+        <section
+            id="hero"
+            ref={containerRef}
+            className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden bg-background"
+        >
+            {/* Subtle Background Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] pointer-events-none z-0" />
 
-            <div className="relative z-10 flex flex-col items-center leading-[0.85]">
-                <h1 ref={biswaRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(50px,18vw,400px)] text-white tracking-tighter">
+            {/* Main Content */}
+            <div className="relative z-10 flex flex-col items-center text-center leading-[0.85]">
+                {/* BISWA - Solid */}
+                <h1 ref={biswaRef} className="font-display font-bold text-[clamp(50px,18vw,400px)] text-white tracking-tighter">
                     {renderChars('BISWA')}
                 </h1>
-                <h1 ref={ranjanRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(50px,18vw,400px)] text-transparent tracking-tighter [-webkit-text-stroke:1px_rgba(255,255,255,0.8)] md:[-webkit-text-stroke:2px_rgba(255,255,255,0.8)]">
+
+                {/* RANJAN - Outline */}
+                <h1 ref={ranjanRef} className="font-display font-bold text-[clamp(50px,18vw,400px)] text-transparent tracking-tighter [-webkit-text-stroke:1px_rgba(255,255,255,0.8)] md:[-webkit-text-stroke:2px_rgba(255,255,255,0.8)]">
                     {renderChars('RANJAN')}
                 </h1>
             </div>
 
-            <p ref={subRef} className="mt-8 md:mt-12 text-xs md:text-xl text-gray-400 tracking-[0.2em] uppercase font-light z-10 text-center px-4">
-                ANDROID & FULL-STACK DEVELOPER
-            </p>
+            {/* Subtitle */}
+            <div ref={subRef} className="mt-8 md:mt-12 flex flex-col items-center gap-4 relative z-20">
+                <p className="text-xs md:text-xl text-gray-400 tracking-[0.2em] uppercase font-light text-center px-4">
+                    Full-Stack & Android Developer
+                </p>
+            </div>
 
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-10">
-                <span className="text-[10px] uppercase tracking-widest opacity-40">Scroll to Explore</span>
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10 opacity-30 animate-pulse">
+                <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-white to-transparent"></div>
             </div>
         </section>
     );

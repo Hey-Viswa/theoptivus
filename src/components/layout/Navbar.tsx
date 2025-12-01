@@ -20,6 +20,11 @@ export default function Navbar() {
     useLayoutEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
+        // Check hash on mount
+        if (typeof window !== 'undefined' && window.location.hash) {
+            setActiveSection('/' + window.location.hash);
+        }
+
         const ctx = gsap.context(() => {
             // Entrance Animation - Optimized
             gsap.set(navRef.current, { willChange: 'transform, opacity' });
@@ -92,12 +97,15 @@ export default function Navbar() {
     }, [pathname]);
 
     return (
-        <nav ref={navRef} data-animate="nav-pill" className="hidden md:block fixed top-6 left-1/2 -translate-x-1/2 z-[10000] w-[90%] max-w-fit">
+        <nav ref={navRef} data-animate="nav-pill" className="fixed top-6 left-1/2 -translate-x-1/2 z-[10000] w-[90%] max-w-fit">
             <div className="flex items-center justify-center gap-1 px-1.5 py-1.5 md:px-2 md:py-2 bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl hover:border-white/20 transition-colors duration-300">
                 {navItems.map((item) => {
                     // Determine if item is active
                     let isActive = false;
-                    if (item.path === '/') {
+
+                    if (item.name === 'Work' && pathname.startsWith('/projects/')) {
+                        isActive = true;
+                    } else if (item.path === '/') {
                         isActive = pathname === '/' && (activeSection === '/' || activeSection === '');
                     } else if (item.path.includes('#')) {
                         isActive = pathname === '/' && activeSection === item.path;
@@ -114,11 +122,6 @@ export default function Navbar() {
                                 : 'text-gray-400 hover:text-white hover:bg-white/5'
                                 }`}
                             data-cursor={isActive ? '' : 'Pointer'}
-                            onClick={() => {
-                                if (item.path.includes('#')) {
-                                    setActiveSection(item.path);
-                                }
-                            }}
                         >
                             {item.name}
                         </Link>
