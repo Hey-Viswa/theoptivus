@@ -96,15 +96,15 @@ export default function Hero() {
             />
 
             <div className="relative z-10 flex flex-col items-center leading-[0.85]">
-                <h1 ref={biswaRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(40px,15vw,400px)] text-white tracking-tighter">
+                <h1 ref={biswaRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(50px,18vw,400px)] text-white tracking-tighter">
                     {renderChars('BISWA')}
                 </h1>
-                <h1 ref={ranjanRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(40px,15vw,400px)] text-transparent tracking-tighter" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.8)' }}>
+                <h1 ref={ranjanRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(50px,18vw,400px)] text-transparent tracking-tighter [-webkit-text-stroke:1px_rgba(255,255,255,0.8)] md:[-webkit-text-stroke:2px_rgba(255,255,255,0.8)]">
                     {renderChars('RANJAN')}
                 </h1>
             </div>
 
-            <p ref={subRef} className="mt-12 text-sm md:text-xl text-gray-400 tracking-[0.2em] uppercase font-light z-10">
+            <p ref={subRef} className="mt-8 md:mt-12 text-xs md:text-xl text-gray-400 tracking-[0.2em] uppercase font-light z-10 text-center px-4">
                 ANDROID & FULL-STACK DEVELOPER
             </p>
 
