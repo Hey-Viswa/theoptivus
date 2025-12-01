@@ -35,16 +35,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${oswald.variable} ${inter.variable} ${caveat.variable} antialiased bg-background text-foreground cursor-none`}
-      >
-        <Cursor />
-        <Navbar />
-        <div className="grain-overlay" />
-        <main className="relative z-10 min-h-screen">
-          {children}
-        </main>
-        <Footer />
+      <body suppressHydrationWarning className="antialiased bg-background text-foreground cursor-none">
+        <div className={`${oswald.variable} ${inter.variable} ${caveat.variable}`}>
+          <Cursor />
+          <Navbar />
+          <div className="grain-overlay" />
+          <main className="relative z-10 min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

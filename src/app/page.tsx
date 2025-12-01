@@ -36,8 +36,8 @@ export default async function Home() {
   return (
     <div className="flex flex-col">
       <Hero />
-      <AboutSection />
       <WorksSection projects={projects} />
+      <AboutSection />
     </div>
   );
 }
