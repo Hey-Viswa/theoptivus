@@ -96,10 +96,10 @@ export default function Hero() {
             />
 
             <div className="relative z-10 flex flex-col items-center leading-[0.85]">
-                <h1 ref={biswaRef} className="font-display font-bold text-[clamp(60px,18vw,400px)] text-white tracking-tighter">
+                <h1 ref={biswaRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(60px,18vw,400px)] text-white tracking-tighter">
                     {renderChars('BISWA')}
                 </h1>
-                <h1 ref={ranjanRef} className="font-display font-bold text-[clamp(60px,18vw,400px)] text-transparent tracking-tighter" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.8)' }}>
+                <h1 ref={ranjanRef} data-animate="bg-typo" className="font-display font-bold text-[clamp(60px,18vw,400px)] text-transparent tracking-tighter" style={{ WebkitTextStroke: '2px rgba(255,255,255,0.8)' }}>
                     {renderChars('RANJAN')}
                 </h1>
             </div>

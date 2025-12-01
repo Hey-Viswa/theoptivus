@@ -28,6 +28,7 @@ export default function WorksSection({ projects }: WorksSectionProps) {
                         <Link
                             key={project.$id}
                             href={`/projects/${project.slug}`}
+                            data-animate="project-card"
                             className="group block"
                         >
                             <div className="relative aspect-video overflow-hidden rounded-xl mb-6 border border-white/10">

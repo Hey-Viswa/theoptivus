@@ -28,6 +28,9 @@ import Footer from "@/components/layout/Footer";
 
 // ... existing imports
 
+import SmoothScroller from "@/components/utils/SmoothScroller";
+import GSAPEnhancer from "@/components/utils/GSAPEnhancer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,13 +40,20 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning className="antialiased bg-background text-foreground cursor-none">
         <div className={`${oswald.variable} ${inter.variable} ${caveat.variable}`}>
+          <GSAPEnhancer />
+          <SmoothScroller />
           <Cursor />
           <Navbar />
           <div className="grain-overlay" />
-          <main className="relative z-10 min-h-screen">
-            {children}
-          </main>
-          <Footer />
+
+          <div id="smooth-wrapper">
+            <div id="smooth-content">
+              <main className="relative z-10 min-h-screen">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </div>
         </div>
       </body>
     </html>

@@ -82,7 +82,7 @@ export default function Navbar() {
     }, [pathname]);
 
     return (
-        <nav ref={navRef} className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000]">
+        <nav ref={navRef} data-animate="nav-pill" className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000]">
             <div className="flex items-center gap-1 px-2 py-2 bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl hover:border-white/20 transition-colors duration-300">
                 {navItems.map((item) => {
                     // Determine if item is active
