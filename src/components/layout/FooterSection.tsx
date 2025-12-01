@@ -5,7 +5,7 @@ const FooterSection = () => {
         <section className="w-full bg-white pt-20 pb-4 flex justify-center items-center overflow-hidden">
             <div className="w-full px-4 md:px-8 flex flex-col items-center">
                 {/* Social Links Row */}
-                <div className="flex gap-8 mb-8">
+                <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
                     {[
                         { name: 'TWITTER', url: 'https://x.com/Hey_viswa_' },
                         { name: 'INSTAGRAM', url: 'https://www.instagram.com/theoptivus/' },

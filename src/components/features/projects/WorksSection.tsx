@@ -13,7 +13,7 @@ export default function WorksSection({ projects }: WorksSectionProps) {
     return (
         <section id="works" className="min-h-screen py-20 px-6 bg-background">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-6xl md:text-8xl font-display font-bold uppercase mb-20 text-center">
+                <h2 className="text-4xl md:text-8xl font-display font-bold uppercase mb-20 text-center">
                     Selected Work
                 </h2>
 

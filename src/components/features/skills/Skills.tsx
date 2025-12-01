@@ -59,7 +59,7 @@ export default function Skills() {
     return (
         <section id="skills" className="py-32 relative">
             <div className="max-w-7xl mx-auto px-6">
-                <h2 className="text-6xl md:text-8xl font-display font-bold uppercase mb-24 text-center">
+                <h2 className="text-4xl md:text-8xl font-display font-bold uppercase mb-24 text-center">
                     Technical Arsenal
                 </h2>
 

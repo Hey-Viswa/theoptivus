@@ -9,7 +9,7 @@ export default function AboutSection() {
                 {/* Intro Section */}
                 <div id="about" className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-32 scroll-mt-32">
                     <div>
-                        <h2 className="text-6xl md:text-8xl font-display font-bold uppercase mb-10 leading-none">
+                        <h2 className="text-4xl md:text-8xl font-display font-bold uppercase mb-10 leading-none">
                             About<br />
                             <span className="text-outline text-transparent stroke-white">Me</span>
                         </h2>
@@ -49,7 +49,7 @@ export default function AboutSection() {
                 <div id="about-more" className="scroll-mt-32">
                     {/* Experience Section */}
                     <div className="py-20 border-t border-white/10 mt-20">
-                        <h2 className="text-6xl md:text-8xl font-display font-bold uppercase mb-20 text-center">
+                        <h2 className="text-4xl md:text-8xl font-display font-bold uppercase mb-20 text-center">
                             Experience
                         </h2>
 
@@ -127,7 +127,7 @@ export default function AboutSection() {
 
                     {/* Education Section */}
                     <div className="py-20 border-t border-white/10">
-                        <h2 className="text-6xl md:text-8xl font-display font-bold uppercase mb-20 text-center">
+                        <h2 className="text-4xl md:text-8xl font-display font-bold uppercase mb-20 text-center">
                             Education
                         </h2>
 

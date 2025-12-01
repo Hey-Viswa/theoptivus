@@ -22,12 +22,12 @@ export default function Hero() {
             {/* Main Content */}
             <div className="relative z-10 flex flex-col items-center text-center leading-[0.85]">
                 {/* BISWA - Solid */}
-                <h1 className="font-display font-bold text-[clamp(50px,18vw,400px)] text-white tracking-tighter animate-fade-in-up">
+                <h1 className="font-display font-bold text-[clamp(40px,15vw,400px)] text-white tracking-tighter animate-fade-in-up">
                     {renderChars('BISWA')}
                 </h1>
 
                 {/* RANJAN - Outline */}
-                <h1 className="font-display font-bold text-[clamp(50px,18vw,400px)] text-transparent tracking-tighter [-webkit-text-stroke:1px_rgba(255,255,255,0.8)] md:[-webkit-text-stroke:2px_rgba(255,255,255,0.8)] animate-fade-in-up delay-200">
+                <h1 className="font-display font-bold text-[clamp(40px,15vw,400px)] text-transparent tracking-tighter [-webkit-text-stroke:1px_rgba(255,255,255,0.8)] md:[-webkit-text-stroke:2px_rgba(255,255,255,0.8)] animate-fade-in-up delay-200">
                     {renderChars('RANJAN')}
                 </h1>
             </div>
