@@ -6,12 +6,12 @@ const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
 const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 if (!endpoint || !projectId) {
-    throw new Error('Missing Appwrite configuration. Please check your .env.local file.');
+    console.warn('Appwrite configuration missing. Please check your .env.local file or deployment settings.');
+} else {
+    client
+        .setEndpoint(endpoint)
+        .setProject(projectId);
 }
-
-client
-    .setEndpoint(endpoint)
-    .setProject(projectId);
 
 export const databases = new Databases(client);
 export const storage = new Storage(client);
