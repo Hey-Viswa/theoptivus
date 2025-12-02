@@ -126,9 +126,9 @@ export default function Navbar() {
         if (isMobileMenuOpen) {
             gsap.to(mobileMenuRef.current, {
                 x: '0%',
+                opacity: 1,
                 duration: 0.5,
-                ease: 'power3.out',
-                display: 'flex'
+                ease: 'power3.out'
             });
             gsap.fromTo('.mobile-link',
                 { y: 20, opacity: 0 },
@@ -137,11 +137,9 @@ export default function Navbar() {
         } else {
             gsap.to(mobileMenuRef.current, {
                 x: '100%',
+                opacity: 0,
                 duration: 0.5,
-                ease: 'power3.in',
-                onComplete: () => {
-                    if (mobileMenuRef.current) mobileMenuRef.current.style.display = 'none';
-                }
+                ease: 'power3.in'
             });
         }
     }, [isMobileMenuOpen]);
@@ -195,8 +193,11 @@ export default function Navbar() {
             {/* Mobile Fullscreen Menu */}
             <div
                 ref={mobileMenuRef}
-                className="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-3xl hidden flex-col items-center justify-center translate-x-full"
-                style={{ pointerEvents: isMobileMenuOpen ? 'auto' : 'none' }}
+                className="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-center opacity-0"
+                style={{
+                    pointerEvents: isMobileMenuOpen ? 'auto' : 'none',
+                    transform: 'translateX(100%)'
+                }}
             >
                 <div className="flex flex-col items-center gap-8">
                     {navItems.map((item) => (
