@@ -196,6 +196,7 @@ export default function Navbar() {
             <div
                 ref={mobileMenuRef}
                 className="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-3xl hidden flex-col items-center justify-center translate-x-full"
+                style={{ pointerEvents: isMobileMenuOpen ? 'auto' : 'none' }}
             >
                 <div className="flex flex-col items-center gap-8">
                     {navItems.map((item) => (

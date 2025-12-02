@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import FooterProjectCarousel from '../ui/FooterProjectCarousel';
 import FooterSection from './FooterSection';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
@@ -52,9 +51,6 @@ export default function Footer() {
 
     return (
         <footer className="bg-white text-black relative overflow-hidden rounded-t-[2.5rem] mt-20">
-            {/* Project Carousel */}
-            <FooterProjectCarousel />
-
             <div className="max-w-[1920px] mx-auto px-6 md:px-12 pt-20 pb-0">
                 {/* Top Section */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-10 items-start">

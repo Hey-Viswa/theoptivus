@@ -1,36 +1,123 @@
 'use client';
-import { useState } from 'react';
-import { databases, COLLECTIONS, DATABASE_ID } from '@/lib/appwrite';
-import { ID } from 'appwrite';
+import { useState, useRef, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import gsap from 'gsap';
+
+const contactFormSchema = z.object({
+    name: z.string().min(2, 'Name must be at least 2 characters'),
+    email: z.string().email('Invalid email address'),
+    message: z.string().min(10, 'Message must be at least 10 characters').max(1000, 'Message too long'),
+    honeypot: z.string().optional(),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function ContactPage() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const formRef = useRef<HTMLFormElement>(null);
+    const successRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        watch,
+        formState: { errors }
+    } = useForm<ContactFormData>({
+        resolver: zodResolver(contactFormSchema),
+        defaultValues: {
+            name: '',
+            email: '',
+            message: '',
+            honeypot: ''
+        }
+    });
+
+    const messageValue = watch('message', '');
+
+    useEffect(() => {
+        // Initial animation
+        const ctx = gsap.context(() => {
+            gsap.fromTo(containerRef.current,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+            );
+        });
+        return () => ctx.revert();
+    }, []);
+
+    const onSubmit = async (data: ContactFormData) => {
         setStatus('submitting');
+        setErrorMessage('');
+
+        // Animate form out
+        if (formRef.current) {
+            await gsap.to(formRef.current, {
+                opacity: 0,
+                y: -20,
+                duration: 0.4,
+                ease: 'power2.in'
+            });
+        }
 
         try {
-            await databases.createDocument(
-                DATABASE_ID,
-                COLLECTIONS.MESSAGES,
-                ID.unique(),
-                {
-                    ...formData,
-                    timestamp: new Date().toISOString()
-                }
-            );
+            const response = await fetch('/api/contact/send-message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.details || result.error || 'Failed to send message');
+            }
+
             setStatus('success');
-            setFormData({ name: '', email: '', message: '' });
-        } catch (error) {
+            reset();
+
+            // Animate success in
+            if (successRef.current) {
+                gsap.fromTo(successRef.current,
+                    { opacity: 0, scale: 0.9 },
+                    { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' }
+                );
+            }
+        } catch (error: any) {
             console.error('Error sending message:', error);
             setStatus('error');
+            setErrorMessage(error.message || 'Something went wrong');
+
+            // Animate form back in on error
+            if (formRef.current) {
+                gsap.to(formRef.current, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    ease: 'power2.out'
+                });
+            }
         }
+    };
+
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        gsap.to(e.target, {
+            boxShadow: '0 0 20px rgba(255,255,255,0.1)',
+            borderColor: 'rgba(255,255,255,0.3)',
+            duration: 0.3
+        });
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        gsap.to(e.target, {
+            boxShadow: 'none',
+            borderColor: 'rgba(255,255,255,0.1)',
+            duration: 0.3
+        });
     };
 
     return (
@@ -66,11 +153,11 @@ export default function ContactPage() {
                     </div>
                 </div>
 
-                <div className="bg-neutral-900/50 border border-white/5 p-8 md:p-12 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+                <div ref={containerRef} className="bg-neutral-900/50 border border-white/5 p-8 md:p-12 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden group min-h-[600px] flex flex-col justify-center">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-50"></div>
 
                     {status === 'success' ? (
-                        <div className="h-full flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in zoom-in duration-500">
+                        <div ref={successRef} className="h-full flex flex-col items-center justify-center text-center space-y-6">
                             <div className="w-20 h-20 bg-green-500/10 text-green-400 rounded-full flex items-center justify-center text-4xl border border-green-500/20 shadow-[0_0_30px_rgba(74,222,128,0.2)]">
                                 ✓
                             </div>
@@ -79,54 +166,73 @@ export default function ContactPage() {
                                 <p className="text-gray-400">Thanks for reaching out. I'll get back to you soon.</p>
                             </div>
                             <button
-                                onClick={() => setStatus('idle')}
+                                onClick={() => {
+                                    setStatus('idle');
+                                    // Reset form visibility
+                                    if (formRef.current) {
+                                        gsap.set(formRef.current, { opacity: 1, y: 0 });
+                                    }
+                                }}
                                 className="mt-4 px-6 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white transition-all hover:scale-105"
                             >
                                 Send another message
                             </button>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                        <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10 w-full">
+                            {/* Honeypot Field - Hidden */}
+                            <input type="text" {...register('honeypot')} className="hidden" tabIndex={-1} autoComplete="off" />
+
                             <div className="space-y-2">
                                 <label htmlFor="name" className="block text-xs uppercase tracking-widest text-gray-500 ml-1">Name</label>
                                 <input
+                                    {...register('name')}
                                     type="text"
                                     id="name"
-                                    required
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600"
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    className={`w-full bg-white/5 border rounded-xl px-5 py-4 focus:outline-none focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600 ${errors.name ? 'border-red-500/50' : 'border-white/10'}`}
                                     placeholder="John Doe"
                                 />
+                                {errors.name && <p className="text-red-400 text-xs ml-1">{errors.name.message}</p>}
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="email" className="block text-xs uppercase tracking-widest text-gray-500 ml-1">Email</label>
                                 <input
+                                    {...register('email')}
                                     type="email"
                                     id="email"
-                                    required
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600"
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    className={`w-full bg-white/5 border rounded-xl px-5 py-4 focus:outline-none focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600 ${errors.email ? 'border-red-500/50' : 'border-white/10'}`}
                                     placeholder="john@example.com"
                                 />
+                                {errors.email && <p className="text-red-400 text-xs ml-1">{errors.email.message}</p>}
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="message" className="block text-xs uppercase tracking-widest text-gray-500 ml-1">Message</label>
                                 <textarea
+                                    {...register('message')}
                                     id="message"
-                                    required
                                     rows={4}
-                                    value={formData.message}
-                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all duration-300 resize-none placeholder:text-gray-600"
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    className={`w-full bg-white/5 border rounded-xl px-5 py-4 focus:outline-none focus:bg-white/10 transition-all duration-300 resize-none placeholder:text-gray-600 ${errors.message ? 'border-red-500/50' : 'border-white/10'}`}
                                     placeholder="Tell me about your project..."
                                 />
+                                <div className="flex justify-between ml-1">
+                                    {errors.message ? (
+                                        <p className="text-red-400 text-xs">{errors.message.message}</p>
+                                    ) : <span></span>}
+                                    <span className={`text-xs ${messageValue.length > 900 ? 'text-yellow-500' : 'text-gray-600'}`}>
+                                        {messageValue.length}/1000
+                                    </span>
+                                </div>
                             </div>
 
                             {status === 'error' && (
                                 <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm text-center">
-                                    Something went wrong. Please try again.
+                                    {errorMessage || 'Something went wrong. Please try again.'}
                                 </div>
                             )}
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import SkillForm from '@/components/admin/SkillForm';
-import { adminDatabases } from '@/lib/server/appwrite';
+import { createAdminClient } from '@/lib/server/appwrite';
 import { COLLECTIONS, DATABASE_ID } from '@/lib/appwrite';
 import { Skill } from '@/types/skill';
 
@@ -14,7 +14,8 @@ export default async function EditSkillPage({ params }: EditSkillPageProps) {
     const collectionId = COLLECTIONS.SKILLS || 'skills';
 
     try {
-        const skill = await adminDatabases.getDocument(
+        const { databases } = await createAdminClient();
+        const skill = await databases.getDocument(
             DATABASE_ID,
             collectionId,
             id

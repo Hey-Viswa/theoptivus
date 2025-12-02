@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDatabases } from '@/lib/server/appwrite';
+import { createAdminClient } from '@/lib/server/appwrite';
 import { COLLECTIONS, DATABASE_ID } from '@/lib/appwrite';
 import { ID } from 'node-appwrite';
 
@@ -13,7 +13,8 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Name and Slug are required' }, { status: 400 });
         }
 
-        const skill = await adminDatabases.createDocument(
+        const { databases } = await createAdminClient();
+        const skill = await databases.createDocument(
             DATABASE_ID,
             SKILLS_COLLECTION_ID,
             ID.unique(),
@@ -40,7 +41,8 @@ export async function PUT(req: NextRequest) {
         // Remove system attributes
         const { $id, $createdAt, $updatedAt, $permissions, $databaseId, $collectionId, ...data } = body;
 
-        const skill = await adminDatabases.updateDocument(
+        const { databases } = await createAdminClient();
+        const skill = await databases.updateDocument(
             DATABASE_ID,
             SKILLS_COLLECTION_ID,
             id,
@@ -63,7 +65,8 @@ export async function DELETE(req: NextRequest) {
             return NextResponse.json({ error: 'Skill ID is required' }, { status: 400 });
         }
 
-        await adminDatabases.deleteDocument(
+        const { databases } = await createAdminClient();
+        await databases.deleteDocument(
             DATABASE_ID,
             SKILLS_COLLECTION_ID,
             id

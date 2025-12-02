@@ -11,7 +11,7 @@ interface Project {
     slug: string;
     description: string;
     coverImage: string;
-    tech: string[];
+    techStack?: string[];
     demoUrl?: string;
     repoUrl?: string;
     date: string;
@@ -83,7 +83,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                         {project.title}
                     </h1>
                     <div className="flex flex-wrap gap-4">
-                        {project.tech.map((t) => (
+                        {project.techStack?.map((t) => (
                             <span key={t} className="px-4 py-2 border border-white/30 rounded-full text-sm uppercase tracking-wider backdrop-blur-sm">
                                 {t}
                             </span>

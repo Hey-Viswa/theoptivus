@@ -1,5 +1,5 @@
 import { Query } from 'node-appwrite';
-import { adminDatabases } from '@/lib/server/appwrite';
+import { createAdminClient } from '@/lib/server/appwrite';
 import { COLLECTIONS, DATABASE_ID } from '@/lib/appwrite';
 import { Skill } from '@/types/skill';
 
@@ -27,8 +27,9 @@ export async function getSkills(filter?: {
     try {
         // Ensure COLLECTIONS.SKILLS is defined, fallback if not in env yet
         const collectionId = COLLECTIONS.SKILLS || 'skills';
+        const { databases } = await createAdminClient();
 
-        const response = await adminDatabases.listDocuments(
+        const response = await databases.listDocuments(
             DATABASE_ID,
             collectionId,
             queries

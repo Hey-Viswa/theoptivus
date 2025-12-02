@@ -1,5 +1,5 @@
 import { Query } from 'node-appwrite';
-import { adminDatabases } from '@/lib/server/appwrite';
+import { createAdminClient } from '@/lib/server/appwrite';
 import { COLLECTIONS, DATABASE_ID } from '@/lib/appwrite';
 import { Project } from '@/types/project';
 
@@ -31,13 +31,23 @@ export async function getProjects(filter?: {
     }
 
     try {
-        const response = await adminDatabases.listDocuments(
+        const { databases } = await createAdminClient();
+        const response = await databases.listDocuments(
             DATABASE_ID,
             COLLECTIONS.PROJECTS,
             queries
         );
         return {
-            projects: response.documents as unknown as Project[],
+            projects: response.documents.map((doc) => {
+                const project = doc as unknown as Project;
+                if (project.slug === 'studioflow') {
+                    return {
+                        ...project,
+                        thumbnail: '/projects/studioflow/thumbnail.png'
+                    };
+                }
+                return project;
+            }),
             total: response.total
         };
     } catch (error) {
@@ -48,37 +58,79 @@ export async function getProjects(filter?: {
 
 export async function getProjectBySlug(slug: string) {
     try {
-        const response = await adminDatabases.listDocuments(
+        const { databases } = await createAdminClient();
+        const response = await databases.listDocuments(
             DATABASE_ID,
             COLLECTIONS.PROJECTS,
-            [
-                Query.equal('slug', slug),
-                Query.limit(1)
-            ]
+            [Query.equal('slug', slug)]
         );
 
         if (response.documents.length === 0) {
             return null;
         }
 
-        return response.documents[0] as unknown as Project;
+        const project = response.documents[0] as unknown as Project;
+
+        // Hardcode local images for StudioFlow project
+        if (slug === 'studioflow') {
+            return {
+                ...project,
+                thumbnail: '/projects/studioflow/thumbnail.png',
+                galleryImages: [
+                    '/projects/studioflow/dashboard.png',
+                    '/projects/studioflow/invoice.png',
+                    '/projects/studioflow/rbac.png',
+                    '/projects/studioflow/files.png',
+                ],
+                techCategories: [
+                    {
+                        category: 'Frontend',
+                        technologies: ['React', 'Tailwind CSS', 'Shadcn UI']
+                    },
+                    {
+                        category: 'Backend',
+                        technologies: ['Node.js', 'Express', 'MongoDB']
+                    },
+                    {
+                        category: 'Real-time',
+                        technologies: ['Socket.IO']
+                    },
+                    {
+                        category: 'Job Queue',
+                        technologies: ['Redis', 'BullMQ']
+                    },
+                    {
+                        category: 'Payments',
+                        technologies: ['Razorpay']
+                    },
+                    {
+                        category: 'Storage',
+                        technologies: ['AWS S3']
+                    }
+                ],
+                liveUrl: 'https://www.studioflow.studio/', // Add live URL for demo button
+                repoUrl: 'https://github.com/Hey-Viswa/StudioFlow'
+            } as Project;
+        }
+
+        return project;
     } catch (error) {
-        console.error(`Error fetching project with slug ${slug}:`, error);
+        console.error('Error fetching project:', error);
         return null;
     }
 }
 
 export async function getAllProjectSlugs() {
     try {
-        const response = await adminDatabases.listDocuments(
+        const { databases } = await createAdminClient();
+        const response = await databases.listDocuments(
             DATABASE_ID,
             COLLECTIONS.PROJECTS,
             [
                 Query.select(['slug']),
-                Query.limit(100) // Adjust limit as needed
             ]
         );
-        return response.documents.map((doc) => doc.slug);
+        return response.documents.map((doc) => doc.slug as string);
     } catch (error) {
         console.error('Error fetching project slugs:', error);
         return [];
