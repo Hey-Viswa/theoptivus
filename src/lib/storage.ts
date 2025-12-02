@@ -16,10 +16,23 @@ export async function uploadToAppwriteBucket(
     try {
         const { storage } = await createAdminClient();
 
+        // Convert Buffer/Blob to InputFile using require
+        const { InputFile } = require('node-appwrite');
+        let buffer: Buffer;
+
+        if (file instanceof Buffer) {
+            buffer = file;
+        } else {
+            // Blob - convert to Buffer
+            buffer = Buffer.from(await (file as Blob).arrayBuffer());
+        }
+
+        const inputFile = InputFile.fromBuffer(buffer, fileName);
+
         const result = await storage.createFile(
             bucketId,
             ID.unique(),
-            file
+            inputFile
         );
 
         console.log(`File uploaded successfully: ${result.$id}`);

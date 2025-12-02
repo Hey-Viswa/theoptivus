@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminStorage } from '@/lib/server/appwrite';
+import { createAdminClient } from '@/lib/server/appwrite';
 import { ID } from 'node-appwrite';
 
 // This is a simplified upload handler. 
@@ -9,6 +9,7 @@ import { ID } from 'node-appwrite';
 
 export async function POST(req: NextRequest) {
     try {
+        const { storage } = await createAdminClient();
         const formData = await req.formData();
         const file = formData.get('file') as File;
 
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
 
         const inputFile = InputFile.fromBuffer(buffer, file.name);
 
-        const result = await adminStorage.createFile(
+        const result = await storage.createFile(
             'project-assets', // Bucket ID
             ID.unique(),
             inputFile
