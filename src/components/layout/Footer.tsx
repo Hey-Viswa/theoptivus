@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import FooterProjectCarousel from '../ui/FooterProjectCarousel';
 import FooterSection from './FooterSection';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
@@ -52,9 +51,6 @@ export default function Footer() {
 
     return (
         <footer className="bg-white text-black relative overflow-hidden rounded-t-[2.5rem] mt-20">
-            {/* Project Carousel */}
-            <FooterProjectCarousel />
-
             <div className="max-w-[1920px] mx-auto px-6 md:px-12 pt-20 pb-0">
                 {/* Top Section */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-10 items-start">
@@ -71,7 +67,7 @@ export default function Footer() {
                             <p className="font-['Caveat'] text-4xl leading-relaxed min-h-[140px] flex items-center justify-center text-gray-800" style={{ fontFamily: 'var(--font-caveat)' }}>
                                 <span>"<span ref={quoteRef}></span><span ref={cursorRef} className="inline-block w-0.5 h-8 bg-black ml-1 align-middle"></span>"</span>
                             </p>
-                            <p ref={signatureRef} className="mt-4 text-sm uppercase tracking-widest text-gray-500 font-sans whitespace-nowrap opacity-0">- Biswaranjan</p>
+                            <p ref={signatureRef} className="mt-4 text-2xl text-gray-500 font-['Caveat'] opacity-0" style={{ fontFamily: 'var(--font-caveat)' }}>- Biswaranjan</p>
                         </div>
                     </div>
 

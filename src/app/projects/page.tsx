@@ -8,7 +8,7 @@ interface Project {
     title: string;
     slug: string;
     coverImage: string;
-    tech: string[];
+    techStack?: string[];
     summary: string;
     date: string;
 }
@@ -75,7 +75,7 @@ export default async function ProjectsPage() {
                             </p>
 
                             <div className="flex flex-wrap gap-2">
-                                {project.tech.map((t) => (
+                                {project.techStack?.map((t) => (
                                     <span key={t} className="text-xs border border-white/10 px-3 py-1 rounded-full uppercase tracking-wider text-gray-400">
                                         {t}
                                     </span>
