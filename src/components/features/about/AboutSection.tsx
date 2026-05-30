@@ -51,22 +51,22 @@ export default function AboutSection() {
                             {/* Experience Item 1 */}
                             <div className="p-8 md:p-12 border-b border-foreground bg-background hover:bg-surface-alt transition-colors">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-                                    <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">Founder &amp; Full-Stack Engineer</h3>
+                                    <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">Founder &amp; <span className="highlight-blue">Full-Stack</span> Engineer</h3>
                                     <span className="text-xs font-mono uppercase font-bold tracking-widest text-foreground/50 whitespace-nowrap">Oct 2025 — Present</span>
                                 </div>
                                 <p className="text-lg italic text-foreground/70 mb-6">StudioFlow (Self-Built SaaS)</p>
                                 <ul className="space-y-4 text-foreground/80 font-sans text-base md:text-lg leading-relaxed max-w-3xl">
                                     <li className="flex items-start gap-4">
                                         <div className="w-1.5 h-1.5 bg-foreground mt-2.5 shrink-0 rounded-full"></div>
-                                        <span>Architected a <span className="font-bold text-foreground">microservices backend</span> with <span className="font-mono text-sm bg-surface-alt px-1">Node.js, Express, and MongoDB</span>.</span>
+                                        <span>Architected a <span className="highlight-yellow">microservices backend</span> with <span className="highlight-blue">Node.js, Express, and MongoDB</span>.</span>
                                     </li>
                                     <li className="flex items-start gap-4">
                                         <div className="w-1.5 h-1.5 bg-foreground mt-2.5 shrink-0 rounded-full"></div>
-                                        <span>Implemented <em className="font-serif text-lg text-foreground">real-time collaboration</em> with WebSockets &amp; Redis.</span>
+                                        <span>Implemented <span className="highlight-blue">real-time collaboration</span> with WebSockets &amp; Redis.</span>
                                     </li>
                                     <li className="flex items-start gap-4">
                                         <div className="w-1.5 h-1.5 bg-foreground mt-2.5 shrink-0 rounded-full"></div>
-                                        <span>Orchestrated robust <span className="font-bold text-foreground">CI/CD pipelines</span> via Railway &amp; Vercel.</span>
+                                        <span>Orchestrated robust <span className="highlight-yellow">CI/CD pipelines</span> via Railway &amp; Vercel.</span>
                                     </li>
                                 </ul>
                             </div>
@@ -74,12 +74,12 @@ export default function AboutSection() {
                             {/* Experience Item 2 */}
                             <div className="p-8 md:p-12 bg-background hover:bg-surface-alt transition-colors">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-                                    <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">Android Developer Intern</h3>
+                                    <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground"><span className="highlight-yellow">Android Developer</span> Intern</h3>
                                     <span className="text-xs font-mono uppercase font-bold tracking-widest text-foreground/50 whitespace-nowrap">Jun 2023 — Jul 2023</span>
                                 </div>
                                 <p className="text-lg italic text-foreground/70 mb-6">JSW Group</p>
                                 <p className="text-foreground/80 font-sans text-base md:text-lg leading-relaxed max-w-3xl">
-                                    Developed a <span className="font-bold text-foreground">mission-critical</span> Feedback Management System integrated directly with <em className="font-serif text-lg text-foreground">enterprise ERPs</em>.
+                                    Developed a <span className="highlight-blue">mission-critical</span> Feedback Management System integrated directly with <span className="highlight-yellow">enterprise ERPs</span>.
                                 </p>
                             </div>
                         </div>
@@ -97,14 +97,14 @@ export default function AboutSection() {
                             {/* Edu Card 1 */}
                             <div className="flex-1 p-8 md:p-12 md:border-r border-foreground border-b md:border-b-0 bg-background hover:bg-surface-alt transition-colors">
                                 <span className="text-[10px] font-mono font-bold uppercase tracking-widest block mb-4 text-foreground/50">2024 — 2027</span>
-                                <h3 className="text-xl md:text-2xl font-display font-bold mb-2 text-foreground leading-tight">B.E. in <span className="italic font-serif">Computer Engineering</span></h3>
+                                <h3 className="text-xl md:text-2xl font-display font-bold mb-2 text-foreground leading-tight">B.E. in <span className="highlight-blue">Computer Engineering</span></h3>
                                 <p className="text-foreground/70 font-sans text-sm md:text-base">Pillai HOC College of Engineering</p>
                             </div>
 
                             {/* Edu Card 2 */}
                             <div className="flex-1 p-8 md:p-12 bg-background hover:bg-surface-alt transition-colors">
                                 <span className="text-[10px] font-mono font-bold uppercase tracking-widest block mb-4 text-foreground/50">2021 — 2024</span>
-                                <h3 className="text-xl md:text-2xl font-display font-bold mb-2 text-foreground leading-tight">Diploma in <span className="italic font-serif">Computer Tech</span></h3>
+                                <h3 className="text-xl md:text-2xl font-display font-bold mb-2 text-foreground leading-tight">Diploma in <span className="highlight-yellow">Computer Tech</span></h3>
                                 <p className="text-foreground/70 font-sans text-sm md:text-base">Government Polytechnic, Pen</p>
                             </div>
                         </div>
