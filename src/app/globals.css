@@ -10,8 +10,9 @@
   --color-border-strong: var(--border-strong);
   
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-fira-code);
+  --font-mono: var(--font-jetbrains);
   --font-display: var(--font-space-grotesk);
+  --font-serif: var(--font-playfair);
   --animate-fade-in-up: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   --animate-gentle-in: gentleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 

@@ -46,11 +46,11 @@ export default function Hero() {
                     <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-background text-foreground">
                         <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">01 // SUMMARY</span>
                         <h2 className="text-4xl md:text-[4rem] font-display font-black mb-8 leading-[1.05] tracking-tight text-foreground uppercase">
-                            Building <span className="highlight-blue">production-grade</span> SaaS <br className="hidden xl:block" />
-                            and modern web apps.
+                            Building <span className="italic font-serif normal-case font-normal">production-grade</span> SaaS <br className="hidden xl:block" />
+                            and <span className="italic font-serif normal-case font-normal">modern</span> web apps.
                         </h2>
                         <div className="text-xl md:text-2xl text-foreground font-sans leading-relaxed max-w-4xl">
-                            <span>Strong engineering foundation in <span className="highlight-yellow">Android Development</span> and the <span className="highlight-yellow">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-blue">compliant, bug-proof, and instant</span>.</span>
+                            <span>Strong engineering foundation in <span className="italic font-serif text-2xl md:text-3xl">Android Development</span> and the <span className="font-bold">MERN Stack</span>. I build full-stack architectures that are <span className="font-mono text-sm uppercase font-bold tracking-widest bg-surface-alt px-2 py-1 border border-foreground/10">compliant, bug-proof, &amp; instant</span>.</span>
                         </div>
                     </div>
                     <div className="md:col-span-4 p-8 md:p-12 bg-accent text-background flex flex-col justify-center">

@@ -19,10 +19,10 @@ export default function WorksSection({ projects }: WorksSectionProps) {
                         <div className="sticky top-32">
                             <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">02 // PORTFOLIO</span>
                             <h2 className="text-6xl md:text-[6rem] font-display font-black mb-8 tracking-tight leading-[0.9] text-background uppercase border-b border-background/20 pb-12">
-                                Selected<br/>work
+                                Selected<br/><span className="font-serif italic normal-case font-normal text-5xl md:text-[6.5rem]">work</span>
                             </h2>
                             <div className="text-2xl md:text-3xl text-background font-sans leading-relaxed max-w-md mt-6">
-                                <span>A curated selection of projects that showcase <span className="highlight-yellow text-foreground px-1">full-stack thinking</span> and <span className="highlight-yellow text-foreground px-1">engineering precision</span>.</span>
+                                <span>A curated selection of projects that showcase <span className="italic font-serif font-normal">full-stack thinking</span> and <span className="italic font-serif font-normal">engineering precision</span>.</span>
                             </div>
                         </div>
                     </div>

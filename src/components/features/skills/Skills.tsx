@@ -60,7 +60,7 @@ export default function Skills() {
                 <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-20">
                     <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">03 // EXPERTISE</span>
                     <h2 className="text-7xl md:text-[8rem] font-display font-black tracking-tight leading-none uppercase">
-                        Tech stack
+                        Tech <span className="font-serif italic normal-case font-normal text-[1.1em]">stack</span>
                     </h2>
                 </div>
             </div>

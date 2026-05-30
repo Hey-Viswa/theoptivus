@@ -10,12 +10,12 @@ export default function AboutSection() {
                 <div id="about" className="grid grid-cols-1 md:grid-cols-12 scroll-mt-32 border-b border-foreground">
                     <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-background text-foreground">
                         <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">01 // ABOUT</span>
-                        <h2 className="text-6xl md:text-[6rem] font-display font-black mb-12 leading-[1.05] tracking-tight text-foreground">
-                            Building systems <br className="hidden md:block" />
-                            from the <span className="highlight-yellow">ground up</span>
+                        <h2 className="text-6xl md:text-[6rem] font-display font-black mb-12 leading-[1.05] tracking-tight text-foreground uppercase">
+                            Building <span className="font-serif italic normal-case font-normal text-5xl md:text-[6.5rem]">systems</span> <br className="hidden md:block" />
+                            from the ground up
                         </h2>
                         <div className="text-2xl md:text-4xl text-foreground font-sans leading-relaxed max-w-4xl">
-                            <span>Biswaranjan was built for projects that got <span className="highlight-yellow">tired of waiting</span>—for scaling, for deployment, for progress. <span className="highlight-blue">I move fast</span>, think sharp. Architecture should be <span className="highlight-yellow">compliant, bug-proof, and instant</span> — and that’s <span className="highlight-blue">exactly what I deliver</span>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <span className="highlight-blue">And I earn it daily.</span></span>
+                            <span>Biswaranjan was built for projects that got <em className="font-serif italic text-[1.1em] text-accent">tired of waiting</em>—for scaling, for deployment, for progress. <strong className="font-bold">I move fast</strong>, think sharp. Architecture should be <em className="font-serif italic text-[1.1em]">compliant, bug-proof, and instant</em> — and that’s <strong className="font-bold">exactly what I deliver</strong>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <em className="font-serif italic text-[1.1em] text-accent">And I earn it daily.</em></span>
                         </div>
                     </div>
                     <div className="md:col-span-4 relative flex items-center justify-center p-8 md:p-12 overflow-hidden bg-surface-alt/10">
@@ -44,7 +44,7 @@ export default function AboutSection() {
                         <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-center">
                             <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">02 // CAREER</span>
                             <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight uppercase">
-                                Experience
+                                <span className="font-serif italic normal-case font-normal text-[1.1em]">Experience</span>
                             </h2>
                         </div>
                         <div className="md:col-span-8">
@@ -90,7 +90,7 @@ export default function AboutSection() {
                         <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-center">
                             <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">03 // ACADEMICS</span>
                             <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight uppercase">
-                                Education
+                                <span className="font-serif italic normal-case font-normal text-[1.1em]">Education</span>
                             </h2>
                         </div>
                         <div className="md:col-span-8 flex flex-col md:flex-row">
