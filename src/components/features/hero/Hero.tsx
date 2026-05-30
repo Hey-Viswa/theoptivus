@@ -31,12 +31,9 @@ export default function Hero() {
                 </div>
 
                 {/* Main Content Grid - Full Screen Center Typography */}
-                <div className="flex-1 w-full flex flex-col relative z-10 min-h-[40vh] md:min-h-0 bg-background overflow-hidden border-b border-foreground">
-                    {/* Background glow for the blue aesthetic */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/10 blur-[150px] rounded-full pointer-events-none z-0" />
-
+                <div className="flex-1 w-full flex flex-col relative z-10 min-h-[40vh] md:min-h-[60vh] lg:min-h-[80vh] bg-[#FFE600] overflow-hidden border-b border-foreground">
                     {/* Canvas Background - Absolute */}
-                    <div className="absolute inset-0 z-0">
+                    <div className="absolute inset-0 z-0 flex items-center justify-center p-8 md:p-12">
                         <CanvasText text="BISWARANJAN" className="w-full h-full" />
                     </div>
                 </div>
