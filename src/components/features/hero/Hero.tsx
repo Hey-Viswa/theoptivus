@@ -55,9 +55,9 @@ export default function Hero() {
                     </div>
                     <div className="md:col-span-4 p-8 md:p-12 bg-accent text-background flex flex-col justify-center">
                         <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">CORE EXPERTISE</span>
-                        <div className="text-2xl md:text-4xl font-display font-black flex flex-col gap-4">
+                        <div className="text-2xl md:text-4xl font-serif italic font-normal flex flex-col gap-4">
                             <span className="border-b border-background/20 pb-4">Android</span>
-                            <span className="italic font-serif border-b border-background/20 pb-4">MERN Stack</span>
+                            <span className="border-b border-background/20 pb-4">MERN Stack</span>
                             <span className="border-b border-background/20 pb-4">System Design</span>
                             <span className="font-mono text-lg bg-background text-foreground px-4 py-2 w-fit mt-2 uppercase font-bold tracking-widest">Full-Stack SaaS</span>
                         </div>
@@ -67,7 +67,7 @@ export default function Hero() {
                 {/* Availability Bar (Bottom of grid) */}
                 <div className="border-t border-foreground flex items-stretch relative z-10 bg-background text-foreground h-16 md:h-20 group cursor-pointer hover:bg-foreground hover:text-background transition-colors duration-300">
                     <div className="flex-1 border-r border-foreground group-hover:border-background/20 flex items-center justify-center">
-                         <div className="w-3 h-3 rounded-full bg-accent group-hover:bg-[#FFE600] animate-pulse" />
+                        {/* Empty box for grid balance */}
                     </div>
                     <div className="flex-[4] flex items-center justify-start px-6 md:px-12">
                         <span className="text-sm md:text-xl font-display font-black uppercase tracking-[0.2em] md:tracking-[0.3em]">
