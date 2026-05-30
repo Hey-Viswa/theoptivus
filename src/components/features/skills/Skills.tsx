@@ -56,12 +56,16 @@ export default function Skills() {
 
     return (
         <section id="skills" className="py-20 relative">
-            <div className="max-w-6xl mx-auto px-6 md:px-12">
-                <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4 block">03 // EXPERTISE</span>
-                <h2 className="text-7xl md:text-[8rem] font-display font-black mb-16 tracking-tight leading-none text-foreground border-b border-foreground pb-12">
-                    Tech stack
-                </h2>
+            <div className="w-full bg-[#FFE600] text-foreground grid-border-b grid-border-x mb-12">
+                <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-20">
+                    <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">03 // EXPERTISE</span>
+                    <h2 className="text-7xl md:text-[8rem] font-display font-black tracking-tight leading-none uppercase">
+                        Tech stack
+                    </h2>
+                </div>
+            </div>
 
+            <div className="max-w-6xl mx-auto px-6 md:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {sortedCategories.map((category, index) => {
                         const dotColors = [

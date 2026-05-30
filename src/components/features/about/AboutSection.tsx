@@ -41,9 +41,9 @@ export default function AboutSection() {
                     
                     {/* Experience Section */}
                     <div className="grid grid-cols-1 md:grid-cols-12 border-b border-foreground">
-                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-background text-foreground">
-                            <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4 block">02 // CAREER</span>
-                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight text-foreground uppercase">
+                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-center">
+                            <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">02 // CAREER</span>
+                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight uppercase">
                                 Experience
                             </h2>
                         </div>
@@ -87,9 +87,9 @@ export default function AboutSection() {
 
                     {/* Education Section */}
                     <div className="grid grid-cols-1 md:grid-cols-12 bg-surface text-foreground">
-                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground">
-                            <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4 block">03 // ACADEMICS</span>
-                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight text-foreground uppercase">
+                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-center">
+                            <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">03 // ACADEMICS</span>
+                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight uppercase">
                                 Education
                             </h2>
                         </div>

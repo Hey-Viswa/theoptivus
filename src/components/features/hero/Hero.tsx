@@ -46,40 +46,36 @@ export default function Hero() {
                     <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-background text-foreground">
                         <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">01 // SUMMARY</span>
                         <h2 className="text-4xl md:text-[4rem] font-display font-black mb-8 leading-[1.05] tracking-tight text-foreground uppercase">
-                            Building <span className="highlight-blue text-surface">production-grade</span> SaaS <br className="hidden xl:block" />
+                            Building <span className="highlight-blue">production-grade</span> SaaS <br className="hidden xl:block" />
                             and modern web apps.
                         </h2>
                         <div className="text-xl md:text-2xl text-foreground font-sans leading-relaxed max-w-4xl">
                             <span>Strong engineering foundation in <span className="highlight-yellow">Android Development</span> and the <span className="highlight-yellow">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-blue">compliant, bug-proof, and instant</span>.</span>
                         </div>
                     </div>
-                    <div className="md:col-span-4 p-8 md:p-12 bg-surface-alt/10 text-foreground flex flex-col justify-center">
-                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">CORE EXPERTISE</span>
-                        <div className="text-2xl md:text-4xl font-display font-black text-foreground flex flex-col gap-4">
-                            <span className="border-b border-foreground/20 pb-4">Android</span>
-                            <span className="italic font-serif border-b border-foreground/20 pb-4">MERN Stack</span>
-                            <span className="border-b border-foreground/20 pb-4">System Design</span>
-                            <span className="font-mono text-lg bg-[#FFE600] text-background border border-foreground px-4 py-2 w-fit mt-2 uppercase font-bold tracking-widest">Full-Stack SaaS</span>
+                    <div className="md:col-span-4 p-8 md:p-12 bg-accent text-background flex flex-col justify-center">
+                        <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">CORE EXPERTISE</span>
+                        <div className="text-2xl md:text-4xl font-display font-black flex flex-col gap-4">
+                            <span className="border-b border-background/20 pb-4">Android</span>
+                            <span className="italic font-serif border-b border-background/20 pb-4">MERN Stack</span>
+                            <span className="border-b border-background/20 pb-4">System Design</span>
+                            <span className="font-mono text-lg bg-background text-foreground px-4 py-2 w-fit mt-2 uppercase font-bold tracking-widest">Full-Stack SaaS</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Availability Bar (Bottom of grid) */}
-                <div className="border-t border-foreground flex justify-between items-stretch relative z-10 bg-surface h-16 md:h-20">
-                    <div className="flex-1 border-r border-foreground flex items-center justify-center bg-background text-foreground">
-                         <span className="text-xs md:text-sm font-mono uppercase tracking-widest hidden md:block">Status</span>
-                         <span className="text-xs font-mono uppercase tracking-widest md:hidden">01</span>
+                <div className="border-t border-foreground flex items-stretch relative z-10 bg-background text-foreground h-16 md:h-20 group cursor-pointer hover:bg-foreground hover:text-background transition-colors duration-300">
+                    <div className="flex-1 border-r border-foreground group-hover:border-background/20 flex items-center justify-center">
+                         <div className="w-3 h-3 rounded-full bg-accent group-hover:bg-[#FFE600] animate-pulse" />
                     </div>
-                    <div className="flex-[4] flex items-center justify-center bg-background text-foreground">
-                        <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-accent"></div>
-                            <span className="text-xs md:text-sm font-display font-black uppercase tracking-[0.2em]">
-                                Currently Available for Freelance
-                            </span>
-                        </div>
+                    <div className="flex-[4] flex items-center justify-start px-6 md:px-12">
+                        <span className="text-sm md:text-xl font-display font-black uppercase tracking-[0.2em] md:tracking-[0.3em]">
+                            Available for Freelance
+                        </span>
                     </div>
-                    <div className="flex-1 border-l border-foreground flex items-center justify-center bg-background text-foreground">
-                         <span className="text-xs md:text-sm font-mono uppercase tracking-widest">2026</span>
+                    <div className="flex-1 border-l border-foreground group-hover:border-background/20 flex items-center justify-center bg-[#FFE600] text-foreground group-hover:bg-accent group-hover:text-background transition-colors duration-300">
+                         <span className="text-xs md:text-sm font-mono uppercase tracking-widest font-bold">Contact</span>
                     </div>
                 </div>
             </div>
