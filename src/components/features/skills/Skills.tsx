@@ -64,24 +64,24 @@ export default function Skills() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {sortedCategories.map((category, index) => {
-                        const colorClasses = [
-                            'bg-accent text-background', 
-                            'bg-[#FFE600] text-foreground', 
-                            'bg-[#FF5E5E] text-background', 
-                            'bg-[#00FF66] text-foreground',
-                            'bg-[#9D00FF] text-background'
+                        const dotColors = [
+                            'bg-accent', 
+                            'bg-[#FFE600]', 
+                            'bg-[#FF5E5E]', 
+                            'bg-[#00FF66]',
+                            'bg-[#9D00FF]'
                         ];
-                        const bgClass = colorClasses[index % colorClasses.length];
+                        const dotColor = dotColors[index % dotColors.length];
                         
                         return (
                         <div
                             key={category}
-                            className={`border border-foreground p-6 ${bgClass}`}
+                            className={`border border-foreground p-6 bg-background`}
                         >
                             {/* Category Header */}
                             <div className="flex items-center gap-2.5 mb-6">
-                                <div className="w-2 h-2 rounded-full bg-current" />
-                                <h3 className="text-sm font-display font-bold tracking-wide uppercase text-current">
+                                <div className={`w-2 h-2 rounded-full ${dotColor}`} />
+                                <h3 className="text-sm font-display font-bold tracking-wide uppercase text-foreground">
                                     {category}
                                 </h3>
                             </div>
@@ -96,7 +96,7 @@ export default function Skills() {
                                     return (
                                         <div
                                             key={skill.$id}
-                                            className="flex items-center gap-2 px-3 py-2 bg-background text-foreground border border-foreground hover:bg-foreground hover:text-background transition-all duration-200 group"
+                                            className="flex items-center gap-2 px-3 py-2 bg-surface-alt border border-foreground hover:bg-foreground hover:text-background transition-all duration-200 group"
                                         >
                                             {iconUrl ? (
                                                 <div className="relative w-4 h-4 flex-shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
