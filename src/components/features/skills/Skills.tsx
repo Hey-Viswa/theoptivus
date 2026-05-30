@@ -63,10 +63,20 @@ export default function Skills() {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {sortedCategories.map((category) => (
+                    {sortedCategories.map((category, index) => {
+                        const colorClasses = [
+                            'bg-accent/5', 
+                            'bg-[#FFE600]/10', 
+                            'bg-[#FF5E5E]/5', 
+                            'bg-[#00E5FF]/5',
+                            'bg-[#9D00FF]/5'
+                        ];
+                        const bgClass = colorClasses[index % colorClasses.length];
+                        
+                        return (
                         <div
                             key={category}
-                            className="card-surface p-6"
+                            className={`border border-foreground p-6 ${bgClass}`}
                         >
                             {/* Category Header */}
                             <div className="flex items-center gap-2.5 mb-6">
@@ -110,7 +120,8 @@ export default function Skills() {
                                 })}
                             </div>
                         </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

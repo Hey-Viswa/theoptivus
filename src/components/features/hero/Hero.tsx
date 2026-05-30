@@ -1,5 +1,6 @@
 'use client';
 import CanvasText from '@/components/ui/CanvasText';
+import Image from 'next/image';
 
 export default function Hero() {
     return (
@@ -30,32 +31,49 @@ export default function Hero() {
                 </div>
 
                 {/* Main Content Grid - Full Screen Center Typography */}
-                <div className="flex-1 w-full flex flex-col items-center justify-center relative z-10 py-20 bg-background">
+                <div className="flex-1 w-full flex flex-col relative z-10 min-h-[40vh] md:min-h-0 bg-background overflow-hidden border-b border-foreground">
                     {/* Background glow for the blue aesthetic */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/10 blur-[150px] rounded-full pointer-events-none -z-10" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/10 blur-[150px] rounded-full pointer-events-none z-0" />
 
-                    <div className="w-full flex items-center justify-center h-[50vh] md:h-[60vh]">
+                    {/* Canvas Background - Absolute */}
+                    <div className="absolute inset-0 z-0">
                         <CanvasText text="BISWARANJAN" className="w-full h-full" />
-                    </div>
-
-                    {/* Metadata overlays attached to corners of the grid */}
-                    <div className="absolute top-16 left-16 hidden md:block max-w-[400px]">
-                        <span className="font-mono text-sm uppercase tracking-widest text-foreground/50 mb-6 block">01 // INTRODUCTION</span>
-                        <p className="text-lg md:text-xl text-foreground font-sans leading-relaxed">Specializing in digital experiences, interactive design, and robust full-stack architectures.</p>
-                    </div>
-
-                    <div className="absolute bottom-16 right-16 hidden md:block text-right">
-                        <span className="font-mono text-sm uppercase tracking-widest text-foreground/50 mb-6 block">CORE EXPERTISE</span>
-                        <p className="text-lg md:text-xl text-foreground font-sans leading-relaxed">React • Next.js • Node.js • GSAP</p>
-                        <p className="text-sm font-mono font-bold mt-6 text-foreground border-2 border-foreground px-4 py-2 inline-block">EST. 2026</p>
                     </div>
                 </div>
 
-                {/* Scroll Indicator (Bottom of grid) */}
-                <div className="grid-border-t p-6 flex justify-between items-center relative z-10 bg-surface">
-                    <span className="text-sm md:text-base font-mono uppercase text-accent font-bold tracking-widest">Available for freelance</span>
-                    <div className="w-6 h-10 grid-border flex justify-center pt-2 bg-background border-2 border-foreground">
-                        <div className="w-1.5 h-3 bg-accent animate-bounce" />
+                {/* Summary & Core Expertise (Matching About Section Aesthetic) */}
+                <div className="grid grid-cols-1 md:grid-cols-12 bg-background">
+                    <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground">
+                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">01 // SUMMARY</span>
+                        <h2 className="text-4xl md:text-[4rem] font-display font-black mb-8 leading-[1.05] tracking-tight text-foreground uppercase">
+                            Building <span className="highlight-blue text-surface">production-grade</span> SaaS <br className="hidden xl:block" />
+                            and modern web apps.
+                        </h2>
+                        <div className="text-xl md:text-2xl text-foreground font-sans leading-relaxed max-w-4xl">
+                            <span>Strong engineering foundation in <span className="highlight-yellow">Android Development</span> and the <span className="highlight-yellow">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-red text-surface">compliant, bug-proof, and instant</span>.</span>
+                        </div>
+                    </div>
+                    <div className="md:col-span-4 p-8 md:p-12 bg-surface-alt/10 flex flex-col justify-center">
+                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">CORE EXPERTISE</span>
+                        <div className="text-2xl md:text-4xl font-display font-bold text-foreground flex flex-col gap-4">
+                            <span className="border-b border-foreground/10 pb-4">Android</span>
+                            <span className="italic font-serif border-b border-foreground/10 pb-4">MERN Stack</span>
+                            <span className="border-b border-foreground/10 pb-4">System Design</span>
+                            <span className="font-mono text-lg bg-surface-alt border border-foreground px-4 py-2 w-fit mt-2">Full-Stack SaaS</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Availability Bar (Bottom of grid) */}
+                <div className="border-t border-foreground p-6 md:p-8 flex justify-center items-center relative z-10 bg-surface">
+                    <div className="flex items-center gap-4">
+                        <div className="relative flex h-2.5 w-2.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                        </div>
+                        <span className="text-sm md:text-base font-mono uppercase text-accent font-bold tracking-widest">
+                            Available for freelance
+                        </span>
                     </div>
                 </div>
             </div>

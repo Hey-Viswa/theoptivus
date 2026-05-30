@@ -54,20 +54,31 @@ export default function CanvasText({
         }
 
         function buildParticles() {
-            if (!ctx) return;
-            particles = [];
-            const fontFamily = getFontFamily();
+            if (!canvasRef.current || !containerRef.current) return;
 
-            // Measure text to pick font size that fills ~75% of container width
-            const targetW = W * 0.75;
-            let fontSize = 220;
-            ctx.font = `700 ${fontSize}px ${fontFamily}`;
+            const ctx = canvasRef.current.getContext('2d', { willReadFrequently: true });
+            if (!ctx) return;
+
+            const W = containerRef.current.clientWidth;
+            const H = containerRef.current.clientHeight;
+
+            // Measure text to pick font size that fills ~95% of container width
+            const targetW = W * 0.95;
+            let fontSize = 400;
+            const fontFamily = getFontFamily();
+            
+            ctx.font = `900 ${fontSize}px ${fontFamily}`;
             let metrics = ctx.measureText(text);
             while (metrics.width > targetW && fontSize > 40) {
                 fontSize -= 4;
-                ctx.font = `700 ${fontSize}px ${fontFamily}`;
+                ctx.font = `900 ${fontSize}px ${fontFamily}`;
                 metrics = ctx.measureText(text);
             }
+
+            // Calculate dynamic vertical scale to fill 85% of container height (leaves tighter, punchy padding)
+            const baseH = fontSize * 0.85; // exact visual height of Space Grotesk caps
+            const targetH = H * 0.85; 
+            const scaleY = Math.max(1, targetH / baseH); 
 
             // Draw text to offscreen canvas to sample pixels
             const offscreen = document.createElement('canvas');
@@ -75,39 +86,55 @@ export default function CanvasText({
             if (!octx) return;
 
             const ow = Math.ceil(metrics.width) + 20;
-            const oh = Math.ceil(fontSize * 1.3);
+            const oh = Math.ceil(baseH * scaleY) + 50; // Enough height to not clip
             offscreen.width = ow;
             offscreen.height = oh;
 
             // Fill with the foreground color (Deep Blue)
             octx.fillStyle = '#0A1628';
-            octx.font = `700 ${fontSize}px ${fontFamily}`;
+            octx.font = `900 ${fontSize}px ${fontFamily}`;
             octx.textBaseline = 'top';
-            octx.fillText(text, 10, fontSize * 0.1);
+            octx.scale(1, scaleY); // Stretch the text vertically
+            octx.fillText(text, 10, 0); // Draw EXACTLY at 0 so scaleY doesn't multiply the padding out of bounds!
+            octx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before get data
 
             const imageData = octx.getImageData(0, 0, ow, oh);
             const data = imageData.data;
             const gap = config.particleGap;
 
-            const offsetX = (W - ow) / 2;
-            const offsetY = (H - oh) / 2;
+            const rawParticles = [];
+            let minX = ow, maxX = 0;
+            let minY = oh, maxY = 0;
 
             for (let y = 0; y < oh; y += gap) {
                 for (let x = 0; x < ow; x += gap) {
                     const i = (y * ow + x) * 4;
                     if (data[i + 3] > 128) {
-                        particles.push({
-                            homeX: offsetX + x,
-                            homeY: offsetY + y,
-                            x: offsetX + x,
-                            y: offsetY + y,
-                            vx: 0,
-                            vy: 0,
-                            size: gap * 0.8 + Math.random() * 0.4,
-                            alpha: 0.85 + Math.random() * 0.15,
-                        });
+                        rawParticles.push({ x, y });
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
                     }
                 }
+            }
+
+            const actualW = maxX - minX;
+            const actualH = maxY - minY;
+            const offsetX = (W - actualW) / 2 - minX;
+            const offsetY = (H - actualH) / 2 - minY;
+
+            for (const rp of rawParticles) {
+                particles.push({
+                    homeX: offsetX + rp.x,
+                    homeY: offsetY + rp.y,
+                    x: offsetX + rp.x,
+                    y: offsetY + rp.y,
+                    vx: 0,
+                    vy: 0,
+                    size: gap * 0.8 + Math.random() * 0.4,
+                    alpha: 0.85 + Math.random() * 0.15,
+                });
             }
         }
 
@@ -241,7 +268,7 @@ export default function CanvasText({
     }, [text]);
 
     return (
-        <div ref={containerRef} className={`relative w-full h-[50vh] md:h-[60vh] flex items-center justify-center ${className}`}>
+        <div ref={containerRef} className={`relative w-full flex items-center justify-center ${className}`}>
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-10" />
             <h1 className="sr-only">{text}</h1>
         </div>
