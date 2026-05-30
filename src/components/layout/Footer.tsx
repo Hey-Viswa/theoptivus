@@ -8,15 +8,8 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-background relative overflow-hidden mt-20 flex flex-col items-center w-full">
-            <div className="w-full max-w-[1920px] grid-border-t">
-                {/* Massive Branding */}
-                <div className="w-full border-b border-foreground p-8 md:p-12 bg-background flex flex-col justify-center items-center">
-                    <h2 className="text-[12vw] md:text-[10vw] font-display font-black uppercase leading-none tracking-tight text-foreground text-center">
-                        Biswaranjan
-                    </h2>
-                </div>
-
+        <footer className="px-6 md:px-12 bg-background flex flex-col mt-0 w-full mb-12">
+            <div className="flex-1 w-full grid-border-x grid-border-b grid-border-t relative">
                 {/* Top Section */}
                 <div className="grid grid-cols-1 md:grid-cols-12 w-full">
                     {/* Navigation */}

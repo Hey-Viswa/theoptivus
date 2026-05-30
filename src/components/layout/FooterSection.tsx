@@ -3,7 +3,7 @@ import React from 'react';
 const FooterSection = () => {
     return (
         <section className="w-full bg-background border-t border-foreground mt-0">
-            <div className="w-full max-w-[1920px] mx-auto flex flex-col items-center">
+            <div className="w-full flex flex-col items-center">
                 {/* Social Links Row */}
                 <div className="flex flex-wrap justify-center w-full">
                     {[
