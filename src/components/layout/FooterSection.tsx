@@ -2,7 +2,7 @@ import React from 'react';
 
 const FooterSection = () => {
     return (
-        <section className="w-full bg-surface border-t border-foreground mt-0">
+        <section className="w-full bg-background border-t border-foreground mt-0">
             <div className="w-full max-w-[1920px] mx-auto flex flex-col items-center">
                 {/* Social Links Row */}
                 <div className="flex flex-wrap justify-center w-full">
@@ -18,7 +18,7 @@ const FooterSection = () => {
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex-1 min-w-[120px] md:min-w-[200px] py-6 flex items-center justify-center gap-2 border-r border-b border-foreground text-foreground hover:bg-accent hover:text-surface transition-colors font-mono uppercase tracking-widest text-xs"
+                            className="flex-1 min-w-[120px] md:min-w-[200px] py-6 flex items-center justify-center gap-2 border-r border-b border-foreground text-foreground hover:bg-foreground hover:text-background transition-colors font-mono uppercase tracking-widest text-xs"
                             aria-label={`${social.name} Profile`}
                         >
                             {social.name}
