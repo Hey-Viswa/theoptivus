@@ -143,14 +143,14 @@ export default function Navbar() {
     return (
         <>
             {/* Desktop Navbar */}
-            <nav ref={navRef} data-animate="nav-pill" className="fixed top-0 left-0 w-full z-[10000] bg-surface/95 backdrop-blur-sm border-b-2 border-foreground hidden md:block shadow-[0_4px_0_rgba(10,22,40,1)]">
+            <nav ref={navRef} data-animate="nav-pill" className="fixed top-0 left-0 w-full z-[10000] bg-surface/95 backdrop-blur-sm border-b border-foreground hidden md:block">
                 <div className="flex w-full items-center justify-between px-8 py-4">
-                    {/* Brand or empty space */}
-                    <div className="font-display font-black text-2xl tracking-tight text-foreground uppercase border-2 border-foreground px-4 py-1 bg-[#FFE600] shadow-[4px_4px_0px_0px_rgba(10,22,40,1)]">
+                    {/* Brand */}
+                    <div className="font-display font-black text-2xl tracking-tight text-foreground uppercase">
                         BISWARANJAN
                     </div>
                     
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-8">
                         {navItems.map((item) => {
                             let isActive = false;
                             if (item.path === '/') {
@@ -163,10 +163,10 @@ export default function Navbar() {
                                 <Link
                                     key={item.path}
                                     href={item.path}
-                                    className={`px-5 py-2 text-sm font-display font-bold uppercase transition-all border-2 border-foreground ${
+                                    className={`text-sm font-mono uppercase tracking-widest transition-colors ${
                                         isActive
-                                        ? 'bg-foreground text-surface shadow-[0px_0px_0px_0px_rgba(10,22,40,1)] translate-y-[4px] translate-x-[4px]'
-                                        : 'bg-surface text-foreground shadow-[4px_4px_0px_0px_rgba(10,22,40,1)] hover:bg-accent hover:text-surface hover:shadow-[0px_0px_0px_0px_rgba(10,22,40,1)] hover:translate-y-[4px] hover:translate-x-[4px]'
+                                        ? 'text-accent font-bold'
+                                        : 'text-foreground/70 hover:text-foreground'
                                         }`}
                                     data-cursor={isActive ? '' : 'Pointer'}
                                 >
@@ -181,11 +181,11 @@ export default function Navbar() {
             {/* Mobile Hamburger Button */}
             <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="fixed top-4 right-4 z-[10001] md:hidden w-14 h-14 flex flex-col justify-center items-center gap-1.5 bg-[#FFE600] border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(10,22,40,1)] active:shadow-none active:translate-y-1 transition-all"
+                className="fixed top-4 right-4 z-[10001] md:hidden w-12 h-12 flex flex-col justify-center items-center gap-1.5 bg-surface border border-foreground transition-all"
             >
-                <span className={`w-7 h-1 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
-                <span className={`w-7 h-1 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-                <span className={`w-7 h-1 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
             </button>
 
             {/* Mobile Fullscreen Menu */}
@@ -197,7 +197,7 @@ export default function Navbar() {
                     transform: 'translateX(100%)'
                 }}
             >
-                <div className="flex flex-col items-center gap-6 w-full px-8">
+                <div className="flex flex-col items-center gap-8 w-full px-8">
                     {navItems.map((item) => {
                         let isActive = false;
                         if (item.path === '/') {
@@ -211,10 +211,10 @@ export default function Navbar() {
                                 key={item.path}
                                 href={item.path}
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className={`mobile-link block w-full max-w-sm text-center py-5 text-3xl font-display font-black uppercase border-4 border-foreground transition-all ${
+                                className={`mobile-link block w-full text-center text-5xl font-display font-light uppercase tracking-tight transition-colors ${
                                     isActive
-                                    ? 'bg-foreground text-surface shadow-none translate-y-2'
-                                    : 'bg-surface text-foreground shadow-[8px_8px_0px_0px_rgba(10,22,40,1)] hover:bg-accent hover:text-surface hover:shadow-none hover:translate-y-2'
+                                    ? 'text-accent font-bold'
+                                    : 'text-foreground hover:text-accent'
                                 }`}
                             >
                                 {item.name}

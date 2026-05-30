@@ -65,15 +65,21 @@ export default function Hero() {
                 </div>
 
                 {/* Availability Bar (Bottom of grid) */}
-                <div className="border-t border-foreground p-6 md:p-8 flex justify-center items-center relative z-10 bg-surface">
-                    <div className="flex items-center gap-4">
-                        <div className="relative flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                <div className="border-t border-foreground flex justify-between items-stretch relative z-10 bg-surface h-16 md:h-20">
+                    <div className="flex-1 border-r border-foreground flex items-center justify-center">
+                         <span className="text-xs md:text-sm font-mono uppercase text-foreground/50 tracking-widest hidden md:block">Status</span>
+                         <span className="text-xs font-mono uppercase text-foreground/50 tracking-widest md:hidden">01</span>
+                    </div>
+                    <div className="flex-[4] flex items-center justify-center bg-accent/5">
+                        <div className="flex items-center gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                            <span className="text-xs md:text-sm font-display font-bold uppercase tracking-[0.2em] text-foreground">
+                                Currently Available for Freelance
+                            </span>
                         </div>
-                        <span className="text-sm md:text-base font-mono uppercase text-accent font-bold tracking-widest">
-                            Available for freelance
-                        </span>
+                    </div>
+                    <div className="flex-1 border-l border-foreground flex items-center justify-center">
+                         <span className="text-xs md:text-sm font-mono uppercase text-foreground/50 tracking-widest">2026</span>
                     </div>
                 </div>
             </div>
