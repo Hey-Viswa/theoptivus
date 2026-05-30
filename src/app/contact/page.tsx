@@ -104,134 +104,114 @@ export default function ContactPage() {
         }
     };
 
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        gsap.to(e.target, {
-            boxShadow: '0 0 20px rgba(255,255,255,0.1)',
-            borderColor: 'rgba(255,255,255,0.3)',
-            duration: 0.3
-        });
-    };
-
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        gsap.to(e.target, {
-            boxShadow: 'none',
-            borderColor: 'rgba(255,255,255,0.1)',
-            duration: 0.3
-        });
-    };
+    // Tailwind handles focus states natively via focus:border-accent
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 flex items-center">
+        <div className="min-h-screen pt-32 pb-20 px-6 flex items-center bg-background">
             <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20">
                 <div>
-                    <h1 className="text-6xl md:text-8xl font-display font-bold uppercase mb-10 leading-none">
-                        Let's<br />
-                        <span className="text-outline text-transparent stroke-white">Talk</span>
+                    <span className="font-mono text-sm uppercase tracking-widest text-foreground/50 mb-6 block">04 // CONTACT</span>
+                    <h1 className="text-7xl md:text-[10rem] font-display font-black mb-12 leading-none tracking-tight text-foreground border-b border-foreground pb-12">
+                        Let's <br className="hidden md:block"/><span className="highlight-blue text-surface">talk</span>
                     </h1>
-                    <p className="text-xl text-gray-300 max-w-md mb-10 leading-relaxed">
-                        Have a project in mind or just want to say hi?
-                        Fill out the form or send me an email directly.
-                    </p>
+                    <div className="text-2xl md:text-4xl text-foreground font-sans leading-relaxed max-w-2xl mb-12">
+                        <span>Have a project in mind or just want to say hi? Fill out the form or send me an email <span className="highlight-yellow">directly</span>.</span>
+                    </div>
 
-                    <div className="space-y-8 text-gray-400">
+                    <div className="space-y-8 text-foreground">
                         <div className="group">
-                            <span className="block text-xs uppercase tracking-widest text-gray-600 mb-2 group-hover:text-accent transition-colors">Email</span>
-                            <a href="mailto:viswaranjan.dev@gmail.com" className="text-2xl md:text-3xl font-light hover:text-white transition-colors border-b border-transparent hover:border-white pb-1">
+                            <span className="block font-mono text-sm uppercase tracking-widest text-foreground/50 mb-4 group-hover:text-accent transition-colors">Email</span>
+                            <a href="mailto:viswaranjan.dev@gmail.com" className="text-3xl md:text-5xl font-display font-black hover:text-accent transition-colors border-b-4 border-transparent hover:border-accent pb-1">
                                 viswaranjan.dev@gmail.com
                             </a>
                         </div>
                         <div>
-                            <span className="block text-xs uppercase tracking-widest text-gray-600 mb-4">Socials</span>
-                            <div className="flex gap-6 flex-wrap">
-                                <a href="https://x.com/Hey_viswa_" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors hover:scale-110 transform duration-300">Twitter</a>
-                                <a href="https://www.linkedin.com/in/biswaranjangiri/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors hover:scale-110 transform duration-300">LinkedIn</a>
-                                <a href="https://github.com/Hey-Viswa/Hey-Viswa" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors hover:scale-110 transform duration-300">GitHub</a>
-                                <a href="https://www.instagram.com/theoptivus/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors hover:scale-110 transform duration-300">Instagram</a>
-                                <a href="https://www.youtube.com/@theoptivus" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors hover:scale-110 transform duration-300">YouTube</a>
+                            <span className="block font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4">Socials</span>
+                            <div className="flex gap-6 flex-wrap font-mono uppercase text-sm">
+                                <a href="https://x.com/Hey_viswa_" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">Twitter</a>
+                                <a href="https://www.linkedin.com/in/biswaranjangiri/" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">LinkedIn</a>
+                                <a href="https://github.com/Hey-Viswa/Hey-Viswa" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">GitHub</a>
+                                <a href="https://www.instagram.com/theoptivus/" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">Instagram</a>
+                                <a href="https://www.youtube.com/@theoptivus" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">YouTube</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div ref={containerRef} className="bg-neutral-900/50 border border-white/5 p-8 md:p-12 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden group min-h-[600px] flex flex-col justify-center">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-50"></div>
-
+                <div ref={containerRef} className="bg-surface border border-foreground p-8 md:p-12 relative overflow-hidden min-h-[600px] flex flex-col justify-center">
+                    
                     {status === 'success' ? (
                         <div ref={successRef} className="h-full flex flex-col items-center justify-center text-center space-y-6">
-                            <div className="w-20 h-20 bg-green-500/10 text-green-400 rounded-full flex items-center justify-center text-4xl border border-green-500/20 shadow-[0_0_30px_rgba(74,222,128,0.2)]">
+                            <div className="w-20 h-20 bg-accent text-surface rounded-none flex items-center justify-center text-4xl border border-foreground font-display font-black">
                                 ✓
                             </div>
                             <div>
-                                <h3 className="text-3xl font-bold mb-2">Message Sent!</h3>
-                                <p className="text-gray-400">Thanks for reaching out. I'll get back to you soon.</p>
+                                <h3 className="text-3xl font-display font-black mb-2 text-foreground">Message Sent!</h3>
+                                <p className="text-foreground/70 font-sans">Thanks for reaching out. I'll get back to you soon.</p>
                             </div>
                             <button
                                 onClick={() => {
                                     setStatus('idle');
-                                    // Reset form visibility
                                     if (formRef.current) {
                                         gsap.set(formRef.current, { opacity: 1, y: 0 });
                                     }
                                 }}
-                                className="mt-4 px-6 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm text-white transition-all hover:scale-105"
+                                className="editorial-btn mt-4"
                             >
-                                Send another message
+                                SEND ANOTHER MESSAGE
                             </button>
                         </div>
                     ) : (
                         <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10 w-full">
-                            {/* Honeypot Field - Hidden */}
+                            {/* Honeypot Field */}
                             <input type="text" {...register('honeypot')} className="hidden" tabIndex={-1} autoComplete="off" />
 
                             <div className="space-y-2">
-                                <label htmlFor="name" className="block text-xs uppercase tracking-widest text-gray-500 ml-1">Name</label>
+                                <label htmlFor="name" className="block font-mono text-xs uppercase tracking-widest text-foreground">Name</label>
                                 <input
                                     {...register('name')}
                                     type="text"
                                     id="name"
-                                    onFocus={handleFocus}
-                                    onBlur={handleBlur}
-                                    className={`w-full bg-white/5 border rounded-xl px-5 py-4 focus:outline-none focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600 ${errors.name ? 'border-red-500/50' : 'border-white/10'}`}
+                                    className={`w-full bg-surface-alt border-b-2 px-0 py-6 focus:outline-none transition-all duration-300 placeholder:text-foreground/30 font-sans text-2xl md:text-3xl ${errors.name ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
                                     placeholder="John Doe"
+                                    style={{ boxShadow: 'none' }}
                                 />
-                                {errors.name && <p className="text-red-400 text-xs ml-1">{errors.name.message}</p>}
+                                {errors.name && <p className="text-[#FF5E5E] text-xs font-mono font-bold mt-1">{errors.name.message}</p>}
                             </div>
                             <div className="space-y-2">
-                                <label htmlFor="email" className="block text-xs uppercase tracking-widest text-gray-500 ml-1">Email</label>
+                                <label htmlFor="email" className="block font-mono text-xs uppercase tracking-widest text-foreground">Email</label>
                                 <input
                                     {...register('email')}
                                     type="email"
                                     id="email"
-                                    onFocus={handleFocus}
-                                    onBlur={handleBlur}
-                                    className={`w-full bg-white/5 border rounded-xl px-5 py-4 focus:outline-none focus:bg-white/10 transition-all duration-300 placeholder:text-gray-600 ${errors.email ? 'border-red-500/50' : 'border-white/10'}`}
+                                    className={`w-full bg-surface-alt border-b-2 px-0 py-6 focus:outline-none transition-all duration-300 placeholder:text-foreground/30 font-sans text-2xl md:text-3xl ${errors.email ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
                                     placeholder="john@example.com"
+                                    style={{ boxShadow: 'none' }}
                                 />
-                                {errors.email && <p className="text-red-400 text-xs ml-1">{errors.email.message}</p>}
+                                {errors.email && <p className="text-[#FF5E5E] text-xs font-mono font-bold mt-1">{errors.email.message}</p>}
                             </div>
                             <div className="space-y-2">
-                                <label htmlFor="message" className="block text-xs uppercase tracking-widest text-gray-500 ml-1">Message</label>
+                                <label htmlFor="message" className="block font-mono text-xs uppercase tracking-widest text-foreground">Message</label>
                                 <textarea
                                     {...register('message')}
                                     id="message"
                                     rows={4}
-                                    onFocus={handleFocus}
-                                    onBlur={handleBlur}
-                                    className={`w-full bg-white/5 border rounded-xl px-5 py-4 focus:outline-none focus:bg-white/10 transition-all duration-300 resize-none placeholder:text-gray-600 ${errors.message ? 'border-red-500/50' : 'border-white/10'}`}
+                                    className={`w-full bg-surface-alt border-b-2 px-0 py-6 focus:outline-none transition-all duration-300 resize-none placeholder:text-foreground/30 font-sans text-2xl md:text-3xl ${errors.message ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
                                     placeholder="Tell me about your project..."
+                                    style={{ boxShadow: 'none' }}
                                 />
-                                <div className="flex justify-between ml-1">
+                                <div className="flex justify-between">
                                     {errors.message ? (
-                                        <p className="text-red-400 text-xs">{errors.message.message}</p>
+                                        <p className="text-[#FF5E5E] text-xs font-mono font-bold">{errors.message.message}</p>
                                     ) : <span></span>}
-                                    <span className={`text-xs ${messageValue.length > 900 ? 'text-yellow-500' : 'text-gray-600'}`}>
+                                    <span className={`text-xs font-mono ${messageValue.length > 900 ? 'text-yellow-600' : 'text-foreground/50'}`}>
                                         {messageValue.length}/1000
                                     </span>
                                 </div>
                             </div>
 
                             {status === 'error' && (
-                                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm text-center">
+                                <div className="p-4 bg-[#FF5E5E]/10 border border-[#FF5E5E] text-foreground font-bold text-sm text-center">
                                     {errorMessage || 'Something went wrong. Please try again.'}
                                 </div>
                             )}
@@ -239,9 +219,9 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={status === 'submitting'}
-                                className="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-white/5"
+                                className="editorial-btn w-full mt-4"
                             >
-                                {status === 'submitting' ? 'Sending...' : 'Send Message'}
+                                {status === 'submitting' ? 'SENDING...' : 'SEND MESSAGE'}
                             </button>
                         </form>
                     )}

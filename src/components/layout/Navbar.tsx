@@ -43,16 +43,16 @@ export default function Navbar() {
         }
 
         const ctx = gsap.context(() => {
-            // Entrance Animation - Optimized
+            // Entrance Animation
             gsap.set(navRef.current, { willChange: 'transform, opacity' });
             gsap.fromTo(navRef.current,
-                { y: -30, opacity: 0 },
+                { y: -20, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
+                    duration: 0.8,
                     ease: 'power3.out',
-                    delay: 0.2,
+                    delay: 0.3,
                     force3D: true,
                     onComplete: () => {
                         gsap.set(navRef.current, { willChange: 'auto' });
@@ -64,21 +64,20 @@ export default function Navbar() {
             const links = navRef.current?.querySelectorAll('a');
             if (links) {
                 gsap.fromTo(links,
-                    { y: -15, opacity: 0 },
+                    { y: -10, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 0.8,
-                        stagger: 0.1,
+                        duration: 0.6,
+                        stagger: 0.08,
                         ease: 'power2.out',
-                        delay: 0.4
+                        delay: 0.5
                     }
                 );
             }
 
             // Active Section Logic with ScrollTrigger (ScrollSpy)
             if (pathname === '/') {
-                // Define sections in order
                 const sections = [
                     { id: 'hero', selector: '#hero', navPath: '/' },
                     { id: 'works', selector: '#works', navPath: '/#works' },
@@ -88,20 +87,18 @@ export default function Navbar() {
                     { id: 'about-more', selector: '#about-more', navPath: '/#about' }
                 ];
 
-                // Create triggers for each section
                 sections.forEach((section, index) => {
                     const element = document.querySelector(section.selector);
                     if (element) {
                         ScrollTrigger.create({
                             trigger: element,
-                            start: "top 80%", // Trigger when top of section hits 80% of viewport height
+                            start: "top 80%",
                             end: "bottom center",
                             onEnter: () => setActiveSection(section.navPath),
                             onEnterBack: () => setActiveSection(section.navPath),
-                            // Fallback for Hero to ensure it catches top-of-page
                             ...(index === 0 && {
                                 start: "top top",
-                                onLeave: () => { /* let next section take over */ },
+                                onLeave: () => { },
                                 onEnterBack: () => setActiveSection(section.navPath)
                             })
                         });
@@ -111,7 +108,6 @@ export default function Navbar() {
                 setActiveSection('');
             }
 
-            // Refresh ScrollTrigger to ensure positions are correct after layout settles
             setTimeout(() => {
                 ScrollTrigger.refresh();
             }, 1000);
@@ -147,65 +143,71 @@ export default function Navbar() {
     return (
         <>
             {/* Desktop Navbar */}
-            <nav ref={navRef} data-animate="nav-pill" className="fixed top-6 left-1/2 -translate-x-1/2 z-[10000] w-[90%] max-w-fit hidden md:block">
-                <div className="flex items-center justify-center gap-1 px-2 py-2 bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl hover:border-white/20 transition-colors duration-300">
-                    {navItems.map((item) => {
-                        // Determine if item is active
-                        let isActive = false;
+            <nav ref={navRef} data-animate="nav-pill" className="fixed top-0 left-0 w-full z-[10000] bg-surface grid-border-b hidden md:block">
+                <div className="flex w-full items-center justify-between px-8 py-4">
+                    {/* Brand or empty space */}
+                    <div className="font-display font-bold text-xl tracking-tight text-foreground">
+                        BISWARANJAN
+                    </div>
+                    
+                    <div className="flex items-center gap-8">
+                        {navItems.map((item) => {
+                            let isActive = false;
 
-                        if (item.name === 'Work' && pathname.startsWith('/projects/')) {
-                            isActive = true;
-                        } else if (item.path === '/') {
-                            isActive = pathname === '/' && (activeSection === '/' || activeSection === '');
-                        } else if (item.path.includes('#')) {
-                            isActive = pathname === '/' && activeSection === item.path;
-                        } else {
-                            isActive = pathname === item.path;
-                        }
+                            if (item.name === 'Work' && pathname.startsWith('/projects/')) {
+                                isActive = true;
+                            } else if (item.path === '/') {
+                                isActive = pathname === '/' && (activeSection === '/' || activeSection === '');
+                            } else if (item.path.includes('#')) {
+                                isActive = pathname === '/' && activeSection === item.path;
+                            } else {
+                                isActive = pathname === item.path;
+                            }
 
-                        return (
-                            <Link
-                                key={item.path}
-                                href={item.path}
-                                className={`relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${isActive
-                                    ? 'text-black bg-white shadow-[0_0_20px_rgba(255,255,255,0.3)]'
-                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
-                                    }`}
-                                data-cursor={isActive ? '' : 'Pointer'}
-                            >
-                                {item.name}
-                            </Link>
-                        );
-                    })}
+                            return (
+                                <Link
+                                    key={item.path}
+                                    href={item.path}
+                                    className={`relative text-sm font-medium tracking-wide transition-colors ${isActive
+                                        ? 'text-accent'
+                                        : 'text-foreground hover:text-accent'
+                                        }`}
+                                    data-cursor={isActive ? '' : 'Pointer'}
+                                >
+                                    {item.name}
+                                </Link>
+                            );
+                        })}
+                    </div>
                 </div>
             </nav>
 
             {/* Mobile Hamburger Button */}
             <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="fixed top-6 right-6 z-[10001] md:hidden w-12 h-12 flex flex-col justify-center items-center gap-1.5 bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl"
+                className="fixed top-4 right-4 z-[10001] md:hidden w-12 h-12 flex flex-col justify-center items-center gap-1.5 bg-surface grid-border"
             >
-                <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-                <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
             </button>
 
             {/* Mobile Fullscreen Menu */}
             <div
                 ref={mobileMenuRef}
-                className="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-3xl flex flex-col items-center justify-center opacity-0"
+                className="fixed inset-0 z-[10000] bg-background flex flex-col items-center justify-center opacity-0"
                 style={{
                     pointerEvents: isMobileMenuOpen ? 'auto' : 'none',
                     transform: 'translateX(100%)'
                 }}
             >
-                <div className="flex flex-col items-center gap-8">
+                <div className="flex flex-col items-center gap-6 w-full px-6">
                     {navItems.map((item) => (
                         <Link
                             key={item.path}
                             href={item.path}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="mobile-link text-4xl font-display font-bold text-white hover:text-accent transition-colors"
+                            className="mobile-link block w-full max-w-md text-center py-4 text-3xl font-display font-bold text-foreground grid-border bg-surface hover:bg-accent hover:text-surface transition-colors"
                         >
                             {item.name}
                         </Link>

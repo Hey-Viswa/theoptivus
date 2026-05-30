@@ -1,41 +1,34 @@
 import type { Metadata } from "next";
-import { Montserrat, Open_Sans, Nunito, Caveat } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
 
-const openSans = Open_Sans({
-  variable: "--font-opensans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const caveat = Caveat({
-  variable: "--font-caveat",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Biswaranjan | Full-Stack Developer",
-  description: "Portfolio of Biswaranjan, a Full-Stack Developer building fast, reliable web apps.",
+  description: "Portfolio of Biswaranjan — Full-Stack & Android Developer building fast, reliable systems.",
 };
 
 import Cursor from "@/components/ui/Cursor";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-
-// ... existing imports
 
 import SmoothScroller from "@/components/utils/SmoothScroller";
 import GSAPEnhancer from "@/components/utils/GSAPEnhancer";
@@ -47,13 +40,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body suppressHydrationWarning className="antialiased bg-background text-foreground cursor-none">
-        <div className={`${montserrat.variable} ${openSans.variable} ${nunito.variable} ${caveat.variable}`}>
+      <body suppressHydrationWarning className="antialiased bg-background text-foreground cursor-none font-body">
+        <div className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
           <GSAPEnhancer />
           <SmoothScroller />
           <Cursor />
           <Navbar />
-          <div className="grain-overlay" />
 
           <div id="smooth-wrapper">
             <div id="smooth-content">

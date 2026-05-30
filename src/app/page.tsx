@@ -17,18 +17,20 @@ export default async function Home() {
       <WorksSection projects={projects} />
 
       {/* Featured Skills Section */}
-      <section id="featured-skills" className="py-20 px-6 bg-background border-b border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-8xl font-display font-bold uppercase mb-20 text-center">
+      <section id="featured-skills" className="px-6 md:px-12 bg-background flex flex-col">
+        <div className="flex-1 w-full grid-border flex flex-col items-center justify-center pt-20 px-8 relative">
+          <h2 className="text-4xl md:text-6xl font-display font-bold mb-20 text-center text-foreground uppercase tracking-tight">
             My Tech Stack
           </h2>
 
-          <SkillsGrid skills={featuredSkills} className="mb-20" />
+          <div className="w-full max-w-7xl mx-auto mb-20">
+            <SkillsGrid skills={featuredSkills} />
+          </div>
 
-          <div className="text-center">
+          <div className="text-center w-full grid-border-t py-12">
             <Link
               href="/skills"
-              className="inline-block px-8 py-4 border border-white/20 rounded-full text-lg font-display uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300"
+              className="editorial-btn uppercase text-sm inline-flex"
             >
               View All Skills
             </Link>

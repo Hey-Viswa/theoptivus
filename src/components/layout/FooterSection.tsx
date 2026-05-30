@@ -2,34 +2,38 @@ import React from 'react';
 
 const FooterSection = () => {
     return (
-        <section className="w-full bg-white pt-20 pb-4 flex justify-center items-center overflow-hidden">
-            <div className="w-full px-4 md:px-8 flex flex-col items-center">
+        <section className="w-full bg-surface border-t border-foreground mt-0">
+            <div className="w-full max-w-[1920px] mx-auto flex flex-col items-center">
                 {/* Social Links Row */}
-                <div className="flex flex-wrap justify-center gap-6 md:gap-8 mb-8">
+                <div className="flex flex-wrap justify-center w-full">
                     {[
-                        { name: 'TWITTER', url: 'https://x.com/Hey_viswa_' },
-                        { name: 'INSTAGRAM', url: 'https://www.instagram.com/theoptivus/' },
-                        { name: 'GITHUB', url: 'https://github.com/Hey-Viswa/Hey-Viswa' },
-                        { name: 'LINKEDIN', url: 'https://www.linkedin.com/in/biswaranjangiri/' },
-                        { name: 'YOUTUBE', url: 'https://www.youtube.com/@theoptivus' }
+                        { name: 'Twitter', url: 'https://x.com/Hey_viswa_' },
+                        { name: 'Instagram', url: 'https://www.instagram.com/theoptivus/' },
+                        { name: 'GitHub', url: 'https://github.com/Hey-Viswa/Hey-Viswa' },
+                        { name: 'LinkedIn', url: 'https://www.linkedin.com/in/biswaranjangiri/' },
+                        { name: 'YouTube', url: 'https://www.youtube.com/@theoptivus' }
                     ].map((social) => (
                         <a
                             key={social.name}
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-500 text-sm font-normal tracking-wide hover:opacity-75 transition-opacity duration-200 uppercase flex items-center gap-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 rounded-sm"
+                            className="flex-1 min-w-[120px] md:min-w-[200px] py-6 flex items-center justify-center gap-2 border-r border-b border-foreground text-foreground hover:bg-accent hover:text-surface transition-colors font-mono uppercase tracking-widest text-xs"
                             aria-label={`${social.name} Profile`}
                         >
-                            {social.name} ↗
+                            {social.name}
+                            <span className="text-lg leading-none">↗</span>
                         </a>
                     ))}
                 </div>
 
-                {/* Name */}
-                <h1 className="font-sans font-black tracking-tighter leading-none text-center text-black text-[clamp(40px,13vw,300px)] w-full px-0 whitespace-nowrap">
-                    BISWARANJAN
-                </h1>
+
+
+                {/* Copyright */}
+                <div className="w-full flex justify-between items-center px-6 md:px-12 py-4 bg-background text-foreground font-mono text-xs uppercase tracking-widest">
+                    <span>© {new Date().getFullYear()}</span>
+                    <span>All Rights Reserved</span>
+                </div>
             </div>
         </section>
     );
