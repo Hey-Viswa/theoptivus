@@ -78,7 +78,7 @@ export default function CanvasText({
             // Calculate dynamic vertical scale to fill 85% of container height (leaves tighter, punchy padding)
             const baseH = fontSize * 0.85; // exact visual height of Space Grotesk caps
             const targetH = H * 0.85; 
-            const scaleY = Math.max(1, targetH / baseH); 
+            const scaleY = targetH / baseH; // Stretch or squish to perfectly match height without clipping
 
             // Draw text to offscreen canvas to sample pixels
             const offscreen = document.createElement('canvas');
