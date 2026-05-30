@@ -50,7 +50,7 @@ export default function Hero() {
                             and modern web apps.
                         </h2>
                         <div className="text-xl md:text-2xl text-foreground font-sans leading-relaxed max-w-4xl">
-                            <span>Strong engineering foundation in <span className="highlight-yellow text-foreground">Android Development</span> and the <span className="highlight-yellow text-foreground">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-red text-surface">compliant, bug-proof, and instant</span>.</span>
+                            <span>Strong engineering foundation in <span className="highlight-yellow">Android Development</span> and the <span className="highlight-yellow">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-blue">compliant, bug-proof, and instant</span>.</span>
                         </div>
                     </div>
                     <div className="md:col-span-4 p-8 md:p-12 bg-surface-alt/10 text-foreground flex flex-col justify-center">
@@ -72,7 +72,7 @@ export default function Hero() {
                     </div>
                     <div className="flex-[4] flex items-center justify-center bg-background text-foreground">
                         <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#00FF66]"></div>
+                            <div className="w-2 h-2 rounded-full bg-accent"></div>
                             <span className="text-xs md:text-sm font-display font-black uppercase tracking-[0.2em]">
                                 Currently Available for Freelance
                             </span>

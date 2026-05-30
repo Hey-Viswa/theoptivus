@@ -15,7 +15,7 @@ export default function AboutSection() {
                             from the <span className="highlight-yellow">ground up</span>
                         </h2>
                         <div className="text-2xl md:text-4xl text-foreground font-sans leading-relaxed max-w-4xl">
-                            <span>Biswaranjan was built for projects that got <span className="highlight-yellow">tired of waiting</span>—for scaling, for deployment, for progress. <span className="highlight-red">I move fast</span>, think sharp. Architecture should be <span className="highlight-yellow">compliant, bug-proof, and instant</span> — and that’s <span className="highlight-blue">exactly what I deliver</span>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <span className="highlight-red">And I earn it daily.</span></span>
+                            <span>Biswaranjan was built for projects that got <span className="highlight-yellow">tired of waiting</span>—for scaling, for deployment, for progress. <span className="highlight-blue">I move fast</span>, think sharp. Architecture should be <span className="highlight-yellow">compliant, bug-proof, and instant</span> — and that’s <span className="highlight-blue">exactly what I deliver</span>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <span className="highlight-blue">And I earn it daily.</span></span>
                         </div>
                     </div>
                     <div className="md:col-span-4 relative flex items-center justify-center p-8 md:p-12 overflow-hidden bg-surface-alt/10">

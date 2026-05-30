@@ -66,10 +66,7 @@ export default function Skills() {
                     {sortedCategories.map((category, index) => {
                         const dotColors = [
                             'bg-accent', 
-                            'bg-[#FFE600]', 
-                            'bg-[#FF5E5E]', 
-                            'bg-[#00FF66]',
-                            'bg-[#9D00FF]'
+                            'bg-[#FFE600]'
                         ];
                         const dotColor = dotColors[index % dotColors.length];
                         

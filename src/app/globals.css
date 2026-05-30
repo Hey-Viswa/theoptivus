@@ -100,10 +100,6 @@
   .highlight-blue {
     @apply bg-accent text-surface px-1.5 py-0.5 font-bold;
   }
-
-  .highlight-red {
-    @apply bg-[#FF5E5E] text-surface px-1.5 py-0.5 font-bold;
-  }
   
   .editorial-btn {
     @apply px-6 py-3 bg-foreground text-background font-bold tracking-wide flex items-center justify-center gap-2 transition-colors hover:bg-accent hover:text-surface;
