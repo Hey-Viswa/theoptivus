@@ -52,7 +52,7 @@ export default function AboutSection() {
                             <div className="p-8 md:p-12 border-b border-foreground bg-background hover:bg-surface-alt transition-colors">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
                                     <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">Founder &amp; Full-Stack Engineer</h3>
-                                    <span className="text-xs font-mono uppercase font-bold border border-foreground px-3 py-1 bg-background text-foreground whitespace-nowrap">Oct 2025 — Present</span>
+                                    <span className="text-xs font-mono uppercase font-bold tracking-widest text-foreground/50 whitespace-nowrap">Oct 2025 — Present</span>
                                 </div>
                                 <p className="text-lg italic text-foreground/70 mb-6">StudioFlow (Self-Built SaaS)</p>
                                 <ul className="space-y-4 text-foreground/80 font-sans text-base md:text-lg leading-relaxed max-w-3xl">
@@ -75,7 +75,7 @@ export default function AboutSection() {
                             <div className="p-8 md:p-12 bg-background hover:bg-surface-alt transition-colors">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
                                     <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">Android Developer Intern</h3>
-                                    <span className="text-xs font-mono uppercase font-bold border border-foreground px-3 py-1 bg-background text-foreground whitespace-nowrap">Jun 2023 — Jul 2023</span>
+                                    <span className="text-xs font-mono uppercase font-bold tracking-widest text-foreground/50 whitespace-nowrap">Jun 2023 — Jul 2023</span>
                                 </div>
                                 <p className="text-lg italic text-foreground/70 mb-6">JSW Group</p>
                                 <p className="text-foreground/80 font-sans text-base md:text-lg leading-relaxed max-w-3xl">

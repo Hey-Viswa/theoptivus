@@ -10,16 +10,6 @@ interface WorksSectionProps {
 export default function WorksSection({ projects }: WorksSectionProps) {
     const displayProjects = projects.slice(0, 4);
 
-    const getGridClass = () => {
-        if (displayProjects.length === 1) {
-            return "grid grid-cols-1 max-w-3xl mx-auto";
-        } else if (displayProjects.length === 2) {
-            return "grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10";
-        } else {
-            return "grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10";
-        }
-    };
-
     return (
         <section id="works" className="px-6 md:px-12 bg-background flex flex-col mt-0">
             <div className="flex-1 w-full grid-border-x grid-border-b relative">
@@ -38,9 +28,9 @@ export default function WorksSection({ projects }: WorksSectionProps) {
                     </div>
 
                     {/* Right Column: Projects / Carousel Container */}
-                    <div className="lg:col-span-8 p-8 md:p-12 bg-background flex flex-col justify-center">
+                    <div className="lg:col-span-8 p-8 md:p-12 bg-background flex flex-col justify-center overflow-hidden">
                         {displayProjects.length > 0 ? (
-                            <div className={getGridClass()}>
+                            <div className="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-8 w-full scrollbar-hide">
                                 {displayProjects.map((project, index) => {
                                     const imageSource = project.thumbnail || project.heroFileId;
                                     const imageUrl = getProjectImageUrl(imageSource);
@@ -55,7 +45,7 @@ export default function WorksSection({ projects }: WorksSectionProps) {
                                     return (
                                         <article
                                             key={project.$id}
-                                            className={`group block relative border border-foreground overflow-hidden transition-colors ${bgClass}`}
+                                            className={`snap-center shrink-0 w-[85vw] md:w-[45vw] group block relative border border-foreground overflow-hidden transition-colors ${bgClass}`}
                                         >
                                             <Link href={`/work/${project.slug}`}>
                                                 {/* Image Container */}
