@@ -7,9 +7,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'Work', path: '/#works' },
-    { name: 'Skills', path: '/#featured-skills' },
-    { name: 'About', path: '/#about' },
+    { name: 'Work', path: '/work' },
+    { name: 'Skills', path: '/skills' },
+    { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
 ];
 
@@ -143,34 +143,30 @@ export default function Navbar() {
     return (
         <>
             {/* Desktop Navbar */}
-            <nav ref={navRef} data-animate="nav-pill" className="fixed top-0 left-0 w-full z-[10000] bg-surface grid-border-b hidden md:block">
+            <nav ref={navRef} data-animate="nav-pill" className="fixed top-0 left-0 w-full z-[10000] bg-surface/95 backdrop-blur-sm border-b-2 border-foreground hidden md:block shadow-[0_4px_0_rgba(10,22,40,1)]">
                 <div className="flex w-full items-center justify-between px-8 py-4">
                     {/* Brand or empty space */}
-                    <div className="font-display font-bold text-xl tracking-tight text-foreground">
+                    <div className="font-display font-black text-2xl tracking-tight text-foreground uppercase border-2 border-foreground px-4 py-1 bg-[#FFE600] shadow-[4px_4px_0px_0px_rgba(10,22,40,1)]">
                         BISWARANJAN
                     </div>
                     
-                    <div className="flex items-center gap-8">
+                    <div className="flex items-center gap-6">
                         {navItems.map((item) => {
                             let isActive = false;
-
-                            if (item.name === 'Work' && pathname.startsWith('/projects/')) {
-                                isActive = true;
-                            } else if (item.path === '/') {
-                                isActive = pathname === '/' && (activeSection === '/' || activeSection === '');
-                            } else if (item.path.includes('#')) {
-                                isActive = pathname === '/' && activeSection === item.path;
+                            if (item.path === '/') {
+                                isActive = pathname === '/';
                             } else {
-                                isActive = pathname === item.path;
+                                isActive = pathname.startsWith(item.path);
                             }
 
                             return (
                                 <Link
                                     key={item.path}
                                     href={item.path}
-                                    className={`relative text-sm font-medium tracking-wide transition-colors ${isActive
-                                        ? 'text-accent'
-                                        : 'text-foreground hover:text-accent'
+                                    className={`px-5 py-2 text-sm font-display font-bold uppercase transition-all border-2 border-foreground ${
+                                        isActive
+                                        ? 'bg-foreground text-surface shadow-[0px_0px_0px_0px_rgba(10,22,40,1)] translate-y-[4px] translate-x-[4px]'
+                                        : 'bg-surface text-foreground shadow-[4px_4px_0px_0px_rgba(10,22,40,1)] hover:bg-accent hover:text-surface hover:shadow-[0px_0px_0px_0px_rgba(10,22,40,1)] hover:translate-y-[4px] hover:translate-x-[4px]'
                                         }`}
                                     data-cursor={isActive ? '' : 'Pointer'}
                                 >
@@ -185,11 +181,11 @@ export default function Navbar() {
             {/* Mobile Hamburger Button */}
             <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="fixed top-4 right-4 z-[10001] md:hidden w-12 h-12 flex flex-col justify-center items-center gap-1.5 bg-surface grid-border"
+                className="fixed top-4 right-4 z-[10001] md:hidden w-14 h-14 flex flex-col justify-center items-center gap-1.5 bg-[#FFE600] border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(10,22,40,1)] active:shadow-none active:translate-y-1 transition-all"
             >
-                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-                <span className={`w-6 h-0.5 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+                <span className={`w-7 h-1 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
+                <span className={`w-7 h-1 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`w-7 h-1 bg-foreground transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
             </button>
 
             {/* Mobile Fullscreen Menu */}
@@ -201,17 +197,30 @@ export default function Navbar() {
                     transform: 'translateX(100%)'
                 }}
             >
-                <div className="flex flex-col items-center gap-6 w-full px-6">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.path}
-                            href={item.path}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="mobile-link block w-full max-w-md text-center py-4 text-3xl font-display font-bold text-foreground grid-border bg-surface hover:bg-accent hover:text-surface transition-colors"
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
+                <div className="flex flex-col items-center gap-6 w-full px-8">
+                    {navItems.map((item) => {
+                        let isActive = false;
+                        if (item.path === '/') {
+                            isActive = pathname === '/';
+                        } else {
+                            isActive = pathname.startsWith(item.path);
+                        }
+                        
+                        return (
+                            <Link
+                                key={item.path}
+                                href={item.path}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className={`mobile-link block w-full max-w-sm text-center py-5 text-3xl font-display font-black uppercase border-4 border-foreground transition-all ${
+                                    isActive
+                                    ? 'bg-foreground text-surface shadow-none translate-y-2'
+                                    : 'bg-surface text-foreground shadow-[8px_8px_0px_0px_rgba(10,22,40,1)] hover:bg-accent hover:text-surface hover:shadow-none hover:translate-y-2'
+                                }`}
+                            >
+                                {item.name}
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </>
