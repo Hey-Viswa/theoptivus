@@ -21,7 +21,7 @@ export default function WorksSection({ projects }: WorksSectionProps) {
                             <h2 className="text-6xl md:text-[6rem] font-display font-black mb-8 tracking-tight leading-[0.9] text-background uppercase border-b border-background/20 pb-12">
                                 Selected<br/>work
                             </h2>
-                            <div className="text-xl text-background font-sans leading-relaxed max-w-sm">
+                            <div className="text-2xl md:text-3xl text-background font-sans leading-relaxed max-w-md mt-6">
                                 <span>A curated selection of projects that showcase <span className="highlight-yellow text-foreground px-1">full-stack thinking</span> and <span className="highlight-yellow text-foreground px-1">engineering precision</span>.</span>
                             </div>
                         </div>
@@ -68,7 +68,7 @@ export default function WorksSection({ projects }: WorksSectionProps) {
                                                 {/* Content */}
                                                 <div className="p-6 md:p-8 space-y-4">
                                                     <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-2">
-                                                        <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground uppercase">
+                                                        <h3 className="text-4xl font-display font-bold text-foreground uppercase">
                                                             {project.title}
                                                         </h3>
                                                         {project.date && (
@@ -78,7 +78,7 @@ export default function WorksSection({ projects }: WorksSectionProps) {
                                                         )}
                                                     </div>
 
-                                                    <p className="text-foreground/70 text-base md:text-lg leading-relaxed line-clamp-2 font-sans">
+                                                    <p className="text-lg md:text-xl text-foreground/70 leading-relaxed line-clamp-2 font-sans">
                                                         {project.shortDescription}
                                                     </p>
 
