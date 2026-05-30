@@ -38,8 +38,10 @@ export async function getSkills(filter?: {
             skills: response.documents as unknown as Skill[],
             total: response.total
         };
-    } catch (error) {
-        console.error('Error fetching skills:', error);
+    } catch (error: any) {
+        if (error.message !== 'APPWRITE_MISSING_CONFIG') {
+            console.error('Error fetching skills:', error);
+        }
         return { skills: [], total: 0 };
     }
 }

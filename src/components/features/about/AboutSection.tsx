@@ -15,16 +15,16 @@ export default function AboutSection() {
                             from the ground up
                         </h2>
                         <div className="text-2xl md:text-4xl text-foreground font-sans leading-relaxed max-w-4xl">
-                            <span>Biswaranjan was built for projects that got <em className="font-serif italic text-[1.1em] text-accent">tired of waiting</em>—for scaling, for deployment, for progress. <strong className="font-bold">I move fast</strong>, think sharp. Architecture should be <em className="font-serif italic text-[1.1em]">compliant, bug-proof, and instant</em> — and that’s <strong className="font-bold">exactly what I deliver</strong>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <em className="font-serif italic text-[1.1em] text-accent">And I earn it daily.</em></span>
+                            <span>Biswaranjan was built for projects that got <em className="highlight-yellow italic text-[1.1em] text-foreground">tired of waiting</em>—for scaling, for deployment, for progress. <strong className="font-bold">I move fast</strong>, think sharp. Architecture should be <em className="highlight-blue italic text-[1.1em] text-background">compliant, bug-proof, and instant</em> — and that’s <strong className="font-bold">exactly what I deliver</strong>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <em className="highlight-yellow italic text-[1.1em] text-foreground">And I earn it daily.</em></span>
                         </div>
                     </div>
-                    <div className="md:col-span-4 relative flex items-center justify-center p-8 md:p-12 overflow-hidden bg-surface-alt/10">
-                        <div className="w-full relative aspect-square max-w-[600px] scale-125 md:scale-150 rotate-[30deg] origin-center transition-transform duration-1000 group">
+                    <div className="md:col-span-4 relative flex items-center justify-center p-8 md:p-12 bg-surface-alt/10 overflow-visible z-10">
+                        <div className="w-[180%] max-w-none relative aspect-square origin-center transition-transform duration-500">
                             <Image
                                 src="/images/gears.png"
                                 alt="Abstract gears representing systems engineering"
                                 fill
-                                className="object-contain filter sepia saturate-[300%] hue-rotate-[200deg] brightness-90 contrast-125 group-hover:sepia-0 group-hover:saturate-100 group-hover:hue-rotate-0 transition-all duration-700"
+                                className="object-contain drop-shadow-xl filter sepia saturate-[200%] brightness-90 contrast-125"
                                 priority
                             />
                         </div>

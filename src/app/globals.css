@@ -196,3 +196,64 @@ html {
   background: var(--accent-light);
   color: var(--foreground);
 }
+
+/* ── Custom Cursor (GPU-accelerated, zero-lag) ── */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10001;
+  border-radius: 50%;
+  will-change: transform;
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 768px) {
+  .cursor-dot {
+    display: flex;
+  }
+}
+
+.cursor-dot-text {
+  font-size: 3px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: white;
+  white-space: nowrap;
+}
+
+/* Cursor states */
+.cursor-default {
+  width: 12px;
+  height: 12px;
+  background-color: #1A1A1A;
+  opacity: 1;
+}
+
+.cursor-clickable {
+  width: 48px;
+  height: 48px;
+  background-color: #2F52E0;
+  opacity: 0.15;
+}
+
+.cursor-text-hover {
+  width: 12px;
+  height: 12px;
+  background-color: #2F52E0;
+  opacity: 0.5;
+}
+
+.cursor-custom {
+  width: 72px;
+  height: 72px;
+  background-color: #1A1A1A;
+  opacity: 1;
+}

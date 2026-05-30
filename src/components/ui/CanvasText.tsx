@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 
 interface CanvasTextProps {
-    text: string;
+    texts: string[];
     className?: string;
 }
 
@@ -15,10 +15,14 @@ interface Particle {
     vy: number;
     size: number;
     alpha: number;
+    color: string;
+    active: boolean;
 }
 
+const GOOGLE_COLORS = ['#4285F4', '#EA4335', '#FBBC05', '#34A853', '#8B5CF6'];
+
 export default function CanvasText({ 
-    text = "BISWARANJAN", 
+    texts = ["BISWARANJAN", "FULL-STACK", "DEVELOPER", "SHAPE SHIFTER"], 
     className = "" 
 }: CanvasTextProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -38,71 +42,64 @@ export default function CanvasText({
         let particles: Particle[] = [];
         let mouse = { x: -9999, y: -9999 };
         let animId: number;
+        let currentTextIndex = 0;
+        let morphTimeout: NodeJS.Timeout;
 
         const config = {
-            radius: 100,
-            force: 10,
-            friction: 0.85,
-            returnSpeed: 0.06,
-            particleGap: 3,
+            radius: 120, // Mouse repulsion radius
+            force: 15, // Repulsion force
+            friction: 0.82,
+            returnSpeed: 0.08,
+            particleGap: 4, // Density
         };
 
         function getFontFamily(): string {
             const computed = window.getComputedStyle(document.body);
-            const displayFont = computed.getPropertyValue('--font-space-grotesk').replace(/['"]/g, '').trim();
-            return displayFont || 'system-ui, sans-serif';
+            const serifFont = computed.getPropertyValue('--font-playfair').replace(/['"]/g, '').trim();
+            return serifFont || 'Georgia, serif';
         }
 
-        function buildParticles() {
-            if (!canvasRef.current || !containerRef.current) return;
+        // Extracts target positions from text
+        function getTargetPositions(text: string): {x: number, y: number}[] {
+            const offscreen = document.createElement('canvas');
+            const octx = offscreen.getContext('2d', { willReadFrequently: true });
+            if (!octx) return [];
 
-            const ctx = canvasRef.current.getContext('2d', { willReadFrequently: true });
-            if (!ctx) return;
-
-            const W = containerRef.current.clientWidth;
-            const H = containerRef.current.clientHeight;
-
-            // Measure text to pick font size that fills ~95% of container width
-            const targetW = W * 0.95;
             let fontSize = 400;
             const fontFamily = getFontFamily();
+            const targetW = W * 0.95;
             
-            ctx.font = `900 ${fontSize}px ${fontFamily}`;
-            let metrics = ctx.measureText(text);
-            while (metrics.width > targetW && fontSize > 40) {
+            octx.font = `900 ${fontSize}px ${fontFamily}`;
+            let metrics = octx.measureText(text);
+            
+            // Shrink text until it fits width
+            while (metrics.width > targetW && fontSize > 20) {
                 fontSize -= 4;
-                ctx.font = `900 ${fontSize}px ${fontFamily}`;
-                metrics = ctx.measureText(text);
+                octx.font = `900 ${fontSize}px ${fontFamily}`;
+                metrics = octx.measureText(text);
             }
 
-            // Calculate dynamic vertical scale to fill 85% of container height (leaves tighter, punchy padding)
-            const baseH = fontSize * 0.85; // exact visual height of Space Grotesk caps
+            const baseH = fontSize * 0.85; 
             const targetH = H * 0.85; 
-            const scaleY = targetH / baseH; // Stretch or squish to perfectly match height without clipping
-
-            // Draw text to offscreen canvas to sample pixels
-            const offscreen = document.createElement('canvas');
-            const octx = offscreen.getContext('2d');
-            if (!octx) return;
+            const scaleY = targetH / baseH; 
 
             const ow = Math.ceil(metrics.width) + 20;
-            const oh = Math.ceil(baseH * scaleY) + 50; // Enough height to not clip
+            const oh = Math.ceil(baseH * scaleY) + 50;
             offscreen.width = ow;
             offscreen.height = oh;
 
-            // Fill with the foreground color (Deep Blue)
-            octx.fillStyle = '#0A1628';
+            octx.fillStyle = '#000';
             octx.font = `900 ${fontSize}px ${fontFamily}`;
             octx.textBaseline = 'top';
-            octx.scale(1, scaleY); // Stretch the text vertically
-            octx.fillText(text, 10, 0); // Draw EXACTLY at 0 so scaleY doesn't multiply the padding out of bounds!
-            octx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before get data
+            octx.scale(1, scaleY);
+            octx.fillText(text, 10, 0);
+            octx.setTransform(1, 0, 0, 1, 0, 0);
 
             const imageData = octx.getImageData(0, 0, ow, oh);
             const data = imageData.data;
             const gap = config.particleGap;
 
-            const rawParticles = [];
+            const targets = [];
             let minX = ow, maxX = 0;
             let minY = oh, maxY = 0;
 
@@ -110,7 +107,7 @@ export default function CanvasText({
                 for (let x = 0; x < ow; x += gap) {
                     const i = (y * ow + x) * 4;
                     if (data[i + 3] > 128) {
-                        rawParticles.push({ x, y });
+                        targets.push({ x, y });
                         if (x < minX) minX = x;
                         if (x > maxX) maxX = x;
                         if (y < minY) minY = y;
@@ -124,18 +121,58 @@ export default function CanvasText({
             const offsetX = (W - actualW) / 2 - minX;
             const offsetY = (H - actualH) / 2 - minY;
 
-            for (const rp of rawParticles) {
-                particles.push({
-                    homeX: offsetX + rp.x,
-                    homeY: offsetY + rp.y,
-                    x: offsetX + rp.x,
-                    y: offsetY + rp.y,
-                    vx: 0,
-                    vy: 0,
-                    size: gap * 0.8 + Math.random() * 0.4,
-                    alpha: 0.85 + Math.random() * 0.15,
-                });
+            return targets.map(t => ({
+                x: offsetX + t.x,
+                y: offsetY + t.y
+            }));
+        }
+
+        function morphToText(text: string) {
+            const newTargets = getTargetPositions(text);
+            
+            // Shuffle targets to make morphing chaotic and cool like Shape Shifter
+            newTargets.sort(() => Math.random() - 0.5);
+
+            // Match particles to targets
+            for (let i = 0; i < Math.max(particles.length, newTargets.length); i++) {
+                if (i < newTargets.length) {
+                    const target = newTargets[i];
+                    
+                    if (!particles[i]) {
+                        // Create new particle if we don't have enough
+                        particles[i] = {
+                            homeX: target.x,
+                            homeY: target.y,
+                            x: Math.random() * W, // Fly in from random spots
+                            y: Math.random() * H,
+                            vx: 0,
+                            vy: 0,
+                            size: config.particleGap * 0.8 + Math.random() * 0.4,
+                            alpha: 0.85 + Math.random() * 0.15,
+                            color: GOOGLE_COLORS[Math.floor(Math.random() * GOOGLE_COLORS.length)],
+                            active: true
+                        };
+                    } else {
+                        // Update existing particle's home to morph
+                        particles[i].homeX = target.x;
+                        particles[i].homeY = target.y;
+                        particles[i].active = true;
+                    }
+                } else {
+                    // We have more old particles than new targets, hide them by sending offscreen
+                    particles[i].active = false;
+                    particles[i].homeX = W / 2;
+                    particles[i].homeY = H + 200; // Drop out of bottom
+                }
             }
+        }
+
+        function loopMorphs() {
+            morphToText(texts[currentTextIndex]);
+            currentTextIndex = (currentTextIndex + 1) % texts.length;
+            
+            // Schedule next morph
+            morphTimeout = setTimeout(loopMorphs, 4000); // 4 seconds per word
         }
 
         function resize() {
@@ -148,7 +185,8 @@ export default function CanvasText({
             canvas!.style.width = W + 'px';
             canvas!.style.height = H + 'px';
             ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-            buildParticles();
+            
+            morphToText(texts[currentTextIndex === 0 ? texts.length - 1 : currentTextIndex - 1]);
         }
 
         function animate() {
@@ -156,22 +194,24 @@ export default function CanvasText({
 
             const mx = mouse.x;
             const my = mouse.y;
-            const radius = config.radius;
-            const radiusSq = radius * radius;
+            const radiusSq = config.radius * config.radius;
             const strength = config.force;
             const friction = config.friction;
             const returnSpeed = config.returnSpeed;
 
             for (let i = 0, len = particles.length; i < len; i++) {
                 const p = particles[i];
+                
+                // If inactive and far away, don't draw or calc to save perf
+                if (!p.active && p.y > H + 100) continue;
+
                 const dx = p.x - mx;
                 const dy = p.y - my;
                 const distSq = dx * dx + dy * dy;
 
                 if (distSq < radiusSq && mx > 0) {
                     const dist = Math.sqrt(distSq) || 1;
-                    const factor = (1 - dist / radius) * strength;
-                    // Repel effect
+                    const factor = (1 - dist / config.radius) * strength;
                     p.vx += (dx / dist) * factor;
                     p.vy += (dy / dist) * factor;
                 }
@@ -187,36 +227,20 @@ export default function CanvasText({
                 // Integrate
                 p.x += p.vx;
                 p.y += p.vy;
-            }
 
-            // Draw particles
-            for (let i = 0, len = particles.length; i < len; i++) {
-                const p = particles[i];
+                // Draw
                 const distFromHome = Math.sqrt((p.x - p.homeX) ** 2 + (p.y - p.homeY) ** 2);
-
-                // Color shifts: resting = Deep Blue, displaced = Electric Blue
-                if (distFromHome > 3) {
-                    const intensity = Math.min(1, distFromHome / 40);
-                    const r = Math.round(10 + (30 - 10) * intensity);
-                    const g = Math.round(22 + (111 - 22) * intensity);
-                    const b = Math.round(40 + (255 - 40) * intensity);
-                    ctx!.fillStyle = `rgba(${r}, ${g}, ${b}, ${p.alpha})`;
+                
+                ctx!.fillStyle = p.color;
+                if (distFromHome > 10 && p.active) {
+                    ctx!.shadowColor = p.color;
+                    ctx!.shadowBlur = 15;
                 } else {
-                    ctx!.fillStyle = `rgba(10, 22, 40, ${p.alpha})`;
+                    ctx!.shadowBlur = 0;
                 }
 
-                ctx!.fillRect(p.x, p.y, p.size, p.size);
-            }
-
-            // Draw cursor glow (subtle blue ring)
-            if (mx > 0) {
-                const grad = ctx!.createRadialGradient(mx, my, 0, mx, my, radius);
-                grad.addColorStop(0, 'rgba(30, 111, 255, 0.06)');
-                grad.addColorStop(0.6, 'rgba(30, 111, 255, 0.02)');
-                grad.addColorStop(1, 'rgba(30, 111, 255, 0)');
-                ctx!.fillStyle = grad;
                 ctx!.beginPath();
-                ctx!.arc(mx, my, radius, 0, Math.PI * 2);
+                ctx!.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
                 ctx!.fill();
             }
 
@@ -234,43 +258,30 @@ export default function CanvasText({
             mouse.y = -9999;
         };
 
-        const handleTouchMove = (e: TouchEvent) => {
-            const rect = canvas!.getBoundingClientRect();
-            mouse.x = e.touches[0].clientX - rect.left;
-            mouse.y = e.touches[0].clientY - rect.top;
-        };
-
-        const handleTouchEnd = () => {
-            mouse.x = -9999;
-            mouse.y = -9999;
-        };
-
         window.addEventListener('resize', resize);
         canvas.addEventListener('mousemove', handleMouseMove);
         canvas.addEventListener('mouseleave', handleMouseLeave);
-        canvas.addEventListener('touchmove', handleTouchMove, { passive: true });
-        canvas.addEventListener('touchend', handleTouchEnd);
 
-        // Initial setup — slight delay for fonts to load
+        // Initial setup
         setTimeout(() => {
             resize();
+            loopMorphs();
             animate();
         }, 150);
 
         return () => {
             cancelAnimationFrame(animId);
+            clearTimeout(morphTimeout);
             window.removeEventListener('resize', resize);
             canvas.removeEventListener('mousemove', handleMouseMove);
             canvas.removeEventListener('mouseleave', handleMouseLeave);
-            canvas.removeEventListener('touchmove', handleTouchMove);
-            canvas.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [text]);
+    }, [texts]);
 
     return (
         <div ref={containerRef} className={`relative w-full flex items-center justify-center ${className}`}>
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-10" />
-            <h1 className="sr-only">{text}</h1>
+            <h1 className="sr-only">{texts.join(' ')}</h1>
         </div>
     );
 }

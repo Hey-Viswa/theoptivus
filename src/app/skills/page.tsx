@@ -1,47 +1,32 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getAllSkills } from '@/lib/skills';
-import SkillCategorySection from '@/components/skills/SkillCategorySection';
-import { Skill, SkillCategory } from '@/types/skill';
+import { getSkills } from '@/lib/skills';
+import SkillsGrid from '@/components/skills/SkillsGrid';
+import DitherBackground from '@/components/ui/DitherBackground';
 
 export const metadata: Metadata = {
     title: 'Skills & Tech Stack | StudioFlow',
     description: 'A comprehensive list of the technologies and tools I use.',
 };
 
-// Revalidate every 60 seconds
 export const revalidate = 60;
 
 export default async function SkillsPage() {
-    const { skills } = await getAllSkills();
-
-    // Group skills by category
-    const categories: SkillCategory[] = ['Frontend', 'Backend', 'Database', 'DevOps', 'Mobile', 'Tools'];
-    const groupedSkills = categories.reduce((acc, category) => {
-        acc[category] = skills.filter(skill => skill.category === category);
-        return acc;
-    }, {} as Record<SkillCategory, Skill[]>);
+    const { skills } = await getSkills({});
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                        Tech Stack & Skills
+        <div className="relative min-h-screen bg-background flex flex-col">
+            <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
+                <DitherBackground className="w-full h-full" />
+            </div>
+            <div className="relative z-10 pt-32 pb-20 px-6 md:px-12 flex-1">
+                <div className="max-w-7xl mx-auto border border-foreground p-8 md:p-12 bg-background/80 backdrop-blur-sm">
+                    <h1 className="text-5xl md:text-7xl font-display font-black uppercase mb-12 text-center text-foreground border-b border-foreground/20 pb-12">
+                        Tech <span className="highlight-yellow text-foreground px-4 py-2">Stack</span>
                     </h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        The tools and technologies I use to build digital experiences.
-                    </p>
-                </div>
-
-                <div className="max-w-5xl mx-auto">
-                    {categories.map(category => (
-                        <SkillCategorySection
-                            key={category}
-                            title={category}
-                            skills={groupedSkills[category]}
-                        />
-                    ))}
+                    <div className="py-12">
+                        <SkillsGrid skills={skills} />
+                    </div>
                 </div>
             </div>
         </div>

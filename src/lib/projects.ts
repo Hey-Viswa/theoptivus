@@ -50,8 +50,10 @@ export async function getProjects(filter?: {
             }),
             total: response.total
         };
-    } catch (error) {
-        console.error('Error fetching projects:', error);
+    } catch (error: any) {
+        if (error.message !== 'APPWRITE_MISSING_CONFIG') {
+            console.error('Error fetching projects:', error);
+        }
         return { projects: [], total: 0 };
     }
 }
@@ -114,8 +116,10 @@ export async function getProjectBySlug(slug: string) {
         }
 
         return project;
-    } catch (error) {
-        console.error('Error fetching project:', error);
+    } catch (error: any) {
+        if (error.message !== 'APPWRITE_MISSING_CONFIG') {
+            console.error('Error fetching project:', error);
+        }
         return null;
     }
 }
@@ -131,8 +135,10 @@ export async function getAllProjectSlugs() {
             ]
         );
         return response.documents.map((doc) => doc.slug as string);
-    } catch (error) {
-        console.error('Error fetching project slugs:', error);
+    } catch (error: any) {
+        if (error.message !== 'APPWRITE_MISSING_CONFIG') {
+            console.error('Error fetching project slugs:', error);
+        }
         return [];
     }
 }

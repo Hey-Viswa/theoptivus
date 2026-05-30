@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import gsap from 'gsap';
+import DitherBackground from '@/components/ui/DitherBackground';
 
 const contactFormSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -107,9 +108,14 @@ export default function ContactPage() {
     // Tailwind handles focus states natively via focus:border-accent
 
     return (
-        <div className="min-h-screen pt-32 pb-20 px-6 flex items-center bg-background">
-            <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20">
-                <div>
+        <div className="relative min-h-screen bg-background">
+            <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
+                <DitherBackground className="w-full h-full" />
+            </div>
+            
+            <div className="relative z-10 pt-32 pb-20 px-6 flex items-center min-h-screen">
+                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20 bg-background/90 backdrop-blur-md border border-foreground p-8 md:p-12 lg:p-16">
+                    <div>
                     <span className="font-mono text-sm uppercase tracking-widest text-foreground/50 mb-6 block">04 // CONTACT</span>
                     <h1 className="text-7xl md:text-[10rem] font-display font-black mb-12 leading-none tracking-tight text-foreground border-b border-foreground pb-12">
                         Let's <br className="hidden md:block"/><span className="highlight-blue text-surface">talk</span>
@@ -225,6 +231,7 @@ export default function ContactPage() {
                             </button>
                         </form>
                     )}
+                </div>
                 </div>
             </div>
         </div>

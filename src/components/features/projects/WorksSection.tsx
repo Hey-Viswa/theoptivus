@@ -12,17 +12,34 @@ export default function WorksSection({ projects }: WorksSectionProps) {
 
     return (
         <section id="works" className="px-6 md:px-12 bg-background flex flex-col mt-0">
-            <div className="flex-1 w-full grid-border-x grid-border-b relative">
+            <div className="flex-1 w-full grid-border-x grid-border-t grid-border-b relative">
                 <div className="grid grid-cols-1 lg:grid-cols-12 min-h-screen">
-                    {/* Left Column: Sticky Title */}
-                    <div className="lg:col-span-4 p-8 md:p-12 lg:border-r border-foreground bg-accent text-background relative flex flex-col">
-                        <div className="sticky top-32">
-                            <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">02 // PORTFOLIO</span>
-                            <h2 className="text-6xl md:text-[6rem] font-display font-black mb-8 tracking-tight leading-[0.9] text-background uppercase border-b border-background/20 pb-12">
-                                Selected<br/><span className="font-serif italic normal-case font-normal text-5xl md:text-[6.5rem]">work</span>
-                            </h2>
-                            <div className="text-2xl md:text-3xl text-background font-sans leading-relaxed max-w-md mt-6">
-                                <span>A curated selection of projects that showcase <span className="italic font-serif font-normal">full-stack thinking</span> and <span className="italic font-serif font-normal">engineering precision</span>.</span>
+                    {/* Left Column: Stacked Text and Image Boxes */}
+                    <div className="lg:col-span-4 lg:border-r border-foreground flex flex-col">
+                        {/* Text Box */}
+                        <div className="p-8 md:p-12 border-b border-foreground h-auto flex flex-col justify-end bg-accent text-background">
+                            <div className="sticky top-32">
+                                <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">02 // PORTFOLIO</span>
+                                <h2 className="text-6xl md:text-[6rem] font-display font-black mb-8 tracking-tight leading-[0.9] text-background uppercase border-b border-background/20 pb-12">
+                                    Selected<br/><span className="font-serif italic normal-case font-normal text-5xl md:text-[6.5rem]">work</span>
+                                </h2>
+                                <div className="text-2xl md:text-3xl text-background font-sans leading-relaxed max-w-md mt-6">
+                                    <span>A curated selection of projects that showcase <span className="highlight-yellow italic font-serif font-normal text-foreground">full-stack thinking</span> and <span className="highlight-blue italic font-serif font-normal text-background">engineering precision</span>.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Image Box */}
+                        <div className="flex-1 p-8 md:p-12 bg-surface-alt/10 flex items-center justify-center relative overflow-visible z-10 text-foreground min-h-[400px]">
+                            <div className="w-full max-w-[400px] md:max-w-[600px] relative aspect-square md:scale-150 origin-center transition-transform duration-500">
+                                <Image 
+                                    src="/images/caliper.png" 
+                                    alt="Precision Caliper" 
+                                    fill
+                                    priority
+                                    unoptimized
+                                    className="object-contain drop-shadow-xl"
+                                />
                             </div>
                         </div>
                     </div>

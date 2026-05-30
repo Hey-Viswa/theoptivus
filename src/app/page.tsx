@@ -20,7 +20,7 @@ export default async function Home() {
       <section id="featured-skills" className="px-6 md:px-12 bg-background flex flex-col">
         <div className="flex-1 w-full grid-border flex flex-col items-center justify-center pt-20 px-8 relative">
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-20 text-center text-foreground uppercase tracking-tight">
-            My Tech Stack
+            My <span className="highlight-yellow text-foreground px-4 py-2">Tech Stack</span>
           </h2>
 
           <div className="w-full max-w-7xl mx-auto mb-20">

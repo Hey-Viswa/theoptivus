@@ -1,124 +1,87 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { useEffect, useRef, useCallback } from 'react';
 
 export default function Cursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
-    const [cursorText, setCursorText] = useState('');
+    const textRef = useRef<HTMLSpanElement>(null);
+    const pos = useRef({ x: 0, y: 0 });
+    const lastTarget = useRef<EventTarget | null>(null);
+    const rafId = useRef<number>(0);
+
+    // Direct transform — no GSAP, no interpolation, no lag
+    const updatePosition = useCallback(() => {
+        if (cursorRef.current) {
+            cursorRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0) translate(-50%, -50%)`;
+        }
+    }, []);
 
     useEffect(() => {
         const cursor = cursorRef.current;
-        if (!cursor) return;
+        const textEl = textRef.current;
+        if (!cursor || !textEl) return;
 
-        const xTo = gsap.quickTo(cursor, "x", { duration: 0.01, ease: "none" });
-        const yTo = gsap.quickTo(cursor, "y", { duration: 0.01, ease: "none" });
-
-        gsap.set(cursor, { xPercent: -50, yPercent: -50 });
-
-        const moveCursor = (e: MouseEvent) => {
-            xTo(e.clientX);
-            yTo(e.clientY);
+        // State classes for cursor modes
+        const resetCursor = () => {
+            cursor.className = 'cursor-dot cursor-default';
+            textEl.textContent = '';
         };
 
-        window.addEventListener('mousemove', moveCursor);
+        const handleMouseMove = (e: MouseEvent) => {
+            pos.current.x = e.clientX;
+            pos.current.y = e.clientY;
 
-        const handleMouseOver = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            const isClickable = target.closest('a, button, [role="button"], input[type="submit"], input[type="button"]');
-            const isText = target.closest('p, h1, h2, h3, h4, h5, h6, span, input[type="text"], textarea');
-            const customCursor = target.getAttribute('data-cursor');
+            // Only recompute cursor style if target element changed
+            if (e.target !== lastTarget.current) {
+                lastTarget.current = e.target;
+                const target = e.target as HTMLElement;
+                const customCursor = target.getAttribute?.('data-cursor');
 
-            if (customCursor && customCursor !== 'Pointer') {
-                setCursorText(customCursor);
-                gsap.to(cursor, {
-                    height: '12px',
-                    width: '12px',
-                    borderRadius: '50%',
-                    scale: 6,
-                    backgroundColor: '#1A1A1A', // foreground
-                    mixBlendMode: 'normal',
-                    opacity: 1,
-                    duration: 0.2
-                });
-            } else if (isClickable || customCursor === 'Pointer') {
-                setCursorText('');
-                gsap.to(cursor, {
-                    height: '12px',
-                    width: '12px',
-                    borderRadius: '50%',
-                    scale: 4,
-                    backgroundColor: '#2F52E0', // accent
-                    mixBlendMode: 'normal',
-                    opacity: 0.15, // transparent aura
-                    duration: 0.2
-                });
-            } else if (isText) {
-                setCursorText('');
-                gsap.to(cursor, {
-                    height: '12px',
-                    width: '12px',
-                    borderRadius: '50%',
-                    scale: 1, // subtle change for text
-                    backgroundColor: '#2F52E0', // vibrant blue pointer
-                    mixBlendMode: 'normal',
-                    opacity: 0.5,
-                    duration: 0.2
-                });
-            } else {
-                setCursorText('');
-                gsap.to(cursor, {
-                    height: '12px',
-                    width: '12px',
-                    borderRadius: '50%',
-                    scale: 1,
-                    backgroundColor: '#1A1A1A', // solid foreground
-                    mixBlendMode: 'normal',
-                    opacity: 1,
-                    duration: 0.2
-                });
+                if (customCursor && customCursor !== 'Pointer') {
+                    cursor.className = 'cursor-dot cursor-custom';
+                    textEl.textContent = customCursor;
+                } else if (customCursor === 'Pointer' || target.closest?.('a, button, [role="button"]')) {
+                    cursor.className = 'cursor-dot cursor-clickable';
+                    textEl.textContent = '';
+                } else if (target.closest?.('p, h1, h2, h3, h4, h5, h6, span, textarea')) {
+                    cursor.className = 'cursor-dot cursor-text-hover';
+                    textEl.textContent = '';
+                } else {
+                    resetCursor();
+                }
             }
+
+            // Schedule position update on next frame
+            cancelAnimationFrame(rafId.current);
+            rafId.current = requestAnimationFrame(updatePosition);
         };
 
-        const handleMouseOut = () => {
-            setCursorText('');
-            gsap.to(cursor, {
-                height: '12px',
-                width: '12px',
-                borderRadius: '50%',
-                scale: 1,
-                backgroundColor: '#1A1A1A',
-                mixBlendMode: 'normal',
-                opacity: 1,
-                duration: 0.2
-            });
+        const handleMouseLeave = () => {
+            cursor.style.opacity = '0';
         };
 
-        window.addEventListener('mouseover', handleMouseOver);
-        window.addEventListener('mouseout', handleMouseOut);
+        const handleMouseEnter = () => {
+            cursor.style.opacity = '1';
+        };
+
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+        document.documentElement.addEventListener('mouseleave', handleMouseLeave);
+        document.documentElement.addEventListener('mouseenter', handleMouseEnter);
 
         return () => {
-            window.removeEventListener('mousemove', moveCursor);
-            window.removeEventListener('mouseover', handleMouseOver);
-            window.removeEventListener('mouseout', handleMouseOut);
+            window.removeEventListener('mousemove', handleMouseMove);
+            document.documentElement.removeEventListener('mouseleave', handleMouseLeave);
+            document.documentElement.removeEventListener('mouseenter', handleMouseEnter);
+            cancelAnimationFrame(rafId.current);
         };
-    }, []);
+    }, [updatePosition]);
 
     return (
         <div
             ref={cursorRef}
-            className="hidden md:flex fixed top-0 left-0 w-3 h-3 rounded-full pointer-events-none z-[10001] items-center justify-center"
-            style={{
-                backgroundColor: '#0A1628',
-                backfaceVisibility: 'hidden',
-                WebkitFontSmoothing: 'antialiased',
-                transform: 'translateZ(0)'
-            }}
+            className="cursor-dot cursor-default"
+            style={{ opacity: 1, display: 'flex' }}
         >
-            {cursorText && (
-                <span className="text-[3px] font-bold uppercase tracking-widest text-white">
-                    {cursorText}
-                </span>
-            )}
+            <span ref={textRef} className="cursor-dot-text" />
         </div>
     );
 }
