@@ -19,13 +19,13 @@ export default function Hero() {
                 />
 
                 {/* Subtitle Section (Top of grid) */}
-                <div className="grid-border-b p-8 flex flex-col md:flex-row justify-between items-start md:items-center relative z-20 animate-gentle-in bg-surface">
-                    <p className="text-xl md:text-2xl text-foreground font-mono uppercase tracking-widest font-bold">
-                        Full-Stack <span className="text-accent">Developer</span>
+                <div className="grid-border-b p-8 flex flex-col md:flex-row justify-between items-start md:items-center relative z-20 animate-gentle-in bg-[#FFE600] text-foreground">
+                    <p className="text-xl md:text-2xl font-mono uppercase tracking-widest font-bold">
+                        Full-Stack Developer
                     </p>
                     <div className="flex items-center gap-4 mt-4 md:mt-0 font-mono text-sm md:text-base uppercase text-foreground">
                         <span>Systems Builder</span>
-                        <span className="w-2 h-2 bg-accent" />
+                        <span className="w-2 h-2 bg-foreground" />
                         <span>Creator</span>
                     </div>
                 </div>
