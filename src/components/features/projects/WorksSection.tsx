@@ -25,14 +25,14 @@ export default function WorksSection({ projects }: WorksSectionProps) {
             <div className="flex-1 w-full grid-border-x grid-border-b relative">
                 <div className="grid grid-cols-1 lg:grid-cols-12 min-h-screen">
                     {/* Left Column: Sticky Title */}
-                    <div className="lg:col-span-4 p-8 md:p-12 lg:border-r border-foreground bg-[#FF5E5E]/5 relative">
+                    <div className="lg:col-span-4 p-8 md:p-12 lg:border-r border-foreground bg-[#FF5E5E] text-background relative">
                         <div className="sticky top-32">
-                            <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">02 // PORTFOLIO</span>
-                            <h2 className="text-6xl md:text-[6rem] font-display font-black mb-8 tracking-tight leading-[0.9] text-foreground uppercase border-b border-foreground/20 pb-12">
+                            <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">02 // PORTFOLIO</span>
+                            <h2 className="text-6xl md:text-[6rem] font-display font-black mb-8 tracking-tight leading-[0.9] text-background uppercase border-b border-background/20 pb-12">
                                 Selected<br/>work
                             </h2>
-                            <div className="text-xl text-foreground font-sans leading-relaxed max-w-sm">
-                                <span>A curated selection of projects that showcase <span className="highlight-blue text-surface">full-stack thinking</span> and <span className="highlight-yellow">engineering precision</span>.</span>
+                            <div className="text-xl text-background font-sans leading-relaxed max-w-sm">
+                                <span>A curated selection of projects that showcase <span className="highlight-blue text-foreground">full-stack thinking</span> and <span className="highlight-yellow text-foreground">engineering precision</span>.</span>
                             </div>
                         </div>
                     </div>

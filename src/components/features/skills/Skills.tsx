@@ -65,11 +65,11 @@ export default function Skills() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {sortedCategories.map((category, index) => {
                         const colorClasses = [
-                            'bg-accent/5', 
-                            'bg-[#FFE600]/10', 
-                            'bg-[#FF5E5E]/5', 
-                            'bg-[#00E5FF]/5',
-                            'bg-[#9D00FF]/5'
+                            'bg-accent text-background', 
+                            'bg-[#FFE600] text-foreground', 
+                            'bg-[#FF5E5E] text-background', 
+                            'bg-[#00FF66] text-foreground',
+                            'bg-[#9D00FF] text-background'
                         ];
                         const bgClass = colorClasses[index % colorClasses.length];
                         
@@ -80,8 +80,8 @@ export default function Skills() {
                         >
                             {/* Category Header */}
                             <div className="flex items-center gap-2.5 mb-6">
-                                <div className="w-2 h-2 rounded-full bg-accent" />
-                                <h3 className="text-sm font-display font-bold tracking-wide text-foreground uppercase">
+                                <div className="w-2 h-2 rounded-full bg-current" />
+                                <h3 className="text-sm font-display font-bold tracking-wide uppercase text-current">
                                     {category}
                                 </h3>
                             </div>
@@ -96,10 +96,10 @@ export default function Skills() {
                                     return (
                                         <div
                                             key={skill.$id}
-                                            className="flex items-center gap-2 px-3 py-2 bg-surface-alt border border-foreground hover:bg-accent transition-all duration-200 group"
+                                            className="flex items-center gap-2 px-3 py-2 bg-background text-foreground border border-foreground hover:bg-foreground hover:text-background transition-all duration-200 group"
                                         >
                                             {iconUrl ? (
-                                                <div className="relative w-4 h-4 flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
+                                                <div className="relative w-4 h-4 flex-shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
                                                     <Image
                                                         src={iconUrl}
                                                         alt={skill.name}
@@ -108,11 +108,11 @@ export default function Skills() {
                                                     />
                                                 </div>
                                             ) : (
-                                                <div className="w-4 h-4 flex-shrink-0 bg-accent/10 flex items-center justify-center text-[8px] font-bold text-accent group-hover:bg-surface/20 group-hover:text-surface">
+                                                <div className="w-4 h-4 flex-shrink-0 bg-foreground/10 flex items-center justify-center text-[8px] font-bold group-hover:bg-background/20">
                                                     {skill.name.substring(0, 2).toUpperCase()}
                                                 </div>
                                             )}
-                                            <span className="text-xs font-medium font-mono text-foreground group-hover:text-surface transition-colors">
+                                            <span className="text-xs font-medium font-mono transition-colors">
                                                 {skill.name}
                                             </span>
                                         </div>

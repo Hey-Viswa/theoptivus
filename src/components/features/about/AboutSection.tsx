@@ -8,17 +8,17 @@ export default function AboutSection() {
             <div className="flex-1 w-full grid-border-x grid-border-b flex flex-col relative">
                 {/* Intro Section */}
                 <div id="about" className="grid grid-cols-1 md:grid-cols-12 scroll-mt-32 border-b border-foreground">
-                    <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-[#9D00FF]/5">
-                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">01 // ABOUT</span>
-                        <h2 className="text-6xl md:text-[6rem] font-display font-black mb-12 leading-[1.05] tracking-tight text-foreground">
+                    <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-[#9D00FF] text-background">
+                        <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">01 // ABOUT</span>
+                        <h2 className="text-6xl md:text-[6rem] font-display font-black mb-12 leading-[1.05] tracking-tight text-background">
                             Building systems <br className="hidden md:block" />
-                            from the <span className="highlight-blue text-surface">ground up</span>
+                            from the <span className="highlight-yellow text-foreground">ground up</span>
                         </h2>
-                        <div className="text-2xl md:text-4xl text-foreground font-sans leading-relaxed max-w-4xl">
-                            <span>Biswaranjan was built for projects that got <span className="highlight-yellow">tired of waiting</span>—for scaling, for deployment, for progress. <span className="highlight-red">I move fast</span>, think sharp. Architecture should be <span className="highlight-yellow">compliant, bug-proof, and instant</span> — and that’s <span className="highlight-blue text-surface">exactly what I deliver</span>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <span className="highlight-red text-surface">And I earn it daily.</span></span>
+                        <div className="text-2xl md:text-4xl text-background font-sans leading-relaxed max-w-4xl">
+                            <span>Biswaranjan was built for projects that got <span className="highlight-yellow text-foreground">tired of waiting</span>—for scaling, for deployment, for progress. <span className="highlight-red text-foreground">I move fast</span>, think sharp. Architecture should be <span className="highlight-yellow text-foreground">compliant, bug-proof, and instant</span> — and that’s <span className="highlight-blue text-foreground">exactly what I deliver</span>. While others drag their feet, I'm rewriting the codebase. Trust isn’t given. It’s earned. <span className="highlight-red text-foreground">And I earn it daily.</span></span>
                         </div>
                     </div>
-                    <div className="md:col-span-4 relative flex items-center justify-center p-8 md:p-12 overflow-hidden bg-[#FFE600]/10">
+                    <div className="md:col-span-4 relative flex items-center justify-center p-8 md:p-12 overflow-hidden bg-[#FFE600]">
                         <div className="w-full relative aspect-square max-w-[600px] scale-125 md:scale-150 rotate-[30deg] origin-center transition-transform duration-1000 group">
                             <Image
                                 src="/images/gears.png"
@@ -41,9 +41,9 @@ export default function AboutSection() {
                     
                     {/* Experience Section */}
                     <div className="grid grid-cols-1 md:grid-cols-12 border-b border-foreground">
-                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-[#00FF66]/5">
-                            <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4 block">02 // CAREER</span>
-                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight text-foreground uppercase">
+                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-[#00FF66] text-background">
+                            <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">02 // CAREER</span>
+                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight text-background uppercase">
                                 Experience
                             </h2>
                         </div>
@@ -86,10 +86,10 @@ export default function AboutSection() {
                     </div>
 
                     {/* Education Section */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 bg-[#FF00E5]/5">
+                    <div className="grid grid-cols-1 md:grid-cols-12 bg-[#FF00E5] text-background">
                         <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground">
-                            <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4 block">03 // ACADEMICS</span>
-                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight text-foreground uppercase">
+                            <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">03 // ACADEMICS</span>
+                            <h2 className="text-5xl md:text-7xl font-display font-black mb-12 tracking-tight text-background uppercase">
                                 Education
                             </h2>
                         </div>

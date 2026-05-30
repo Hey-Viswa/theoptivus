@@ -43,43 +43,43 @@ export default function Hero() {
 
                 {/* Summary & Core Expertise (Matching About Section Aesthetic) */}
                 <div className="grid grid-cols-1 md:grid-cols-12 bg-background">
-                    <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-accent/5">
-                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">01 // SUMMARY</span>
-                        <h2 className="text-4xl md:text-[4rem] font-display font-black mb-8 leading-[1.05] tracking-tight text-foreground uppercase">
-                            Building <span className="highlight-blue text-surface">production-grade</span> SaaS <br className="hidden xl:block" />
+                    <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-accent text-background">
+                        <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-8 block">01 // SUMMARY</span>
+                        <h2 className="text-4xl md:text-[4rem] font-display font-black mb-8 leading-[1.05] tracking-tight text-background uppercase">
+                            Building <span className="highlight-yellow text-foreground">production-grade</span> SaaS <br className="hidden xl:block" />
                             and modern web apps.
                         </h2>
-                        <div className="text-xl md:text-2xl text-foreground font-sans leading-relaxed max-w-4xl">
-                            <span>Strong engineering foundation in <span className="highlight-yellow">Android Development</span> and the <span className="highlight-yellow">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-red text-surface">compliant, bug-proof, and instant</span>.</span>
+                        <div className="text-xl md:text-2xl text-background font-sans leading-relaxed max-w-4xl">
+                            <span>Strong engineering foundation in <span className="highlight-yellow text-foreground">Android Development</span> and the <span className="highlight-yellow text-foreground">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-red text-foreground">compliant, bug-proof, and instant</span>.</span>
                         </div>
                     </div>
-                    <div className="md:col-span-4 p-8 md:p-12 bg-[#FFE600]/10 flex flex-col justify-center">
-                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">CORE EXPERTISE</span>
-                        <div className="text-2xl md:text-4xl font-display font-bold text-foreground flex flex-col gap-4">
-                            <span className="border-b border-foreground/10 pb-4">Android</span>
-                            <span className="italic font-serif border-b border-foreground/10 pb-4">MERN Stack</span>
-                            <span className="border-b border-foreground/10 pb-4">System Design</span>
-                            <span className="font-mono text-lg bg-surface-alt border border-foreground px-4 py-2 w-fit mt-2">Full-Stack SaaS</span>
+                    <div className="md:col-span-4 p-8 md:p-12 bg-[#FFE600] text-foreground flex flex-col justify-center">
+                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-8 block">CORE EXPERTISE</span>
+                        <div className="text-2xl md:text-4xl font-display font-black text-foreground flex flex-col gap-4">
+                            <span className="border-b border-foreground/20 pb-4">Android</span>
+                            <span className="italic font-serif border-b border-foreground/20 pb-4">MERN Stack</span>
+                            <span className="border-b border-foreground/20 pb-4">System Design</span>
+                            <span className="font-mono text-lg bg-background text-foreground border border-foreground px-4 py-2 w-fit mt-2 uppercase font-bold tracking-widest">Full-Stack SaaS</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Availability Bar (Bottom of grid) */}
                 <div className="border-t border-foreground flex justify-between items-stretch relative z-10 bg-surface h-16 md:h-20">
-                    <div className="flex-1 border-r border-foreground flex items-center justify-center">
-                         <span className="text-xs md:text-sm font-mono uppercase text-foreground/50 tracking-widest hidden md:block">Status</span>
-                         <span className="text-xs font-mono uppercase text-foreground/50 tracking-widest md:hidden">01</span>
+                    <div className="flex-1 border-r border-foreground flex items-center justify-center bg-foreground text-background">
+                         <span className="text-xs md:text-sm font-mono uppercase tracking-widest hidden md:block">Status</span>
+                         <span className="text-xs font-mono uppercase tracking-widest md:hidden">01</span>
                     </div>
-                    <div className="flex-[4] flex items-center justify-center bg-accent/5">
+                    <div className="flex-[4] flex items-center justify-center bg-[#00FF66] text-foreground">
                         <div className="flex items-center gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                            <span className="text-xs md:text-sm font-display font-bold uppercase tracking-[0.2em] text-foreground">
+                            <div className="w-2 h-2 rounded-full bg-foreground"></div>
+                            <span className="text-xs md:text-sm font-display font-black uppercase tracking-[0.2em]">
                                 Currently Available for Freelance
                             </span>
                         </div>
                     </div>
-                    <div className="flex-1 border-l border-foreground flex items-center justify-center">
-                         <span className="text-xs md:text-sm font-mono uppercase text-foreground/50 tracking-widest">2026</span>
+                    <div className="flex-1 border-l border-foreground flex items-center justify-center bg-foreground text-background">
+                         <span className="text-xs md:text-sm font-mono uppercase tracking-widest">2026</span>
                     </div>
                 </div>
             </div>
