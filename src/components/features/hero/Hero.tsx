@@ -43,7 +43,7 @@ export default function Hero() {
 
                 {/* Summary & Core Expertise (Matching About Section Aesthetic) */}
                 <div className="grid grid-cols-1 md:grid-cols-12 bg-background">
-                    <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground">
+                    <div className="md:col-span-8 p-8 md:p-12 md:border-r border-foreground bg-accent/5">
                         <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">01 // SUMMARY</span>
                         <h2 className="text-4xl md:text-[4rem] font-display font-black mb-8 leading-[1.05] tracking-tight text-foreground uppercase">
                             Building <span className="highlight-blue text-surface">production-grade</span> SaaS <br className="hidden xl:block" />
@@ -53,7 +53,7 @@ export default function Hero() {
                             <span>Strong engineering foundation in <span className="highlight-yellow">Android Development</span> and the <span className="highlight-yellow">MERN Stack</span>. I build full-stack architectures that are <span className="highlight-red text-surface">compliant, bug-proof, and instant</span>.</span>
                         </div>
                     </div>
-                    <div className="md:col-span-4 p-8 md:p-12 bg-surface-alt/10 flex flex-col justify-center">
+                    <div className="md:col-span-4 p-8 md:p-12 bg-[#FFE600]/10 flex flex-col justify-center">
                         <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-8 block">CORE EXPERTISE</span>
                         <div className="text-2xl md:text-4xl font-display font-bold text-foreground flex flex-col gap-4">
                             <span className="border-b border-foreground/10 pb-4">Android</span>
