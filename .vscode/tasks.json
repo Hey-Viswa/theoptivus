@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Next.js dev server (WSL)",
+			"type": "shell",
+			"command": "wsl",
+			"args": [
+				"-e",
+				"bash",
+				"-lc",
+				"cd /mnt/c/Users/agent/projects/theoptivus && WATCHPACK_POLLING=true CHOKIDAR_USEPOLLING=true npm run dev --webpack"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run Next.js dev server (PowerShell)",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

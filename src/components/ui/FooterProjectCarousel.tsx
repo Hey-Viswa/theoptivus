@@ -76,7 +76,7 @@ export default function FooterProjectCarousel() {
                 {displayProjects.map((project, index) => (
                     <Link
                         key={`${project.$id}-${index}`}
-                        href={`/projects/${project.slug}`}
+                        href={`/work/${project.slug}`}
                         className="relative w-[300px] h-[200px] md:w-[400px] md:h-[250px] flex-shrink-0 rounded-lg overflow-hidden group"
                         data-cursor="View"
                     >

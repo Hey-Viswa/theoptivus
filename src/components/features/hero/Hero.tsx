@@ -1,14 +1,14 @@
-import DitherBackground from '@/components/ui/DitherBackground';
 import CanvasText from '@/components/ui/CanvasText';
+import DitherBackground from '@/components/ui/DitherBackground';
 
 export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative min-h-screen flex flex-col bg-background overflow-hidden"
+            className="relative min-h-screen flex flex-col overflow-hidden bg-background"
         >
-            {/* ── WebGL Bayer Dithering Background ── */}
-            <div className="absolute inset-0 z-0 opacity-100">
+            {/* ── Dither effect — hero only ── */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
                 <DitherBackground className="w-full h-full" />
             </div>
 
@@ -36,17 +36,18 @@ export default function Hero() {
             </div>
 
             {/* ── Bottom bar ── */}
-            <div className="relative z-[2] mx-6 md:mx-12">
-                <div className="border-t border-foreground/20 flex items-center justify-between py-5 px-4 md:px-8">
-                    <span className="font-mono text-xs uppercase tracking-widest text-foreground/40">Full-Stack Developer</span>
-                    <div className="flex items-center gap-4 font-mono text-xs uppercase text-foreground/40">
+            <div className="relative z-[2] w-full">
+                <div className="border-y border-foreground bg-foreground text-background flex items-center justify-between py-5 px-6 md:px-12 shadow-2xl">
+                    <span className="font-mono text-xs uppercase tracking-widest font-bold">Full-Stack Developer</span>
+                    <div className="flex items-center gap-4 font-mono text-xs uppercase font-bold">
                         <span>Systems Builder</span>
-                        <span className="w-1.5 h-1.5 bg-accent rounded-full" />
+                        <span className="w-2 h-2 bg-background rounded-full" />
                         <span>Creator</span>
                     </div>
-                    <span className="font-mono text-xs uppercase tracking-widest text-foreground/40">Available for Freelance</span>
+                    <span className="font-mono text-xs uppercase tracking-widest font-bold">Available for Freelance</span>
                 </div>
             </div>
         </section>
     );
 }
+

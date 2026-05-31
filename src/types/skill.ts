@@ -1,9 +1,8 @@
-import { Models } from 'appwrite';
-
-export type SkillCategory = 'Frontend' | 'Backend' | 'Mobile' | 'DevOps' | 'Database' | 'Tools';
+export type SkillCategory = 'Languages' | 'Frameworks' | 'BlockChain' | 'Databases' | 'Cloud' | 'Tools' | 'Concepts';
 export type SkillLevel = 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
 
-export interface Skill extends Models.Document {
+export interface Skill {
+    $id?: string;
     name: string;
     slug: string;
     category: SkillCategory;

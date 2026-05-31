@@ -1,7 +1,95 @@
-import { Query } from 'node-appwrite';
-import { createAdminClient } from '@/lib/server/appwrite';
-import { COLLECTIONS, DATABASE_ID } from '@/lib/appwrite';
 import { Project } from '@/types/project';
+
+const RESUME_PROJECTS: Project[] = [
+    {
+        $id: 'proj_studioflow',
+        $collectionId: 'projects',
+        $databaseId: 'main',
+        $createdAt: new Date().toISOString(),
+        $updatedAt: new Date().toISOString(),
+        $permissions: [],
+        $sequence: 0,
+        title: 'StudioFlow',
+        slug: 'studioflow',
+        shortDescription: 'Production-grade SaaS platform to manage projects, revisions, invoices, and workflows.',
+        content: 'Built a production-grade SaaS platform to manage projects, revisions, invoices, and client workflows. Built with MERN, REST APIs, WebSockets, Redis, and Razorpay for real-time collaboration and payments. Deployed on Vercel/Railway with AWS S3 and RBAC-based access control.',
+        techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'REST APIs', 'WebSockets', 'Redis', 'Razorpay', 'AWS S3'],
+        thumbnail: '/projects/studioflow/thumbnail.png',
+        galleryImages: [
+            '/projects/studioflow/dashboard.png',
+            '/projects/studioflow/invoice.png',
+            '/projects/studioflow/rbac.png',
+            '/projects/studioflow/files.png',
+        ],
+        techCategories: [
+            { category: 'Frontend', technologies: ['React', 'Tailwind CSS', 'Shadcn UI'] },
+            { category: 'Backend', technologies: ['Node.js', 'Express', 'MongoDB'] },
+            { category: 'Real-time', technologies: ['Socket.IO'] },
+            { category: 'Job Queue', technologies: ['Redis', 'BullMQ'] },
+            { category: 'Payments', technologies: ['Razorpay'] },
+            { category: 'Storage', technologies: ['AWS S3'] }
+        ],
+        repoUrl: 'https://github.com/Hey-Viswa/StudioFlow',
+        liveUrl: 'https://www.studioflow.studio/',
+        published: true,
+        featured: true,
+        entitlementRequired: false,
+        date: '2025-10-01'
+    },
+    {
+        $id: 'proj_civiclens',
+        $collectionId: 'projects',
+        $databaseId: 'main',
+        $createdAt: new Date().toISOString(),
+        $updatedAt: new Date().toISOString(),
+        $permissions: [],
+        $sequence: 0,
+        title: 'CivicLens',
+        slug: 'civiclens',
+        shortDescription: 'AI civic platform for SIH 2025 with JWT authentication and real-time updates.',
+        content: 'Backend engineer for SIH 2025 civic issue platform. Built JWT-based authentication (3 roles), REST APIs, and real-time updates using Socket.io. Implemented AI-based issue classification using OpenAI API and designed MongoDB data models.',
+        techStack: ['Node.js', 'Express', 'MongoDB', 'OpenAI API', 'Socket.io', 'AWS S3', 'JWT'],
+        thumbnail: '/projects/civiclens/civichome.png',
+        galleryImages: [
+            '/projects/civiclens/civicdashboard.png',
+            '/projects/civiclens/civicstatus.png',
+            '/projects/civiclens/civicresolved.png',
+            '/projects/civiclens/civiclogin.png'
+        ],
+        repoUrl: 'https://github.com/Hey-Viswa/optimum-ho-solution.git',
+        published: true,
+        featured: true,
+        entitlementRequired: false,
+        date: '2025-01-01'
+    },
+    {
+        $id: 'proj_propchain',
+        $collectionId: 'projects',
+        $databaseId: 'main',
+        $createdAt: new Date().toISOString(),
+        $updatedAt: new Date().toISOString(),
+        $permissions: [],
+        $sequence: 0,
+        title: 'PropChain',
+        slug: 'propchain',
+        shortDescription: '[UNDER DEVELOPMENT] Blockchain-based property registry system with NFT ownership.',
+        content: '[UNDER DEVELOPMENT] Blockchain-based property registry system with NFT ownership and role-based access. Implemented wallet integration, authentication logic, and data models with focus on frontend architecture and user experience.',
+        techStack: ['Next.js 15', 'TypeScript', 'Solidity', 'Hardhat', 'Polygon', 'wagmi', 'viem', 'Clerk', 'MongoDB Atlas', 'Tailwind CSS', 'shadcn/ui', 'Zustand', 'ERC-721', 'Smart Contracts', 'MetaMask'],
+        thumbnail: '/projects/propchain/home.png',
+        galleryImages: [
+            '/projects/propchain/dashboard.png',
+            '/projects/propchain/mini.png',
+            '/projects/propchain/network.png',
+            '/projects/propchain/portfolio.png',
+            '/projects/propchain/property.png'
+        ],
+        repoUrl: 'https://github.com/Hey-Viswa/PropChain',
+        published: true,
+        featured: true,
+        entitlementRequired: false,
+        date: '2024-01-01'
+    }
+];
 
 export async function getProjects(filter?: {
     featured?: boolean;
@@ -9,136 +97,35 @@ export async function getProjects(filter?: {
     limit?: number;
     offset?: number;
 }) {
-    const queries = [
-        Query.equal('published', true),
-        Query.orderDesc('date'),
-    ];
+    let filtered = [...RESUME_PROJECTS];
 
     if (filter?.featured) {
-        queries.push(Query.equal('featured', true));
+        filtered = filtered.filter(p => p.featured);
     }
 
     if (filter?.tech) {
-        queries.push(Query.search('techStack', filter.tech));
-    }
-
-    if (filter?.limit) {
-        queries.push(Query.limit(filter.limit));
+        filtered = filtered.filter(p => p.techStack?.includes(filter.tech!));
     }
 
     if (filter?.offset) {
-        queries.push(Query.offset(filter.offset));
+        filtered = filtered.slice(filter.offset);
     }
 
-    try {
-        const { databases } = await createAdminClient();
-        const response = await databases.listDocuments(
-            DATABASE_ID,
-            COLLECTIONS.PROJECTS,
-            queries
-        );
-        return {
-            projects: response.documents.map((doc) => {
-                const project = doc as unknown as Project;
-                if (project.slug === 'studioflow') {
-                    return {
-                        ...project,
-                        thumbnail: '/projects/studioflow/thumbnail.png'
-                    };
-                }
-                return project;
-            }),
-            total: response.total
-        };
-    } catch (error: any) {
-        if (error.message !== 'APPWRITE_MISSING_CONFIG') {
-            console.error('Error fetching projects:', error);
-        }
-        return { projects: [], total: 0 };
+    if (filter?.limit) {
+        filtered = filtered.slice(0, filter.limit);
     }
+
+    return {
+        projects: filtered,
+        total: filtered.length
+    };
 }
 
 export async function getProjectBySlug(slug: string) {
-    try {
-        const { databases } = await createAdminClient();
-        const response = await databases.listDocuments(
-            DATABASE_ID,
-            COLLECTIONS.PROJECTS,
-            [Query.equal('slug', slug)]
-        );
-
-        if (response.documents.length === 0) {
-            return null;
-        }
-
-        const project = response.documents[0] as unknown as Project;
-
-        // Hardcode local images for StudioFlow project
-        if (slug === 'studioflow') {
-            return {
-                ...project,
-                thumbnail: '/projects/studioflow/thumbnail.png',
-                galleryImages: [
-                    '/projects/studioflow/dashboard.png',
-                    '/projects/studioflow/invoice.png',
-                    '/projects/studioflow/rbac.png',
-                    '/projects/studioflow/files.png',
-                ],
-                techCategories: [
-                    {
-                        category: 'Frontend',
-                        technologies: ['React', 'Tailwind CSS', 'Shadcn UI']
-                    },
-                    {
-                        category: 'Backend',
-                        technologies: ['Node.js', 'Express', 'MongoDB']
-                    },
-                    {
-                        category: 'Real-time',
-                        technologies: ['Socket.IO']
-                    },
-                    {
-                        category: 'Job Queue',
-                        technologies: ['Redis', 'BullMQ']
-                    },
-                    {
-                        category: 'Payments',
-                        technologies: ['Razorpay']
-                    },
-                    {
-                        category: 'Storage',
-                        technologies: ['AWS S3']
-                    }
-                ],
-                liveUrl: 'https://www.studioflow.studio/', // Add live URL for demo button
-                repoUrl: 'https://github.com/Hey-Viswa/StudioFlow'
-            } as Project;
-        }
-
-        return project;
-    } catch (error: any) {
-        if (error.message !== 'APPWRITE_MISSING_CONFIG') {
-            console.error('Error fetching project:', error);
-        }
-        return null;
-    }
+    const project = RESUME_PROJECTS.find(p => p.slug === slug);
+    return project || null;
 }
 
 export async function getAllProjectSlugs() {
-    try {
-        const { databases } = await createAdminClient();
-        const response = await databases.listDocuments(
-            DATABASE_ID,
-            COLLECTIONS.PROJECTS,
-            [
-                Query.select(['slug']),
-            ]
-        );
-        return response.documents.map((doc) => doc.slug as string);
-    } catch (error: any) {
-        if (error.message !== 'APPWRITE_MISSING_CONFIG') {
-            console.error('Error fetching project slugs:', error);
-        }
-        return [];
-    }
+    return RESUME_PROJECTS.map(p => p.slug);
 }

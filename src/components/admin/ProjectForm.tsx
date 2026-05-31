@@ -213,11 +213,11 @@ export default function ProjectForm({ initialData, isEditMode = false }: Project
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Linked Skills</label>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 max-h-60 overflow-y-auto p-2 border border-gray-200 dark:border-gray-700 rounded-md">
                         {availableSkills.map(skill => (
-                            <label key={skill.$id} className="flex items-center space-x-2 p-1 hover:bg-gray-50 dark:hover:bg-gray-800 rounded cursor-pointer">
+                            <label key={skill.slug} className="flex items-center space-x-2 p-1 hover:bg-gray-50 dark:hover:bg-gray-800 rounded cursor-pointer">
                                 <input
                                     type="checkbox"
-                                    checked={formData.skills?.includes(skill.$id) || false}
-                                    onChange={() => handleSkillToggle(skill.$id)}
+                                    checked={formData.skills?.includes(skill.slug) || false}
+                                    onChange={() => handleSkillToggle(skill.slug)}
                                     className="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                 />
                                 <span className="text-sm text-gray-700 dark:text-gray-300">{skill.name}</span>

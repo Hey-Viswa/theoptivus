@@ -17,14 +17,14 @@ export default function SkillForm({ initialData, isEditMode = false }: SkillForm
     const [formData, setFormData] = useState<SkillDTO>({
         name: initialData?.name || '',
         slug: initialData?.slug || '',
-        category: initialData?.category || 'Frontend',
+        category: initialData?.category || 'Languages',
         level: initialData?.level || 'Intermediate',
         iconFileId: initialData?.iconFileId || '',
         featured: initialData?.featured || false,
         order: initialData?.order || 0,
     });
 
-    const categories: SkillCategory[] = ['Frontend', 'Backend', 'Mobile', 'DevOps', 'Database', 'Tools'];
+    const categories: SkillCategory[] = ['Languages', 'Frameworks', 'BlockChain', 'Databases', 'Cloud', 'Tools', 'Concepts'];
     const levels: SkillLevel[] = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

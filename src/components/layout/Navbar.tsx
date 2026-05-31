@@ -146,9 +146,9 @@ export default function Navbar() {
             <nav ref={navRef} data-animate="nav-pill" className="fixed top-0 left-0 w-full z-[10000] bg-surface/95 backdrop-blur-sm border-b border-foreground hidden md:block">
                 <div className="flex w-full items-center justify-between px-8 py-4">
                     {/* Brand */}
-                    <div className="font-display font-black text-2xl tracking-tight text-foreground uppercase">
+                    <Link href="/" className="font-display font-black text-2xl tracking-tight text-foreground uppercase" data-cursor="Pointer">
                         BISWARANJAN
-                    </div>
+                    </Link>
                     
                     <div className="flex items-center gap-8">
                         {navItems.map((item) => {
@@ -163,6 +163,11 @@ export default function Navbar() {
                                 <Link
                                     key={item.path}
                                     href={item.path}
+                                    onClick={(e) => {
+                                        if (item.path === '/' && pathname === '/') {
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                        }
+                                    }}
                                     className={`text-sm font-mono uppercase tracking-widest transition-colors ${
                                         isActive
                                         ? 'text-accent font-bold'
@@ -210,7 +215,12 @@ export default function Navbar() {
                             <Link
                                 key={item.path}
                                 href={item.path}
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    if (item.path === '/' && pathname === '/') {
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }
+                                }}
                                 className={`mobile-link block w-full text-center text-5xl font-display font-light uppercase tracking-tight transition-colors ${
                                     isActive
                                     ? 'text-accent font-bold'

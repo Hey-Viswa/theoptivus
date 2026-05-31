@@ -108,43 +108,42 @@ export default function ContactPage() {
     // Tailwind handles focus states natively via focus:border-accent
 
     return (
-        <div className="relative min-h-screen bg-background">
-            <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
+        <div className="relative min-h-screen bg-background text-foreground overflow-hidden">
+            {/* Dither Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
                 <DitherBackground className="w-full h-full" />
             </div>
             
-            <div className="relative z-10 pt-32 pb-20 px-6 flex items-center min-h-screen">
-                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-20 bg-background/90 backdrop-blur-md border border-foreground p-8 md:p-12 lg:p-16">
+            <div className="relative z-10 pt-32 pb-20 px-6 flex items-center min-h-screen max-w-[1600px] mx-auto">
+                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 border border-foreground p-8 md:p-12 lg:p-16 bg-background">
                     <div>
-                    <span className="font-mono text-sm uppercase tracking-widest text-foreground/50 mb-6 block">04 // CONTACT</span>
-                    <h1 className="text-7xl md:text-[10rem] font-display font-black mb-12 leading-none tracking-tight text-foreground border-b border-foreground pb-12">
-                        Let's <br className="hidden md:block"/><span className="highlight-blue text-surface">talk</span>
+                    <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-6 block">04 // CONTACT</span>
+                    <h1 className="text-6xl md:text-[8rem] font-display font-black mb-12 leading-[0.9] tracking-tight uppercase border-b border-foreground pb-12">
+                        Let's <br className="hidden md:block"/><span className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-4 md:px-6 py-1 ml-2 inline-block">talk</span>
                     </h1>
-                    <div className="text-2xl md:text-4xl text-foreground font-sans leading-relaxed max-w-2xl mb-12">
-                        <span>Have a project in mind or just want to say hi? Fill out the form or send me an email <span className="highlight-yellow">directly</span>.</span>
+                    <div className="text-xl md:text-2xl text-foreground font-sans leading-relaxed max-w-2xl mb-12">
+                        <p>Have a project in mind or just want to say hi? Fill out the form or send me an email directly.</p>
                     </div>
 
                     <div className="space-y-8 text-foreground">
                         <div className="group">
-                            <span className="block font-mono text-sm uppercase tracking-widest text-foreground/50 mb-4 group-hover:text-accent transition-colors">Email</span>
-                            <a href="mailto:viswaranjan.dev@gmail.com" className="text-3xl md:text-5xl font-display font-black hover:text-accent transition-colors border-b-4 border-transparent hover:border-accent pb-1">
+                            <span className="block font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4 group-hover:text-foreground transition-colors">Email</span>
+                            <a href="mailto:viswaranjan.dev@gmail.com" className="text-2xl md:text-3xl lg:text-4xl font-display font-black hover:bg-foreground hover:text-background transition-colors inline-block px-2 -ml-2 overflow-wrap-anywhere break-words w-full">
                                 viswaranjan.dev@gmail.com
                             </a>
                         </div>
                         <div>
                             <span className="block font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4">Socials</span>
-                            <div className="flex gap-6 flex-wrap font-mono uppercase text-sm">
-                                <a href="https://x.com/Hey_viswa_" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">Twitter</a>
-                                <a href="https://www.linkedin.com/in/biswaranjangiri/" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">LinkedIn</a>
-                                <a href="https://github.com/Hey-Viswa/Hey-Viswa" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">GitHub</a>
-                                <a href="https://www.instagram.com/theoptivus/" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">Instagram</a>
-                                <a href="https://www.youtube.com/@theoptivus" target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline transition-colors transform duration-300">YouTube</a>
+                            <div className="flex gap-6 flex-wrap font-mono uppercase text-sm font-bold">
+                                <a href="https://x.com/Hey_viswa_" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors px-2 py-1 -ml-2">Twitter</a>
+                                <a href="https://www.linkedin.com/in/biswaranjangiri/" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors px-2 py-1">LinkedIn</a>
+                                <a href="https://github.com/Hey-Viswa" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors px-2 py-1">GitHub</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div ref={containerRef} className="bg-surface border border-foreground p-8 md:p-12 relative overflow-hidden min-h-[600px] flex flex-col justify-center">
+                <div ref={containerRef} className="border border-foreground p-8 md:p-12 relative overflow-hidden min-h-[600px] flex flex-col justify-center">
                     
                     {status === 'success' ? (
                         <div ref={successRef} className="h-full flex flex-col items-center justify-center text-center space-y-6">

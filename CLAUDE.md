@@ -16,6 +16,5 @@ Viswa, building The Optivus portfolio site.
 - **Backgrounds:** Global WebGL `DitherBackground` component used across pages.
 - **Dev Env:** Runs in WSL. Needs `WATCHPACK_POLLING=true CHOKIDAR_USEPOLLING=true npm run dev --webpack` for hot reload.
 
-## Known Issues (Pending for tomorrow)
-- **Navigation Lag:** Because `DitherBackground` is placed in individual page components (`work`, `about`, `skills`, etc.), navigating between pages destroys and remounts the WebGL canvas, causing a 2-4s lag. 
-- **Fix:** Move `DitherBackground` entirely out of pages and into `src/app/layout.tsx` so it loads once and persists globally.
+## Resolved Issues
+- **Navigation Lag:** `DitherBackground` has been moved entirely out of pages and into `src/app/layout.tsx` so it loads once and persists globally.

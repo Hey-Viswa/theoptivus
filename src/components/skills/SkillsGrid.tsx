@@ -11,9 +11,9 @@ const SkillsGrid: React.FC<SkillsGridProps> = ({ skills, className = '' }) => {
     if (!skills || skills.length === 0) return null;
 
     return (
-        <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 ${className}`}>
+        <div className={`flex flex-wrap gap-3 md:gap-4 ${className}`}>
             {skills.map((skill) => (
-                <SkillBadge key={skill.$id} skill={skill} />
+                <SkillBadge key={skill.slug} skill={skill} />
             ))}
         </div>
     );

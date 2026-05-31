@@ -171,8 +171,8 @@ export default function DitherBackground({ className = '' }: { className?: strin
         const clickPosArray = Array.from({ length: MAX_CLICKS }, () => new THREE.Vector2(-1, -1));
         const clickTimesArray = new Float32Array(MAX_CLICKS);
         
-        // Optivus brand blue as ink
-        const inkColor = new THREE.Color('#4285F4');
+        // Foreground charcoal ink
+        const inkColor = new THREE.Color('#1A1A1A');
 
         const uniforms = {
             uResolution: { value: new THREE.Vector2() },

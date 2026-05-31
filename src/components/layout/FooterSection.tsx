@@ -9,7 +9,7 @@ const FooterSection = () => {
                     {[
                         { name: 'Twitter', url: 'https://x.com/Hey_viswa_' },
                         { name: 'Instagram', url: 'https://www.instagram.com/theoptivus/' },
-                        { name: 'GitHub', url: 'https://github.com/Hey-Viswa/Hey-Viswa' },
+                        { name: 'GitHub', url: 'https://github.com/Hey-Viswa' },
                         { name: 'LinkedIn', url: 'https://www.linkedin.com/in/biswaranjangiri/' },
                         { name: 'YouTube', url: 'https://www.youtube.com/@theoptivus' }
                     ].map((social) => (
