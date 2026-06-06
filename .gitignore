@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Unused raw/competitor screenshots (only the renamed slugs are referenced)
+public/projects/freshkatta/Screenshot*

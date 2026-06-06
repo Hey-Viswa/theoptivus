@@ -48,6 +48,17 @@
       transform: translateY(-20px);
     }
   }
+
+  --animate-marquee: marquee 32s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @layer base {
@@ -66,9 +77,14 @@
     color: var(--foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    cursor: none;
     line-height: 1.6;
     overflow-x: hidden;
+  }
+
+  @media (min-width: 768px) and (pointer: fine) {
+    body {
+      cursor: none;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -214,7 +230,7 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (pointer: fine) {
   .cursor-dot {
     display: flex;
   }

@@ -90,7 +90,7 @@ export default function Carousel({ images, title }: CarouselProps) {
     return (
         <div className="relative w-full group">
             {/* Main Image Container */}
-            <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
+            <div className="relative aspect-video overflow-hidden border border-foreground bg-surface-alt">
                 <div ref={slideRef} className="relative w-full h-full">
                     <Image
                         src={images[currentIndex]}
@@ -105,21 +105,21 @@ export default function Carousel({ images, title }: CarouselProps) {
                 {/* Navigation Arrows */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-black transition-all duration-300 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-background border border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 lg:translate-x-4 lg:group-hover:translate-x-0"
                     aria-label="Previous slide"
                 >
                     ←
                 </button>
                 <button
                     onClick={nextSlide}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-black transition-all duration-300 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-background border border-foreground text-foreground hover:bg-foreground hover:text-background transition-all duration-300 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 lg:-translate-x-4 lg:group-hover:translate-x-0"
                     aria-label="Next slide"
                 >
                     →
                 </button>
 
                 {/* Image Counter Badge */}
-                <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-xs font-mono text-white/80">
+                <div className="absolute top-4 right-4 px-3 py-1 bg-foreground text-background border border-foreground text-xs font-mono">
                     {currentIndex + 1} / {images.length}
                 </div>
             </div>
@@ -131,8 +131,8 @@ export default function Carousel({ images, title }: CarouselProps) {
                         key={index}
                         onClick={() => goToSlide(index)}
                         className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex
-                                ? 'w-8 bg-white'
-                                : 'w-2 bg-white/20 hover:bg-white/40'
+                                ? 'w-8 bg-foreground'
+                                : 'w-2 bg-foreground/20 hover:bg-foreground/40'
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />

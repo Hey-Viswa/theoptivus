@@ -14,9 +14,10 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-12 w-full">
                     {/* Navigation */}
                     <nav className="md:col-span-6 flex flex-col md:border-r border-foreground bg-background">
-                        <Link href="/projects" className="text-xl font-display font-bold uppercase text-foreground hover:bg-foreground hover:text-background transition-colors p-8 border-b border-foreground" data-cursor="Pointer">Portfolio</Link>
+                        <Link href="/work" className="text-xl font-display font-bold uppercase text-foreground hover:bg-foreground hover:text-background transition-colors p-8 border-b border-foreground" data-cursor="Pointer">Work</Link>
+                        <Link href="/skills" className="text-xl font-display font-bold uppercase text-foreground hover:bg-foreground hover:text-background transition-colors p-8 border-b border-foreground" data-cursor="Pointer">Skills</Link>
                         <Link href="/about" className="text-xl font-display font-bold uppercase text-foreground hover:bg-foreground hover:text-background transition-colors p-8 border-b border-foreground" data-cursor="Pointer">About</Link>
-                        <Link href="/contact" className="text-xl font-display font-bold uppercase text-foreground hover:bg-foreground hover:text-background transition-colors p-8 md:border-b-0 border-foreground" data-cursor="Pointer">Contact</Link>
+                        <Link href="/contact" className="text-xl font-display font-bold uppercase text-foreground hover:bg-foreground hover:text-background transition-colors p-8 border-b md:border-b-0 border-foreground" data-cursor="Pointer">Contact</Link>
                     </nav>
 
                     {/* Scroll Top */}

@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import gsap from 'gsap';
 import DitherBackground from '@/components/ui/DitherBackground';
+import KineticText from '@/components/ui/KineticText';
 
 const contactFormSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -66,16 +67,30 @@ export default function ContactPage() {
         }
 
         try {
-            const response = await fetch('/api/contact/send-message', {
+            const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+            if (!accessKey) {
+                throw new Error('Contact is not configured yet — add NEXT_PUBLIC_WEB3FORMS_KEY to .env.local');
+            }
+
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({
+                    access_key: accessKey,
+                    name: data.name,
+                    email: data.email,
+                    message: data.message,
+                    subject: `Portfolio contact from ${data.name}`,
+                    from_name: 'The Optivus Portfolio',
+                    // Web3Forms' own spam trap, fed by our existing honeypot field
+                    botcheck: data.honeypot || '',
+                }),
             });
 
             const result = await response.json();
 
-            if (!response.ok) {
-                throw new Error(result.details || result.error || 'Failed to send message');
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || 'Failed to send message');
             }
 
             setStatus('success');
@@ -115,12 +130,14 @@ export default function ContactPage() {
             </div>
             
             <div className="relative z-10 pt-32 pb-20 px-6 flex items-center min-h-screen max-w-[1600px] mx-auto">
-                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 border border-foreground p-8 md:p-12 lg:p-16 bg-background">
+                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 border border-foreground p-5 sm:p-8 md:p-12 lg:p-16 bg-background">
                     <div>
                     <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-6 block">04 // CONTACT</span>
-                    <h1 className="text-6xl md:text-[8rem] font-display font-black mb-12 leading-[0.9] tracking-tight uppercase border-b border-foreground pb-12">
-                        Let's <br className="hidden md:block"/><span className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-4 md:px-6 py-1 ml-2 inline-block">talk</span>
-                    </h1>
+                    <KineticText className="mb-12 border-b border-foreground pb-12">
+                        <h1 className="text-5xl sm:text-6xl md:text-[8rem] font-display font-black leading-[0.9] tracking-tight uppercase">
+                            Let's <br className="hidden md:block"/><span className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-2 sm:px-4 md:px-6 py-1 ml-1 sm:ml-2 inline-block">talk</span>
+                        </h1>
+                    </KineticText>
                     <div className="text-xl md:text-2xl text-foreground font-sans leading-relaxed max-w-2xl mb-12">
                         <p>Have a project in mind or just want to say hi? Fill out the form or send me an email directly.</p>
                     </div>
@@ -128,7 +145,7 @@ export default function ContactPage() {
                     <div className="space-y-8 text-foreground">
                         <div className="group">
                             <span className="block font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4 group-hover:text-foreground transition-colors">Email</span>
-                            <a href="mailto:viswaranjan.dev@gmail.com" className="text-2xl md:text-3xl lg:text-4xl font-display font-black hover:bg-foreground hover:text-background transition-colors inline-block px-2 -ml-2 overflow-wrap-anywhere break-words w-full">
+                            <a href="mailto:viswaranjan.dev@gmail.com" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-black hover:bg-foreground hover:text-background transition-colors inline-block px-2 -ml-2 break-all w-full leading-tight">
                                 viswaranjan.dev@gmail.com
                             </a>
                         </div>
@@ -143,7 +160,7 @@ export default function ContactPage() {
                     </div>
                 </div>
 
-                <div ref={containerRef} className="border border-foreground p-8 md:p-12 relative overflow-hidden min-h-[600px] flex flex-col justify-center">
+                <div ref={containerRef} className="border border-foreground p-5 sm:p-8 md:p-12 relative overflow-hidden min-h-[480px] sm:min-h-[600px] flex flex-col justify-center">
                     
                     {status === 'success' ? (
                         <div ref={successRef} className="h-full flex flex-col items-center justify-center text-center space-y-6">
@@ -177,7 +194,7 @@ export default function ContactPage() {
                                     {...register('name')}
                                     type="text"
                                     id="name"
-                                    className={`w-full bg-surface-alt border-b-2 px-0 py-6 focus:outline-none transition-all duration-300 placeholder:text-foreground/30 font-sans text-2xl md:text-3xl ${errors.name ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
+                                    className={`w-full bg-surface-alt border-b-2 px-0 py-4 sm:py-6 focus:outline-none transition-all duration-300 placeholder:text-foreground/30 font-sans text-xl sm:text-2xl md:text-3xl ${errors.name ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
                                     placeholder="John Doe"
                                     style={{ boxShadow: 'none' }}
                                 />
@@ -189,7 +206,7 @@ export default function ContactPage() {
                                     {...register('email')}
                                     type="email"
                                     id="email"
-                                    className={`w-full bg-surface-alt border-b-2 px-0 py-6 focus:outline-none transition-all duration-300 placeholder:text-foreground/30 font-sans text-2xl md:text-3xl ${errors.email ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
+                                    className={`w-full bg-surface-alt border-b-2 px-0 py-4 sm:py-6 focus:outline-none transition-all duration-300 placeholder:text-foreground/30 font-sans text-xl sm:text-2xl md:text-3xl ${errors.email ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
                                     placeholder="john@example.com"
                                     style={{ boxShadow: 'none' }}
                                 />
@@ -201,7 +218,7 @@ export default function ContactPage() {
                                     {...register('message')}
                                     id="message"
                                     rows={4}
-                                    className={`w-full bg-surface-alt border-b-2 px-0 py-6 focus:outline-none transition-all duration-300 resize-none placeholder:text-foreground/30 font-sans text-2xl md:text-3xl ${errors.message ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
+                                    className={`w-full bg-surface-alt border-b-2 px-0 py-4 sm:py-6 focus:outline-none transition-all duration-300 resize-none placeholder:text-foreground/30 font-sans text-xl sm:text-2xl md:text-3xl ${errors.message ? 'border-red-500' : 'border-foreground focus:border-accent'}`}
                                     placeholder="Tell me about your project..."
                                     style={{ boxShadow: 'none' }}
                                 />

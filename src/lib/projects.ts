@@ -2,6 +2,54 @@ import { Project } from '@/types/project';
 
 const RESUME_PROJECTS: Project[] = [
     {
+        $id: 'proj_freshkatta',
+        $collectionId: 'projects',
+        $databaseId: 'main',
+        $createdAt: new Date().toISOString(),
+        $updatedAt: new Date().toISOString(),
+        $permissions: [],
+        $sequence: 0,
+        title: 'FreshKatta',
+        slug: 'freshkatta',
+        shortDescription: 'Production D2C fresh-meat e-commerce + last-mile delivery platform, built solo end-to-end.',
+        content: `**FreshKatta** is a live, production direct-to-consumer platform for ordering fresh chicken, mutton, fish and seafood with next-morning delivery. I designed and built the entire stack solo — a Next.js PWA storefront, a Firebase serverless backend, secure Razorpay payments, transactional email, a Flutter rider app with live GPS tracking, and an admin operations console. It runs in production at [freshkatta.in](https://freshkatta.in).
+
+## What I built
+
+- **Server-authoritative payments.** Engineered a secure Razorpay flow through Cloud Function callables (Admin SDK) after diagnosing a blocked Firestore real-time transport — restoring reliability on flaky mobile networks.
+- **Refund & dispute system.** Photo-fraud scoring via dependency-free JPEG/PNG byte-forensics (with optional LLM vision), feeding an admin review workflow.
+- **Real-time operations.** Live customer presence & behaviour monitoring with one-tap FCM re-engagement nudges and multi-channel (push + email) customer messaging.
+- **Rider app.** A Flutter app with a background-GPS foreground service and live OpenStreetMap order tracking.
+- **Launch hardening.** Firebase App Check (reCAPTCHA v3), CSP, security headers and budget caps; cost-optimized via CDN/ISR for browse traffic and callables for the order path.
+- **Licious-style product experience.** Image galleries, per-100g nutrition, a regional recipe library, and geolocation checkout with reverse-geocoding.
+
+Built end-to-end, solo — front-of-house storefront to last-mile rider logistics.`,
+        techStack: ['TypeScript', 'Next.js', 'Firebase', 'Firestore', 'Razorpay', 'Flutter', 'FCM', 'Resend', 'OpenStreetMap'],
+        thumbnail: '/projects/freshkatta/storefront.png',
+        galleryImages: [
+            '/projects/freshkatta/storefront.png',
+            '/projects/freshkatta/admin-dashboard.png',
+            '/projects/freshkatta/order-tracking.png',
+            '/projects/freshkatta/account.png',
+        ],
+        techCategories: [
+            { category: 'Frontend', technologies: ['React', 'Next.js 15', 'TypeScript', 'Tailwind CSS', 'PWA'] },
+            { category: 'Backend', technologies: ['Firebase', 'Cloud Functions (gen-2)', 'Node.js'] },
+            { category: 'Database', technologies: ['Firestore'] },
+            { category: 'Auth & Security', technologies: ['Firebase Auth', 'App Check', 'reCAPTCHA v3', 'CSP'] },
+            { category: 'Payments', technologies: ['Razorpay'] },
+            { category: 'Messaging', technologies: ['FCM', 'Resend'] },
+            { category: 'Mobile', technologies: ['Flutter', 'Dart'] },
+            { category: 'Maps', technologies: ['Leaflet', 'OpenStreetMap'] },
+            { category: 'Hosting', technologies: ['Firebase App Hosting', 'Storage'] }
+        ],
+        liveUrl: 'https://freshkatta.in',
+        published: true,
+        featured: true,
+        entitlementRequired: false,
+        date: '2026-06-01'
+    },
+    {
         $id: 'proj_studioflow',
         $collectionId: 'projects',
         $databaseId: 'main',

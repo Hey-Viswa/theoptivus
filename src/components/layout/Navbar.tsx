@@ -196,13 +196,13 @@ export default function Navbar() {
             {/* Mobile Fullscreen Menu */}
             <div
                 ref={mobileMenuRef}
-                className="fixed inset-0 z-[10000] bg-background flex flex-col items-center justify-center opacity-0"
+                className="fixed inset-0 z-[10000] bg-background flex flex-col items-center justify-center overflow-y-auto py-24 opacity-0"
                 style={{
                     pointerEvents: isMobileMenuOpen ? 'auto' : 'none',
                     transform: 'translateX(100%)'
                 }}
             >
-                <div className="flex flex-col items-center gap-8 w-full px-8">
+                <div className="flex flex-col items-center gap-6 sm:gap-8 w-full px-8">
                     {navItems.map((item) => {
                         let isActive = false;
                         if (item.path === '/') {
@@ -221,7 +221,7 @@ export default function Navbar() {
                                         window.scrollTo({ top: 0, behavior: 'smooth' });
                                     }
                                 }}
-                                className={`mobile-link block w-full text-center text-5xl font-display font-light uppercase tracking-tight transition-colors ${
+                                className={`mobile-link block w-full text-center text-4xl sm:text-5xl font-display font-light uppercase tracking-tight transition-colors ${
                                     isActive
                                     ? 'text-accent font-bold'
                                     : 'text-foreground hover:text-accent'

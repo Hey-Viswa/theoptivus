@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { getSkills } from '@/lib/skills';
 import { Skill } from '@/types/skill';
+import KineticText from '@/components/ui/KineticText';
 
 export default function Skills() {
     const [skills, setSkills] = useState<Skill[]>([]);
@@ -42,25 +43,33 @@ export default function Skills() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-12">
             {/* Left label — matches Career/Education pattern */}
-            <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-foreground text-background flex flex-col justify-center">
+            <div className="md:col-span-4 p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-foreground text-background flex flex-col justify-between">
                 <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">04 // EXPERTISE</span>
-                <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight uppercase leading-none">
-                    Tech <span className="font-serif italic normal-case font-normal text-[1.1em]">stack</span>
-                </h2>
+                <KineticText>
+                    <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black tracking-tight uppercase leading-none">
+                        Tech <span className="font-serif italic normal-case font-normal text-[1.1em]">stack</span>
+                    </h2>
+                </KineticText>
+                <div className="mt-10"><span aria-hidden className="block font-display font-black leading-none text-[7rem] md:text-[10rem] tracking-tighter text-background/15 select-none">{String(skills.length).padStart(2, '0')}</span><span className="mt-2 block font-mono text-[10px] uppercase tracking-widest text-background/50">{sortedCategories.length} domains · {skills.length} tools</span></div>
             </div>
 
             {/* Right content — editorial list per category */}
             <div className="md:col-span-8 flex flex-col bg-background">
                 {sortedCategories.map((category, index) => (
-                    <div 
-                        key={category} 
-                        className={`p-8 md:p-12 hover:bg-surface-alt transition-colors ${index !== sortedCategories.length - 1 ? 'border-b border-foreground' : ''}`}
+                    <div
+                        key={category}
+                        className={`p-6 sm:p-8 md:p-12 hover:bg-surface-alt transition-colors ${index !== sortedCategories.length - 1 ? 'border-b border-foreground' : ''}`}
                     >
-                        <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-4">
-                            <span className="italic font-serif">{category}</span>
-                        </h3>
-                        <p className="text-lg font-sans text-foreground/80 leading-relaxed max-w-3xl">
-                            {groupedSkills[category].map(s => s.name).join('  ·  ')}
+                        <div className="flex items-baseline gap-4 mb-6"><span aria-hidden className="font-mono text-sm text-foreground/30 tabular-nums">{String(index + 1).padStart(2, '0')}</span><h3 className="text-2xl md:text-4xl font-display font-bold text-foreground"><span className="italic font-serif">{category}</span></h3><span className="ml-auto font-mono text-[10px] uppercase tracking-widest text-foreground/40">{groupedSkills[category].length} tools</span></div>
+                        <p className="font-sans text-lg md:text-xl text-foreground/75 leading-relaxed max-w-3xl">
+                            {groupedSkills[category].map((s, i) => (
+                                <span key={s.slug}>
+                                    {s.name}
+                                    {i < groupedSkills[category].length - 1 && (
+                                        <span className="text-accent mx-2.5 font-mono">/</span>
+                                    )}
+                                </span>
+                            ))}
                         </p>
                     </div>
                 ))}

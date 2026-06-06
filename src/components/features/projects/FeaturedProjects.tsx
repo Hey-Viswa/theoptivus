@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getProjects } from '@/lib/projects';
+import KineticText from '@/components/ui/KineticText';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,6 +41,15 @@ const TECH_ICON_MAP: Record<string, string> = {
     'Socket.io': 'socketdotio',
     'OpenAI API': 'openai',
     'JWT': 'jsonwebtokens',
+    // FreshKatta stack
+    'Firebase': 'firebase',
+    'Firestore': 'firebase',
+    'FCM': 'firebase',
+    'Flutter': 'flutter',
+    'Dart': 'dart',
+    'Resend': 'resend',
+    'OpenStreetMap': 'openstreetmap',
+    'Leaflet': 'leaflet',
 };
 
 function getTechIconUrl(techName: string): string | null {
@@ -78,6 +88,8 @@ export default function FeaturedProjects() {
 
     useEffect(() => {
         if (loading || projects.length === 0) return;
+        const mql = window.matchMedia('(min-width: 768px) and (pointer: fine)');
+        if (!mql.matches) return;
 
         const ctx = gsap.context(() => {
             const container = containerRef.current;
@@ -108,18 +120,21 @@ export default function FeaturedProjects() {
 
     return (
         <section ref={sectionRef} id="works" className="overflow-hidden bg-background">
-            <div ref={triggerRef} className="h-screen flex items-center overflow-x-hidden">
-                <div ref={containerRef} className="flex gap-0 will-change-transform">
+            <div ref={triggerRef} className="md:h-screen flex flex-col md:flex-row md:items-center overflow-x-hidden">
+                <div ref={containerRef} className="flex flex-col md:flex-row gap-0 will-change-transform">
                     {/* Intro panel */}
-                    <div className="flex-shrink-0 w-screen h-screen flex items-center bg-accent">
-                        <div className="px-10 md:px-20 max-w-3xl">
+                    <div className="flex-shrink-0 w-full md:w-screen min-h-screen md:h-screen flex items-center bg-accent">
+                        <div className="px-6 sm:px-10 md:px-20 max-w-3xl">
                             <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-6 block">02 // PORTFOLIO</span>
-                            <h2 className="text-6xl md:text-[7rem] font-display font-black uppercase tracking-tight leading-[0.9] text-background mb-8">
-                                Selected<br /><span className="font-serif italic normal-case font-normal text-[1.1em]">work</span>
-                            </h2>
+                            <KineticText className="mb-8">
+                                <h2 className="text-[2.75rem] sm:text-5xl md:text-[7rem] font-display font-black uppercase tracking-tight leading-[0.9] text-background">
+                                    Selected<br /><span className="font-serif italic normal-case font-normal text-[1.1em]">work</span>
+                                </h2>
+                            </KineticText>
                             <p className="text-xl md:text-2xl text-background/80 font-sans leading-relaxed max-w-lg">
                                 A curated selection of projects showcasing <span className="highlight-yellow italic font-serif font-normal text-foreground">full-stack thinking</span> and engineering precision.
                             </p>
+                            <span className="md:hidden font-mono text-xs uppercase tracking-widest text-background/70 mt-8 block">Scroll ↓</span>
                         </div>
                     </div>
 
@@ -128,7 +143,7 @@ export default function FeaturedProjects() {
                         <Link
                             key={project.$id}
                             href={`/work/${project.slug}`}
-                            className="flex-shrink-0 w-screen h-screen flex items-end group relative overflow-hidden bg-[#0a0a0a]"
+                            className="flex-shrink-0 w-full md:w-screen min-h-screen md:h-screen flex items-end group relative overflow-hidden bg-[#0a0a0a]"
                         >
                             {/* Full-bleed background image — dimmed */}
                             <div className="absolute inset-0">
@@ -144,15 +159,15 @@ export default function FeaturedProjects() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
                             {/* Content — bottom-aligned for editorial feel */}
-                            <div className="relative z-10 px-10 md:px-20 pb-16 md:pb-24 w-full">
+                            <div className="relative z-10 px-6 sm:px-10 md:px-20 pb-12 sm:pb-16 md:pb-24 w-full">
                                 <span className="font-mono text-xs uppercase tracking-widest text-white/30 mb-6 block">
                                     {String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
                                 </span>
 
-                                <h3 className="text-7xl md:text-[8rem] font-display font-black uppercase text-white leading-[0.9] mb-6 group-hover:translate-x-4 transition-transform duration-500">
+                                <h3 className="text-[2.75rem] sm:text-6xl md:text-[8rem] font-display font-black uppercase text-white leading-[0.9] mb-6 group-hover:translate-x-4 transition-transform duration-500">
                                     {project.title.split(' ').map((word, i, arr) => (
                                         i === arr.length - 1 ? (
-                                            <span key={i} className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-4 md:px-6 py-1 ml-2 inline-block">
+                                            <span key={i} className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-2 md:px-6 py-0.5 md:py-1 ml-1 md:ml-2 inline-block">
                                                 {word}
                                             </span>
                                         ) : (
@@ -161,12 +176,12 @@ export default function FeaturedProjects() {
                                     ))}
                                 </h3>
 
-                                <p className="text-xl md:text-3xl text-white/80 max-w-4xl mb-10 font-serif italic normal-case font-normal leading-relaxed">
+                                <p className="text-base sm:text-xl md:text-3xl text-white/80 max-w-4xl mb-6 md:mb-10 font-serif italic normal-case font-normal leading-relaxed">
                                     {project.shortDescription}
                                 </p>
 
                                 {/* Tech icons */}
-                                <div className="flex items-center gap-5">
+                                <div className="flex items-center gap-3 sm:gap-5">
                                     {project.techStack?.slice(0, 6).map((t) => {
                                         const iconUrl = getTechIconUrl(t);
                                         return (
@@ -195,7 +210,7 @@ export default function FeaturedProjects() {
                             </div>
 
                             {/* View prompt — top right */}
-                            <div className="absolute top-10 right-10 md:right-20 z-10">
+                            <div className="absolute top-20 right-6 md:top-10 md:right-20 z-10">
                                 <span className="font-mono text-xs uppercase tracking-widest text-white/20 group-hover:text-white/60 transition-colors duration-500">
                                     View Project →
                                 </span>

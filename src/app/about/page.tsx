@@ -1,7 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import DitherBackground from '@/components/ui/DitherBackground';
+import KineticText from '@/components/ui/KineticText';
+import DistortionImage from '@/components/ui/DistortionImage';
 
 export const metadata = {
     title: 'About | Biswaranjan',
@@ -21,29 +22,29 @@ export default function AboutPage() {
                 {/* Header */}
                 <div className="mb-20">
                     <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-6 block">01 // IDENTITY</span>
-                    <h1 className="text-6xl md:text-[8rem] font-display font-black uppercase tracking-tight leading-[0.9]">
-                        Biswaranjan <span className="font-serif italic normal-case font-normal text-[1.1em]">Giri</span>
-                    </h1>
+                    <KineticText>
+                        <h1 className="text-4xl sm:text-5xl md:text-[8rem] font-display font-black uppercase tracking-tight leading-[0.9]">
+                            Biswaranjan <span className="font-serif italic normal-case font-normal text-[1.1em]">Giri</span>
+                        </h1>
+                    </KineticText>
                 </div>
 
                 {/* Main Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 border border-foreground mb-20">
                     {/* Left: Image */}
-                    <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-foreground p-8 md:p-12 bg-surface-alt/10 flex items-center justify-center">
-                        <div className="relative w-full aspect-[3/4] max-w-md filter grayscale hover:grayscale-0 transition-all duration-700">
-                            <Image 
-                                src="/viswa.png" 
-                                alt="Biswaranjan Giri" 
-                                fill
-                                className="object-cover border border-foreground/20"
-                                priority
+                    <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-foreground p-5 sm:p-8 md:p-12 bg-surface-alt/10 flex items-center justify-center">
+                        <div className="relative w-full aspect-[3/4] max-w-md border border-foreground/20 overflow-hidden">
+                            <DistortionImage
+                                src="/viswa.png"
+                                alt="Biswaranjan Giri"
+                                className="absolute inset-0 w-full h-full"
                             />
                         </div>
                     </div>
 
                     {/* Right: Bio */}
                     <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center bg-background">
-                        <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-8">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold uppercase mb-8">
                             I build <span className="font-serif italic normal-case text-accent">systems</span> that don't break.
                         </h2>
                         
@@ -74,9 +75,9 @@ export default function AboutPage() {
                 <div className="border border-foreground">
                     {/* Experience Section */}
                     <div className="grid grid-cols-1 md:grid-cols-12 border-b border-foreground">
-                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-center">
+                        <div className="md:col-span-4 p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-center">
                             <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">02 // CAREER</span>
-                            <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight uppercase">
+                            <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black tracking-tight uppercase">
                                 <span className="font-serif italic normal-case font-normal text-[1.1em]">Experience</span>
                             </h2>
                         </div>
@@ -107,16 +108,16 @@ export default function AboutPage() {
 
                     {/* Education Section */}
                     <div className="grid grid-cols-1 md:grid-cols-12 text-foreground">
-                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-center">
+                        <div className="md:col-span-4 p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-center">
                             <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">03 // ACADEMICS</span>
-                            <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight uppercase">
+                            <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black tracking-tight uppercase">
                                 <span className="font-serif italic normal-case font-normal text-[1.1em]">Education</span>
                             </h2>
                         </div>
                         <div className="md:col-span-8 flex flex-col md:flex-row bg-background">
                             <div className="flex-1 p-8 md:p-12 hover:bg-surface-alt transition-colors">
                                 <span className="text-[10px] font-mono font-bold uppercase tracking-widest block mb-4 text-foreground/50">Expected 2027</span>
-                                <h3 className="text-xl md:text-2xl font-display font-bold mb-2 text-foreground leading-tight">Bachelor of Technology in <span className="italic font-serif">Computer Engineering</span></h3>
+                                <h3 className="text-xl md:text-2xl font-display font-bold mb-2 text-foreground leading-tight">Bachelor of Engineering in <span className="italic font-serif">Computer Engineering</span></h3>
                                 <p className="text-foreground/70 font-sans text-sm md:text-base">Pillai HOC College of Engineering and Technology</p>
                             </div>
                         </div>

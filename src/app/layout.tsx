@@ -36,6 +36,7 @@ export const metadata: Metadata = {
 import Cursor from "@/components/ui/Cursor";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PageLoader from "@/components/ui/PageLoader";
 
 import SmoothScroller from "@/components/utils/SmoothScroller";
 import GSAPEnhancer from "@/components/utils/GSAPEnhancer";
@@ -49,6 +50,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning className="antialiased bg-background text-foreground cursor-none font-body">
         <div className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} ${playfair.variable}`}>
+          <PageLoader />
           <GSAPEnhancer />
           <SmoothScroller />
           <Cursor />
