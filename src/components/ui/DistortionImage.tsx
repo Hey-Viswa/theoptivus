@@ -72,8 +72,9 @@ export default function DistortionImage({ src, alt = '', className }: Distortion
                 varying vec2 vUv;
 
                 void main() {
-                    // object-cover
-                    vec2 uv = (vUv - 0.5) / uScale + 0.5;
+                    // object-cover: multiply by uScale (<=1 on the cropped axis) to
+                    // sample a centered sub-range of the texture instead of stretching it
+                    vec2 uv = (vUv - 0.5) * uScale + 0.5;
 
                     float o = uOffset;
                     float r = texture2D(uTexture, uv + vec2(o, 0.0)).r;
@@ -98,9 +99,11 @@ export default function DistortionImage({ src, alt = '', className }: Distortion
 
         function sizeToCover() {
             const img = texture.image as HTMLImageElement | undefined;
-            if (!img || !img.width) return;
+            const iw = img?.naturalWidth || img?.width;
+            const ih = img?.naturalHeight || img?.height;
+            if (!iw || !ih || !mount!.clientHeight) return;
             const cont = mount!.clientWidth / mount!.clientHeight;
-            const imgR = img.width / img.height;
+            const imgR = iw / ih;
             if (imgR > cont) {
                 uniforms.uScale.value.set(cont / imgR, 1);
             } else {
