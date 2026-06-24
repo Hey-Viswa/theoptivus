@@ -8,10 +8,10 @@ const FooterSection = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 w-full overflow-hidden">
                     {[
                         { name: 'Twitter', url: 'https://x.com/Hey_viswa_' },
-                        { name: 'Instagram', url: 'https://www.instagram.com/theoptivus/' },
+                        { name: 'Instagram', url: 'https://www.instagram.com/yoitsviswa/' },
                         { name: 'GitHub', url: 'https://github.com/Hey-Viswa' },
                         { name: 'LinkedIn', url: 'https://www.linkedin.com/in/biswaranjangiri/' },
-                        { name: 'YouTube', url: 'https://www.youtube.com/@theoptivus' }
+                        { name: 'YouTube', url: 'https://www.youtube.com/@hey_viswa' }
                     ].map((social) => (
                         <a
                             key={social.name}
