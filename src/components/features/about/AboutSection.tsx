@@ -39,14 +39,14 @@ export default function AboutSection() {
                     
                     {/* Experience Section */}
                     <div className="grid grid-cols-1 md:grid-cols-12 border-b border-foreground">
-                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-between">
+                        <div className="md:col-span-4 @container p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-between">
                             <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">02 // CAREER</span>
                             <KineticText intensity={1.2}>
-                                <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight uppercase leading-none">
+                                <h2 className="text-[clamp(1.5rem,15cqw,7rem)] font-display font-black tracking-tight uppercase leading-none break-words">
                                     <span className="font-serif italic normal-case font-normal text-[1.1em]">Experience</span>
                                 </h2>
                             </KineticText>
-                            <span aria-hidden className="mt-10 block font-display font-black leading-none text-[7rem] md:text-[10rem] tracking-tighter text-foreground/10 select-none">01</span>
+                            <span aria-hidden className="mt-10 block font-display font-black leading-none text-[clamp(3.5rem,55cqw,11rem)] tracking-tighter text-foreground/10 select-none">01</span>
                         </div>
                         <div className="md:col-span-8">
                             {/* Experience Item 1 */}
@@ -72,14 +72,14 @@ export default function AboutSection() {
 
                     {/* Education Section */}
                     <div className="grid grid-cols-1 md:grid-cols-12 border-b border-foreground text-foreground">
-                        <div className="md:col-span-4 p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-between">
+                        <div className="md:col-span-4 @container p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-between">
                             <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">03 // ACADEMICS</span>
                             <KineticText intensity={1.2}>
-                                <h2 className="text-5xl md:text-7xl font-display font-black tracking-tight uppercase leading-none">
+                                <h2 className="text-[clamp(1.5rem,15cqw,7rem)] font-display font-black tracking-tight uppercase leading-none break-words">
                                     <span className="font-serif italic normal-case font-normal text-[1.1em]">Education</span>
                                 </h2>
                             </KineticText>
-                            <span aria-hidden className="mt-10 block font-display font-black leading-none text-[7rem] md:text-[10rem] tracking-tighter text-background/15 select-none">01</span>
+                            <span aria-hidden className="mt-10 block font-display font-black leading-none text-[clamp(3.5rem,55cqw,11rem)] tracking-tighter text-background/15 select-none">01</span>
                         </div>
                         <div className="md:col-span-8 flex flex-col md:flex-row">
                             {/* Edu Card 1 */}

@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: PageProps) {
     const galleryUrls = getGalleryImageUrls(gallerySource);
 
     return (
-        <div className="relative min-h-screen bg-background text-foreground flex flex-col overflow-hidden pt-32 pb-20">
+        <div className="relative min-h-dvh bg-background text-foreground flex flex-col overflow-hidden pt-32 pb-20">
             {/* Dither Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <DitherBackground className="w-full h-full" />

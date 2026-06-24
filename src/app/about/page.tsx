@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function AboutPage() {
     return (
-        <div className="relative min-h-screen bg-background text-foreground flex flex-col pt-32 pb-20 overflow-hidden">
+        <div className="relative min-h-dvh bg-background text-foreground flex flex-col pt-32 pb-20 overflow-hidden">
             {/* Dither Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <DitherBackground className="w-full h-full" />
@@ -24,7 +24,7 @@ export default function AboutPage() {
                     <div className="mb-10 md:mb-14">
                         <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-6 block">01 // IDENTITY</span>
                         <KineticText>
-                            <h1 className="text-4xl sm:text-5xl md:text-[8rem] font-display font-black uppercase tracking-tight leading-[0.85]">
+                            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[8rem] font-display font-black uppercase tracking-tight leading-[0.85] break-words">
                                 Biswaranjan <span className="font-serif italic normal-case font-normal text-[1.1em]">Giri</span>
                             </h1>
                         </KineticText>
@@ -93,17 +93,17 @@ export default function AboutPage() {
                     <div className="border border-foreground">
                         {/* Experience Section */}
                         <div className="grid grid-cols-1 md:grid-cols-12 border-b border-foreground">
-                            <div className="md:col-span-4 p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-between">
+                            <div className="md:col-span-4 @container p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-between">
                                 <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">02 // CAREER</span>
                                 <KineticText intensity={1.2}>
-                                    <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black tracking-tight uppercase leading-none">
+                                    <h2 className="text-[clamp(1.5rem,15cqw,7rem)] font-display font-black tracking-tight uppercase leading-none break-words">
                                         <span className="font-serif italic normal-case font-normal text-[1.1em]">Experience</span>
                                     </h2>
                                 </KineticText>
-                                <span aria-hidden className="mt-10 block font-display font-black leading-none text-[7rem] md:text-[10rem] tracking-tighter text-foreground/10 select-none">01</span>
+                                <span aria-hidden className="mt-10 block font-display font-black leading-none text-[clamp(3.5rem,55cqw,11rem)] tracking-tighter text-foreground/10 select-none">01</span>
                             </div>
                             <div className="md:col-span-8 bg-background">
-                                <div className="group relative p-8 md:p-12 transition-colors duration-300 hover:bg-surface-alt border-l-2 border-transparent hover:border-accent">
+                                <div className="group relative p-6 sm:p-8 md:p-12 transition-colors duration-300 hover:bg-surface-alt border-l-2 border-transparent hover:border-accent">
                                     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline mb-6">
                                         <div className="md:col-span-3">
                                             <span className="font-display font-black text-4xl md:text-5xl leading-none tracking-tighter text-foreground/30 group-hover:text-accent transition-colors duration-300">&#8217;23</span>
@@ -134,17 +134,17 @@ export default function AboutPage() {
 
                         {/* Education Section */}
                         <div className="grid grid-cols-1 md:grid-cols-12 text-foreground">
-                            <div className="md:col-span-4 p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-between">
+                            <div className="md:col-span-4 @container p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-between">
                                 <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">03 // ACADEMICS</span>
                                 <KineticText intensity={1.2}>
-                                    <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black tracking-tight uppercase leading-none">
+                                    <h2 className="text-[clamp(1.5rem,15cqw,7rem)] font-display font-black tracking-tight uppercase leading-none break-words">
                                         <span className="font-serif italic normal-case font-normal text-[1.1em]">Education</span>
                                     </h2>
                                 </KineticText>
-                                <span aria-hidden className="mt-10 block font-display font-black leading-none text-[7rem] md:text-[10rem] tracking-tighter text-background/15 select-none">01</span>
+                                <span aria-hidden className="mt-10 block font-display font-black leading-none text-[clamp(3.5rem,55cqw,11rem)] tracking-tighter text-background/15 select-none">01</span>
                             </div>
                             <div className="md:col-span-8 flex flex-col md:flex-row bg-background">
-                                <div className="group flex-1 p-8 md:p-12 transition-colors duration-300 hover:bg-surface-alt border-l-2 border-transparent hover:border-accent">
+                                <div className="group flex-1 p-6 sm:p-8 md:p-12 transition-colors duration-300 hover:bg-surface-alt border-l-2 border-transparent hover:border-accent">
                                     <div className="flex items-baseline gap-4 mb-6">
                                         <span className="font-display font-black text-6xl md:text-7xl leading-none tracking-tighter text-foreground/20 group-hover:text-accent transition-colors duration-300">&#8217;27</span>
                                         <span className="neo-pill !text-[10px]">In Progress</span>

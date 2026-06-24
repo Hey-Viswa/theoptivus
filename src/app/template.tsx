@@ -23,7 +23,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
     }, [pathname]);
 
     return (
-        <div ref={elementRef} className="min-h-screen">
+        <div ref={elementRef} className="min-h-dvh">
             {children}
         </div>
     );

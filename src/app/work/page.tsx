@@ -37,7 +37,7 @@ export default async function WorkPage() {
     const [feature, ...rest] = projects;
 
     return (
-        <div className="relative min-h-screen bg-background text-foreground flex flex-col pt-32 pb-20 overflow-hidden">
+        <div className="relative min-h-dvh bg-background text-foreground flex flex-col pt-32 pb-20 overflow-hidden">
             {/* Dither Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <DitherBackground className="w-full h-full" />

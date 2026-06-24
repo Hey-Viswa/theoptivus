@@ -43,14 +43,14 @@ export default function Skills() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-12">
             {/* Left label — matches Career/Education pattern */}
-            <div className="md:col-span-4 p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-foreground text-background flex flex-col justify-between">
+            <div className="md:col-span-4 @container p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-foreground text-background flex flex-col justify-between">
                 <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">04 // EXPERTISE</span>
                 <KineticText>
-                    <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black tracking-tight uppercase leading-none">
+                    <h2 className="text-[clamp(1.5rem,15cqw,7rem)] font-display font-black tracking-tight uppercase leading-none break-words">
                         Tech <span className="font-serif italic normal-case font-normal text-[1.1em]">stack</span>
                     </h2>
                 </KineticText>
-                <div className="mt-10"><span aria-hidden className="block font-display font-black leading-none text-[7rem] md:text-[10rem] tracking-tighter text-background/15 select-none">{String(skills.length).padStart(2, '0')}</span><span className="mt-2 block font-mono text-[10px] uppercase tracking-widest text-background/50">{sortedCategories.length} domains · {skills.length} tools</span></div>
+                <div className="mt-10"><span aria-hidden className="block font-display font-black leading-none text-[clamp(3.5rem,55cqw,11rem)] tracking-tighter text-background/15 select-none">{String(skills.length).padStart(2, '0')}</span><span className="mt-2 block font-mono text-[10px] uppercase tracking-widest text-background/50">{sortedCategories.length} domains · {skills.length} tools</span></div>
             </div>
 
             {/* Right content — editorial list per category */}

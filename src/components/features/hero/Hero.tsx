@@ -5,7 +5,7 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative min-h-screen flex flex-col overflow-hidden bg-background"
+            className="relative min-h-[100svh] flex flex-col overflow-hidden bg-background"
         >
             {/* ── Dither effect — hero only ── */}
             <div className="absolute inset-0 z-0 pointer-events-none">
@@ -22,7 +22,7 @@ export default function Hero() {
                 <h1 className="sr-only">Biswaranjan — Full-Stack Developer</h1>
                 <ParticleText
                     text={"BISWA\nRANJAN"}
-                    className="w-full h-[40vh] sm:h-[48vh] md:h-[56vh] px-4 sm:px-0 pointer-events-none"
+                    className="w-full h-[clamp(150px,40vh,420px)] sm:h-[clamp(200px,48vh,520px)] md:h-[56vh] px-4 sm:px-0 pointer-events-none"
                 />
 
                 <p className="text-base sm:text-lg md:text-2xl text-foreground/70 max-w-xl md:max-w-2xl mt-2 md:mt-4 mb-8 md:mb-10 px-6 font-sans pointer-events-auto">

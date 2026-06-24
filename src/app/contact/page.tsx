@@ -123,13 +123,13 @@ export default function ContactPage() {
     // Tailwind handles focus states natively via focus:border-accent
 
     return (
-        <div className="relative min-h-screen bg-background text-foreground overflow-hidden">
+        <div className="relative min-h-dvh bg-background text-foreground overflow-hidden">
             {/* Dither Background */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <DitherBackground className="w-full h-full" />
             </div>
             
-            <div className="relative z-10 pt-32 pb-20 px-6 flex items-center min-h-screen max-w-[1600px] mx-auto">
+            <div className="relative z-10 pt-32 pb-20 px-6 flex items-center min-h-dvh max-w-[1600px] mx-auto">
                 <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 border border-foreground p-5 sm:p-8 md:p-12 lg:p-16 bg-background">
                     <div>
                     <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-6 block">04 // CONTACT</span>
@@ -152,9 +152,9 @@ export default function ContactPage() {
                         <div>
                             <span className="block font-mono text-xs uppercase tracking-widest text-foreground/50 mb-4">Socials</span>
                             <div className="flex gap-6 flex-wrap font-mono uppercase text-sm font-bold">
-                                <a href="https://x.com/Hey_viswa_" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors px-2 py-1 -ml-2">Twitter</a>
-                                <a href="https://www.linkedin.com/in/biswaranjangiri/" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors px-2 py-1">LinkedIn</a>
-                                <a href="https://github.com/Hey-Viswa" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors px-2 py-1">GitHub</a>
+                                <a href="https://x.com/Hey_viswa_" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors inline-flex items-center px-2 py-3 -my-2 sm:py-1 sm:my-0 -ml-2">Twitter</a>
+                                <a href="https://www.linkedin.com/in/biswaranjangiri/" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors inline-flex items-center px-2 py-3 -my-2 sm:py-1 sm:my-0">LinkedIn</a>
+                                <a href="https://github.com/Hey-Viswa" target="_blank" rel="noopener noreferrer" className="hover:bg-foreground hover:text-background transition-colors inline-flex items-center px-2 py-3 -my-2 sm:py-1 sm:my-0">GitHub</a>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@ export default function ContactPage() {
                                         gsap.set(formRef.current, { opacity: 1, y: 0 });
                                     }
                                 }}
-                                className="editorial-btn mt-4"
+                                className="editorial-btn w-full sm:w-auto mt-4"
                             >
                                 SEND ANOTHER MESSAGE
                             </button>

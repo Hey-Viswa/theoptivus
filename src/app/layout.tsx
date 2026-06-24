@@ -58,7 +58,7 @@ export default function RootLayout({
 
           <div id="smooth-wrapper">
             <div id="smooth-content">
-              <main className="relative min-h-screen">
+              <main className="relative min-h-dvh">
                 {children}
               </main>
             </div>

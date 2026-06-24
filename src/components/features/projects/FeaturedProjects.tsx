@@ -123,7 +123,7 @@ export default function FeaturedProjects() {
             <div ref={triggerRef} className="md:h-screen flex flex-col md:flex-row md:items-center overflow-x-hidden">
                 <div ref={containerRef} className="flex flex-col md:flex-row gap-0 will-change-transform">
                     {/* Intro panel */}
-                    <div className="flex-shrink-0 w-full md:w-screen min-h-screen md:h-screen flex items-center bg-accent">
+                    <div className="flex-shrink-0 w-full md:w-screen min-h-[100dvh] md:h-screen flex items-center bg-accent">
                         <div className="px-6 sm:px-10 md:px-20 max-w-3xl">
                             <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-6 block">02 // PORTFOLIO</span>
                             <KineticText className="mb-8">
@@ -143,7 +143,7 @@ export default function FeaturedProjects() {
                         <Link
                             key={project.$id}
                             href={`/work/${project.slug}`}
-                            className="flex-shrink-0 w-full md:w-screen min-h-screen md:h-screen flex items-end group relative overflow-hidden bg-[#0a0a0a]"
+                            className="flex-shrink-0 w-full md:w-screen min-h-[100dvh] md:h-screen flex items-end group relative overflow-hidden bg-[#0a0a0a]"
                         >
                             {/* Full-bleed background image — dimmed */}
                             <div className="absolute inset-0">
@@ -164,10 +164,10 @@ export default function FeaturedProjects() {
                                     {String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
                                 </span>
 
-                                <h3 className="text-[2.75rem] sm:text-6xl md:text-[8rem] font-display font-black uppercase text-white leading-[0.9] mb-6 group-hover:translate-x-4 transition-transform duration-500">
+                                <h3 className="text-[2.75rem] sm:text-6xl md:text-[clamp(4rem,9vw,8rem)] font-display font-black uppercase text-white leading-[0.95] mb-6 group-hover:translate-x-4 transition-transform duration-500">
                                     {project.title.split(' ').map((word, i, arr) => (
                                         i === arr.length - 1 ? (
-                                            <span key={i} className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-2 md:px-6 py-0.5 md:py-1 ml-1 md:ml-2 inline-block">
+                                            <span key={i} className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-2 md:px-6 py-0.5 md:py-1 ml-1 md:ml-2 inline-block break-words max-w-full">
                                                 {word}
                                             </span>
                                         ) : (
