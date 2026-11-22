@@ -1,280 +1,286 @@
 import React from 'react';
-import { Metadata } from 'next';
-import DistortionImage from '@/components/ui/DistortionImage';
-import KineticText from '@/components/ui/KineticText';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getProjectBySlug, getAllProjectSlugs } from '@/lib/projects';
-import { createAdminClient } from '@/lib/server/appwrite';
-import { DATABASE_ID, COLLECTIONS } from '@/lib/appwrite';
-import { Skill } from '@/types/skill';
-import { getProjectImageUrl, getGalleryImageUrls } from '@/lib/utils';
-import RichTextRenderer from '@/components/ui/RichTextRenderer';
-import SkillsGrid from '@/components/skills/SkillsGrid';
-import Carousel from '@/components/ui/Carousel';
-import DitherBackground from '@/components/ui/DitherBackground';
+import {
+  getAllProjectSlugs,
+  getProjectBySlug,
+  getAdjacentProjects,
+} from '@/data/projects';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { ProjectGallery } from '@/components/ui/ProjectGallery';
+import { RichTextRenderer } from '@/components/ui/RichTextRenderer';
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+} from '@/components/ui/Icons';
 
-interface PageProps {
-    params: Promise<{ slug: string }>;
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllProjectSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateStaticParams() {
-    const slugs = await getAllProjectSlugs();
-    return slugs.map((slug) => ({ slug }));
+interface CaseStudyPageProps {
+  params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const resolvedParams = await params;
-    const project = await getProjectBySlug(resolvedParams.slug);
+export async function generateMetadata({
+  params,
+}: CaseStudyPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
-    if (!project) {
-        return {
-            title: 'Project Not Found',
-        };
-    }
-
-    const imageSource = project.thumbnail || project.heroFileId;
-    const ogImage = imageSource ? getProjectImageUrl(imageSource) : undefined;
-
+  if (!project) {
     return {
-        title: `${project.title} | Biswaranjan`,
-        description: project.shortDescription,
-        openGraph: {
-            images: ogImage ? [ogImage] : [],
-        },
+      title: 'Project Not Found',
     };
+  }
+
+  return {
+    title: project.title,
+    description: project.shortDescription || project.tagline,
+    openGraph: {
+      title: `${project.title} — Case Study`,
+      description: project.shortDescription || project.tagline,
+      images: [
+        {
+          url: project.thumbnail,
+          alt: project.thumbnailAlt,
+        },
+      ],
+    },
+  };
 }
 
-export const revalidate = 60;
+export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
-export default async function ProjectPage({ params }: PageProps) {
-    const resolvedParams = await params;
-    const project = await getProjectBySlug(resolvedParams.slug);
+  if (!project) {
+    notFound();
+  }
 
-    if (!project) {
-        notFound();
-    }
+  const { prev, next } = getAdjacentProjects(project.slug);
 
-    // Fetch linked skills if they exist
-    let linkedSkills: Skill[] = [];
-    if (project.skills && Array.isArray(project.skills) && project.skills.length > 0) {
-        try {
-            const { databases } = await createAdminClient();
-            const validSkillIds = project.skills.filter(id =>
-                typeof id === 'string' && id.length <= 36 && /^[a-zA-Z0-9_]+$/.test(id) && !id.startsWith('_')
-            );
+  return (
+    <article className="animate-page-enter max-w-[1200px] mx-auto px-6 md:px-10 pt-10 pb-20 md:pt-14">
+      <div className="mb-8">
+        <Link
+          href="/work"
+          className="group inline-flex items-center gap-2 font-mono text-xs text-[var(--fg-secondary)] hover:text-[var(--accent)] transition-colors"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-150 group-hover:-translate-x-0.5" />
+          <span>Back to Work</span>
+        </Link>
+      </div>
 
-            if (validSkillIds.length > 0) {
-                const skillPromises = validSkillIds.map(id =>
-                    databases.getDocument(DATABASE_ID, COLLECTIONS.SKILLS || 'skills', id)
-                );
-                const results = await Promise.all(skillPromises);
-                linkedSkills = results as unknown as Skill[];
-            }
-        } catch (e) {
-            console.error('Error fetching linked skills', e);
-        }
-    }
-
-    const imageSource = project.thumbnail || project.heroFileId;
-    const heroImageUrl = getProjectImageUrl(imageSource);
-
-    let gallerySource: string[] = [];
-    if (project.galleryImages) {
-        if (typeof project.galleryImages === 'string') {
-            try {
-                gallerySource = JSON.parse(project.galleryImages);
-            } catch {
-                gallerySource = [project.galleryImages];
-            }
-        } else if (Array.isArray(project.galleryImages)) {
-            gallerySource = project.galleryImages;
-        }
-    }
-    if (gallerySource.length === 0 && project.galleryFileIds) {
-        if (typeof project.galleryFileIds === 'string') {
-            try {
-                gallerySource = JSON.parse(project.galleryFileIds);
-            } catch {
-                gallerySource = [project.galleryFileIds];
-            }
-        } else if (Array.isArray(project.galleryFileIds)) {
-            gallerySource = project.galleryFileIds;
-        }
-    }
-
-    const galleryUrls = getGalleryImageUrls(gallerySource);
-
-    return (
-        <div className="relative min-h-dvh bg-background text-foreground flex flex-col overflow-hidden pt-32 pb-20">
-            {/* Dither Background */}
-            <div className="absolute inset-0 z-0 pointer-events-none">
-                <DitherBackground className="w-full h-full" />
-            </div>
-
-            <div className="relative z-10 px-6 md:px-12 max-w-[1600px] mx-auto w-full">
-                
-                {/* Header with back link */}
-                <div className="mb-12">
-                    <Link
-                        href="/work"
-                        className="inline-flex items-center gap-2 text-foreground/70 hover:text-foreground font-mono font-bold tracking-widest text-xs uppercase transition-colors"
-                    >
-                        <span>← Back to Work</span>
-                    </Link>
-                </div>
-
-                {/* Hero / Title Section */}
-                <div className="mb-20">
-                    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12">
-                        <div className="max-w-4xl">
-                            <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-6 block">PROJECT CASE STUDY</span>
-                            <KineticText className="mb-8">
-                                <h1 className="text-5xl sm:text-6xl md:text-[8rem] font-display font-black uppercase tracking-tight leading-[0.9]">
-                                    {project.title.split(' ').map((word, i, arr) => (
-                                        i === arr.length - 1 ? (
-                                            <span key={i} className="font-serif italic normal-case font-normal highlight-yellow text-foreground px-2 sm:px-4 md:px-6 py-1 ml-1 sm:ml-2 inline-block">
-                                                {word}
-                                            </span>
-                                        ) : (
-                                            <span key={i}>{word} </span>
-                                        )
-                                    ))}
-                                </h1>
-                            </KineticText>
-                            <p className="text-xl md:text-2xl text-foreground/80 font-sans leading-relaxed max-w-2xl">
-                                {project.shortDescription}
-                            </p>
-                        </div>
-                        
-                        {/* Action Links */}
-                        <div className="flex flex-col gap-4 min-w-[200px]">
-                            {project.liveUrl && (
-                                <a
-                                    href={project.liveUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="editorial-btn uppercase text-sm w-full"
-                                >
-                                    Live Demo ↗
-                                </a>
-                            )}
-                            {project.repoUrl && (
-                                <a
-                                    href={project.repoUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="editorial-btn border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background uppercase text-sm w-full text-center"
-                                >
-                                    GitHub Repo ↗
-                                </a>
-                            )}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Main Hero Image — three.js RGB-shift on hover */}
-                <div className="relative aspect-video w-full overflow-hidden border border-foreground mb-20">
-                    <DistortionImage
-                        src={heroImageUrl}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full"
-                    />
-                    {project.featured && (
-                        <div className="absolute top-6 right-6 bg-foreground text-background text-xs font-mono font-bold px-4 py-2 uppercase tracking-wider">
-                            Featured
-                        </div>
-                    )}
-                </div>
-
-                {/* Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 border-t border-foreground pt-12">
-                    {/* Sidebar / Meta info */}
-                    <div className="lg:col-span-4 space-y-12 bg-background p-5 sm:p-6 md:p-8 lg:p-10 border border-foreground lg:border-none">
-                        {/* Year */}
-                        {project.date && (
-                            <div>
-                                <h3 className="text-xs font-mono font-bold text-foreground/50 uppercase tracking-widest mb-3">Year</h3>
-                                <p className="text-4xl font-display font-black text-foreground">
-                                    {new Date(project.date).getFullYear()}
-                                </p>
-                            </div>
-                        )}
-
-                        {/* Tech Stack */}
-                        <div>
-                            <h3 className="text-xs font-mono font-bold text-foreground/50 uppercase tracking-widest mb-4">Tech Stack</h3>
-                            {project.techCategories && project.techCategories.length > 0 ? (
-                                <div className="space-y-6">
-                                    {project.techCategories.map((techCat, idx) => (
-                                        <div key={idx}>
-                                            <h4 className="text-[10px] font-mono text-foreground/70 uppercase tracking-wider mb-2">
-                                                {techCat.category}
-                                            </h4>
-                                            <div className="flex flex-wrap gap-3">
-                                                {techCat.technologies.map((tech, i) => (
-                                                    <span
-                                                        key={i}
-                                                        className="neo-pill"
-                                                    >
-                                                        {tech}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : linkedSkills.length > 0 ? (
-                                <div className="flex flex-wrap gap-3">
-                                    {linkedSkills.map(skill => (
-                                        <span
-                                            key={skill.slug}
-                                            className="neo-pill"
-                                        >
-                                            {skill.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            ) : project.techStack && project.techStack.length > 0 ? (
-                                <div className="flex flex-wrap gap-3">
-                                    {project.techStack.map((tech, i) => (
-                                        <span
-                                            key={i}
-                                            className="neo-pill"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            ) : null}
-                        </div>
-                    </div>
-
-                    {/* Main Overview */}
-                    <div className="lg:col-span-8 lg:border-l border-foreground lg:pl-12 bg-background p-5 sm:p-6 md:p-8 lg:p-10 border border-foreground lg:border-y-0 lg:border-r-0">
-                        <h2 className="text-3xl font-display font-black uppercase mb-8 text-foreground">Overview</h2>
-                        {project.content ? (
-                            <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:uppercase prose-headings:font-black prose-p:text-foreground/80 prose-p:font-sans prose-p:leading-relaxed prose-strong:text-foreground prose-a:text-accent font-sans">
-                                <RichTextRenderer content={project.content} />
-                            </div>
-                        ) : (
-                            <p className="text-foreground/80 text-lg leading-relaxed font-sans">
-                                No detailed content available for this project.
-                            </p>
-                        )}
-                    </div>
-                </div>
-
-                {/* Gallery Section */}
-                {galleryUrls.length > 0 && (
-                    <div className="mt-20 pt-20 border-t border-foreground">
-                        <h2 className="text-4xl sm:text-5xl md:text-7xl font-display font-black uppercase mb-12">
-                            Project <span className="font-serif italic normal-case font-normal highlight-blue text-background px-2 sm:px-4">Gallery</span>
-                        </h2>
-                        <Carousel images={galleryUrls} title={project.title} />
-                    </div>
-                )}
-            </div>
+      {/* Case Study Header */}
+      <header className="space-y-4 max-w-4xl">
+        <div className="inline-flex items-center gap-2 font-mono text-xs text-[var(--fg-muted)]">
+          <span>{project.category}</span>
+          <span aria-hidden="true">·</span>
+          <span>{project.year}</span>
         </div>
-    );
+
+        <h1 className="font-display text-3xl sm:text-4xl lg:text-[2.95rem] font-semibold tracking-[-0.025em] leading-[1.1] text-[var(--fg-primary)]">
+          {project.title}
+        </h1>
+
+        <p className="text-base sm:text-lg text-[var(--fg-secondary)] leading-relaxed max-w-3xl">
+          {project.tagline}
+        </p>
+
+        {(project.liveUrl || project.repoUrl) && (
+          <div className="pt-2 flex flex-wrap items-center gap-3.5">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[var(--bg-inverse)] text-[#F6F5F0] hover:bg-[var(--accent)] rounded-lg px-5 py-2.5 text-sm font-medium transition-colors"
+              >
+                <span>Visit Live Site</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            )}
+
+            {project.repoUrl && (
+              <a
+                href={project.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-[var(--border-strong)] bg-[var(--bg-surface)] text-[var(--fg-primary)] hover:border-[var(--fg-primary)] hover:text-[var(--accent)] rounded-lg px-5 py-2.5 text-sm font-medium transition-colors"
+              >
+                <span>View Source on GitHub</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            )}
+          </div>
+        )}
+      </header>
+
+      {/* Hero Showcase Plate */}
+      <div className="my-10 md:my-12 bg-[var(--bg-subtle)]/80 p-3 sm:p-5 rounded-xl border border-[var(--border-subtle)]">
+        <div className="relative aspect-[16/10] w-full rounded-lg overflow-hidden border border-[var(--border-subtle)] bg-[var(--bg-surface)]">
+          <Image
+            src={project.thumbnail}
+            alt={project.thumbnailAlt}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 92vw, 1120px"
+            className="object-cover object-top"
+          />
+        </div>
+      </div>
+
+      {/* 12-Column Editorial Body */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start my-12 md:my-16">
+        <aside className="lg:col-span-4 lg:sticky lg:top-24 bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-xl p-6 space-y-6">
+          <dl className="space-y-4 text-sm">
+            <div className="pb-3.5 border-b border-[var(--border-subtle)]">
+              <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-muted)]">
+                Role
+              </dt>
+              <dd className="mt-1 font-medium text-[var(--fg-primary)]">
+                {project.role}
+              </dd>
+            </div>
+
+            <div className="pb-3.5 border-b border-[var(--border-subtle)]">
+              <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-muted)]">
+                Client / Context
+              </dt>
+              <dd className="mt-1 font-medium text-[var(--fg-primary)]">
+                {project.client}
+              </dd>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pb-3.5 border-b border-[var(--border-subtle)]">
+              <div>
+                <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-muted)]">
+                  Year
+                </dt>
+                <dd className="mt-1 font-mono text-xs font-medium text-[var(--fg-primary)]">
+                  {project.year}
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-muted)]">
+                  Status
+                </dt>
+                <dd className="mt-1 font-mono text-xs font-medium text-[var(--accent)]">
+                  {project.status}
+                </dd>
+              </div>
+            </div>
+          </dl>
+
+          <div className="space-y-3 pb-5 border-b border-[var(--border-subtle)]">
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-muted)]">
+              Key Deliverables
+            </h2>
+            <ul className="space-y-2">
+              {project.deliverables.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2.5 text-xs sm:text-sm text-[var(--fg-secondary)]"
+                >
+                  <Check className="w-3.5 h-3.5 text-[var(--accent)] shrink-0 mt-0.5" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--fg-muted)]">
+              Stack
+            </h2>
+            <div className="space-y-3">
+              {project.techCategories.map((group) => (
+                <div key={group.category} className="space-y-1">
+                  <div className="font-mono text-[11px] text-[var(--fg-secondary)] font-medium">
+                    {group.category}
+                  </div>
+                  <p className="font-mono text-xs text-[var(--fg-muted)] leading-relaxed">
+                    {group.technologies.join(' · ')}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        <div className="lg:col-span-8 pt-1 lg:pt-2">
+          <div className="pb-4 mb-7 border-b border-[var(--border-subtle)] font-mono text-xs uppercase tracking-[0.12em] text-[var(--fg-muted)]">
+            Overview
+          </div>
+
+          <RichTextRenderer content={project.content} />
+        </div>
+      </div>
+
+      {/* Screenshots */}
+      {project.gallery.length > 0 && (
+        <section className="my-14 md:my-20 pt-12 border-t border-[var(--border-subtle)]">
+          <SectionHeader title="Screenshots" />
+
+          <ProjectGallery
+            items={project.gallery}
+            projectTitle={project.title}
+          />
+        </section>
+      )}
+
+      {/* Prev / Next Navigation */}
+      <nav
+        aria-label="Adjacent case studies"
+        className="pt-10 border-t border-[var(--border-subtle)] grid grid-cols-1 sm:grid-cols-2 gap-6"
+      >
+        {prev && (
+          <Link
+            href={`/work/${prev.slug}`}
+            className="group py-3 flex flex-col justify-between gap-2 transition-colors"
+          >
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-[var(--fg-muted)] group-hover:text-[var(--accent)] transition-colors">
+              <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-150 group-hover:-translate-x-0.5" />
+              <span>Previous</span>
+            </div>
+            <div>
+              <div className="font-display text-lg sm:text-xl font-semibold tracking-tight text-[var(--fg-primary)] group-hover:text-[var(--accent)] transition-colors">
+                {prev.shortTitle ?? prev.title}
+              </div>
+              <p className="mt-1 text-xs text-[var(--fg-secondary)] line-clamp-1">
+                {prev.cardSummary}
+              </p>
+            </div>
+          </Link>
+        )}
+
+        {next && (
+          <Link
+            href={`/work/${next.slug}`}
+            className="group py-3 flex flex-col justify-between gap-2 sm:text-right sm:items-end transition-colors"
+          >
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-[var(--fg-muted)] group-hover:text-[var(--accent)] transition-colors">
+              <span>Next</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" />
+            </div>
+            <div>
+              <div className="font-display text-lg sm:text-xl font-semibold tracking-tight text-[var(--fg-primary)] group-hover:text-[var(--accent)] transition-colors">
+                {next.shortTitle ?? next.title}
+              </div>
+              <p className="mt-1 text-xs text-[var(--fg-secondary)] line-clamp-1">
+                {next.cardSummary}
+              </p>
+            </div>
+          </Link>
+        )}
+      </nav>
+    </article>
+  );
 }

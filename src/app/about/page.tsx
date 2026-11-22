@@ -1,162 +1,298 @@
 import React from 'react';
+import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
-import DitherBackground from '@/components/ui/DitherBackground';
-import KineticText from '@/components/ui/KineticText';
-import DistortionImage from '@/components/ui/DistortionImage';
-import Marquee from '@/components/ui/Marquee';
+import { SITE_CONFIG, SOCIAL_LINKS } from '@/data/site';
+import { PROFILE } from '@/data/profile';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/ui/Reveal';
+import { ArrowRight, ArrowUpRight, Mail } from '@/components/ui/Icons';
+import { ScribbleCircle, SketchDivider } from '@/components/ui/Scribbles';
+import {
+  SketchTape,
+  ViswaDoodle,
+  CameraDoodle,
+  MarginNote,
+} from '@/components/ui/Characters';
 
-export const metadata = {
-    title: 'About | Biswaranjan',
-    description: 'Full-stack developer and UI engineer based in India.',
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'About Viswaranjan Giri — software engineer and visual director in Mumbai building backend systems, Kotlin + Jetpack Compose Android apps, headless CMS platforms, and films.',
 };
 
 export default function AboutPage() {
-    return (
-        <div className="relative min-h-dvh bg-background text-foreground flex flex-col pt-32 pb-20 overflow-hidden">
-            {/* Dither Background */}
-            <div className="absolute inset-0 z-0 pointer-events-none">
-                <DitherBackground className="w-full h-full" />
-            </div>
+  const githubLink =
+    SOCIAL_LINKS.find((item) => item.name === 'GitHub')?.href ??
+    'https://github.com/Hey-Viswa';
 
-            <div className="relative z-10 w-full">
-                <div className="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
-                    {/* Header */}
-                    <div className="mb-10 md:mb-14">
-                        <span className="font-mono text-xs uppercase tracking-widest text-foreground/50 mb-6 block">01 // IDENTITY</span>
-                        <KineticText>
-                            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[8rem] font-display font-black uppercase tracking-tight leading-[0.85] break-words">
-                                Biswaranjan <span className="font-serif italic normal-case font-normal text-[1.1em]">Giri</span>
-                            </h1>
-                        </KineticText>
-                    </div>
+  return (
+    <div className="max-w-[1200px] mx-auto px-5 sm:px-6 md:px-10 pb-20 md:pb-28">
+      {/* Identity */}
+      <section className="py-12 md:py-20">
+        <Reveal>
+          <SectionHeader
+            as="h1"
+            title="About"
+            description="Viswaranjan Giri · Software Engineer & Visual Director, Mumbai"
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <div className="lg:col-span-5 flex flex-col items-center lg:items-start">
+              <div className="relative w-full max-w-[330px] pt-2">
+                <SketchTape className="w-24 h-6 absolute -top-1 left-1/2 -translate-x-1/2 z-10 pointer-events-none" />
+                <div className="portrait-print rounded-xl p-3 sm:p-4">
+                  <div className="relative aspect-square rounded-lg overflow-hidden bg-[var(--bg-portrait-mat)] border border-[var(--border-subtle)]">
+                    <Image
+                      src={SITE_CONFIG.avatar}
+                      alt={`${SITE_CONFIG.name} portrait`}
+                      fill
+                      priority
+                      sizes="330px"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                  <div className="pt-3 px-1 flex items-baseline justify-between gap-2">
+                    <span className="font-hand text-2xl text-[var(--fg-primary)] leading-none">
+                      Viswa, Mumbai
+                    </span>
+                    <span className="font-mono text-xs text-[var(--fg-muted)]">
+                      {SITE_CONFIG.nativeName} · @{SITE_CONFIG.handle}
+                    </span>
+                  </div>
                 </div>
+              </div>
 
-                {/* Roles marquee — full-bleed dark band */}
-                <Marquee
-                    className="mb-14 md:mb-20"
-                    items={[
-                        'Full-Stack Engineer',
-                        'Systems Thinker',
-                        'Android Developer',
-                        'Production-Ready',
-                        'Solo Builder',
-                        'Next.js · Firebase · Flutter',
-                    ]}
+              <div className="mt-4 w-full max-w-[330px] flex items-center justify-between gap-3">
+                <MarginNote
+                  text="engineer by trade, director by habit"
+                  arrowVariant="up-right"
+                  arrowPosition="right"
                 />
-
-                <div className="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
-                    {/* Main Content Grid */}
-                    <div className="grid grid-cols-1 lg:grid-cols-12 border border-foreground mb-20">
-                        {/* Left: Image */}
-                        <div className="lg:col-span-5 border-b lg:border-b-0 lg:border-r border-foreground p-5 sm:p-8 md:p-12 bg-surface-alt/10 flex items-center justify-center">
-                            <div className="relative w-full aspect-[3/4] max-w-md border border-foreground/20 overflow-hidden">
-                                <DistortionImage
-                                    src="/viswa.png"
-                                    alt="Biswaranjan Giri"
-                                    className="absolute inset-0 w-full h-full"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Right: Bio */}
-                        <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center bg-background">
-                            <KineticText className="mb-8">
-                                <h2 className="text-3xl sm:text-4xl md:text-6xl font-display font-black uppercase leading-[0.95]">
-                                    I build <span className="font-serif italic normal-case font-normal text-accent">systems</span><br className="hidden sm:block" /> that don&#39;t break.
-                                </h2>
-                            </KineticText>
-
-                            <div className="space-y-6 text-lg md:text-xl font-sans text-foreground/80 leading-relaxed max-w-3xl">
-                                <p>
-                                    Based in India, I am a Full-Stack Developer specializing in robust web architecture and systems engineering. My approach is simple: write code that scales, design interfaces that impress, and solve problems from the root up.
-                                </p>
-                                <p>
-                                    I have spent the last few years mastering the MERN stack, Next.js, and Android development. Whether it is building an enterprise feedback management system for <strong className="text-foreground">JSW</strong> or designing complex distributed systems, I focus on precision.
-                                </p>
-                                <p>
-                                    I don&#39;t just build MVPs. I build products ready for production, complete with CI/CD pipelines, optimized databases, and seamless user experiences.
-                                </p>
-                            </div>
-
-                            <div className="mt-12 flex flex-wrap gap-4">
-                                <Link href="/contact" className="editorial-btn uppercase text-sm">
-                                    Contact Me
-                                </Link>
-                                <a href="https://github.com/Hey-Viswa" target="_blank" rel="noopener noreferrer" className="editorial-btn uppercase text-sm bg-foreground text-background hover:bg-foreground/90">
-                                    GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Experience & Education Section */}
-                    <div className="border border-foreground">
-                        {/* Experience Section */}
-                        <div className="grid grid-cols-1 md:grid-cols-12 border-b border-foreground">
-                            <div className="md:col-span-4 @container p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-[#FFE600] text-foreground flex flex-col justify-between">
-                                <span className="font-mono text-xs uppercase tracking-widest text-foreground/70 mb-4 block">02 // CAREER</span>
-                                <KineticText intensity={1.2}>
-                                    <h2 className="text-[clamp(1.5rem,15cqw,7rem)] font-display font-black tracking-tight uppercase leading-none break-words">
-                                        <span className="font-serif italic normal-case font-normal text-[1.1em]">Experience</span>
-                                    </h2>
-                                </KineticText>
-                                <span aria-hidden className="mt-10 block font-display font-black leading-none text-[clamp(3.5rem,55cqw,11rem)] tracking-tighter text-foreground/10 select-none">01</span>
-                            </div>
-                            <div className="md:col-span-8 bg-background">
-                                <div className="group relative p-6 sm:p-8 md:p-12 transition-colors duration-300 hover:bg-surface-alt border-l-2 border-transparent hover:border-accent">
-                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-baseline mb-6">
-                                        <div className="md:col-span-3">
-                                            <span className="font-display font-black text-4xl md:text-5xl leading-none tracking-tighter text-foreground/30 group-hover:text-accent transition-colors duration-300">&#8217;23</span>
-                                            <span className="mt-1 block font-mono text-[10px] uppercase tracking-widest text-foreground/40">JUL 2023 — NOW</span>
-                                        </div>
-                                        <div className="md:col-span-9">
-                                            <h3 className="text-2xl md:text-4xl font-display font-bold text-foreground leading-tight"><span className="italic font-serif">Software Developer</span> Intern</h3>
-                                            <p className="mt-1 text-base md:text-lg font-mono uppercase tracking-wide text-foreground/50">JSW · Dolvi</p>
-                                        </div>
-                                    </div>
-                                    <ul className="space-y-4 text-foreground/80 font-sans text-base md:text-lg leading-relaxed md:ml-[25%] max-w-2xl">
-                                        <li className="flex items-start gap-4">
-                                            <div className="w-3 h-[2px] bg-foreground/40 mt-3 shrink-0 group-hover:bg-accent group-hover:w-5 transition-all duration-300"></div>
-                                            <span>Built and delivered an <span className="font-bold text-foreground">Android Feedback Management System</span> for internal use.</span>
-                                        </li>
-                                        <li className="flex items-start gap-4">
-                                            <div className="w-3 h-[2px] bg-foreground/40 mt-3 shrink-0 group-hover:bg-accent group-hover:w-5 transition-all duration-300"></div>
-                                            <span>Integrated <em className="font-serif text-lg text-foreground">REST APIs</em> and applied modern Android architecture patterns.</span>
-                                        </li>
-                                        <li className="flex items-start gap-4">
-                                            <div className="w-3 h-[2px] bg-foreground/40 mt-3 shrink-0 group-hover:bg-accent group-hover:w-5 transition-all duration-300"></div>
-                                            <span>Worked in an enterprise environment with exposure to <span className="font-bold text-foreground">SAP-based workflows</span>.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Education Section */}
-                        <div className="grid grid-cols-1 md:grid-cols-12 text-foreground">
-                            <div className="md:col-span-4 @container p-6 sm:p-8 md:p-12 md:border-r border-foreground bg-accent text-background flex flex-col justify-between">
-                                <span className="font-mono text-xs uppercase tracking-widest text-background/70 mb-4 block">03 // ACADEMICS</span>
-                                <KineticText intensity={1.2}>
-                                    <h2 className="text-[clamp(1.5rem,15cqw,7rem)] font-display font-black tracking-tight uppercase leading-none break-words">
-                                        <span className="font-serif italic normal-case font-normal text-[1.1em]">Education</span>
-                                    </h2>
-                                </KineticText>
-                                <span aria-hidden className="mt-10 block font-display font-black leading-none text-[clamp(3.5rem,55cqw,11rem)] tracking-tighter text-background/15 select-none">01</span>
-                            </div>
-                            <div className="md:col-span-8 flex flex-col md:flex-row bg-background">
-                                <div className="group flex-1 p-6 sm:p-8 md:p-12 transition-colors duration-300 hover:bg-surface-alt border-l-2 border-transparent hover:border-accent">
-                                    <div className="flex items-baseline gap-4 mb-6">
-                                        <span className="font-display font-black text-6xl md:text-7xl leading-none tracking-tighter text-foreground/20 group-hover:text-accent transition-colors duration-300">&#8217;27</span>
-                                        <span className="neo-pill !text-[10px]">In Progress</span>
-                                    </div>
-                                    <h3 className="text-2xl md:text-3xl font-display font-bold mb-2 text-foreground leading-tight">Bachelor of Engineering in <span className="italic font-serif">Computer Engineering</span></h3>
-                                    <p className="font-mono text-sm uppercase tracking-wide text-foreground/50">Pillai HOC College of Engineering &amp; Technology</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </div>
-    );
+
+            <div className="lg:col-span-7 flex flex-col justify-between space-y-7 pt-1">
+              <div className="flex flex-wrap items-center gap-3 pb-1">
+                <ViswaDoodle className="w-10 h-10 text-[var(--fg-primary)] shrink-0" />
+                <CameraDoodle className="w-10 h-8 text-[var(--fg-primary)] shrink-0" />
+                <span className="font-mono text-xs text-[var(--fg-muted)]">
+                  @{SITE_CONFIG.handle} · @{SITE_CONFIG.filmHandle}
+                </span>
+              </div>
+
+              <div className="space-y-5 max-w-[60ch] text-base sm:text-lg text-[var(--fg-secondary)] leading-[1.72]">
+                {PROFILE.bioParagraphs.map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <Link
+                  href="/work"
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-[var(--bg-inverse)] text-[#F6F5F0] hover:bg-[var(--accent)] transition-colors"
+                >
+                  <span>View work</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
+                </Link>
+
+                <Link
+                  href="/film"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium border border-[var(--border-strong)] bg-[var(--bg-surface)] text-[var(--fg-primary)] hover:border-[var(--fg-primary)] transition-colors"
+                >
+                  <span>Film &amp; Visuals</span>
+                </Link>
+
+                <a
+                  href={githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 px-2 py-2 font-mono text-xs text-[var(--fg-secondary)] hover:text-[var(--accent)] underline decoration-[var(--border-strong)] underline-offset-4 transition-colors"
+                >
+                  <span>GitHub</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[var(--fg-muted)] group-hover:text-[var(--accent)] transition-colors" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+
+      <SketchDivider className="w-full h-3 text-[var(--border-strong)]" />
+
+      {/* Experience */}
+      <section className="py-12 md:py-16">
+        <Reveal>
+          <SectionHeader title="Experience" />
+
+          <div className="space-y-8">
+            {PROFILE.experience.map((exp) => (
+              <article
+                key={`${exp.company}-${exp.period}`}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10"
+              >
+                <div className="lg:col-span-4 space-y-1.5">
+                  <p className="font-mono text-xs text-[var(--fg-muted)]">
+                    {exp.period}
+                  </p>
+                  <h3 className="font-display text-xl sm:text-2xl font-semibold text-[var(--fg-primary)]">
+                    {exp.company}
+                  </h3>
+                  <p className="font-mono text-xs text-[var(--fg-muted)]">
+                    {exp.location}
+                  </p>
+                </div>
+
+                <div className="lg:col-span-8 space-y-4">
+                  <h4 className="font-display text-lg sm:text-xl font-semibold text-[var(--fg-primary)]">
+                    {exp.role}
+                  </h4>
+
+                  <p className="text-sm sm:text-base text-[var(--fg-secondary)] leading-relaxed max-w-[60ch]">
+                    {exp.summary}
+                  </p>
+
+                  <ul className="space-y-2 pt-1">
+                    {exp.highlights.map((highlight, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 text-sm text-[var(--fg-secondary)] leading-relaxed"
+                      >
+                        <span
+                          className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--accent)] shrink-0"
+                          aria-hidden="true"
+                        />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      <SketchDivider className="w-full h-3 text-[var(--border-strong)]" />
+
+      {/* Education */}
+      <section className="py-12 md:py-16">
+        <Reveal>
+          <SectionHeader title="Education" />
+
+          <div className="space-y-6">
+            {PROFILE.education.map((edu) => (
+              <article
+                key={edu.degree}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center"
+              >
+                <div className="lg:col-span-4 space-y-2">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="relative inline-flex items-center justify-center px-3 py-1 font-display text-2xl font-semibold text-[var(--fg-primary)]">
+                      <span>’27</span>
+                      <ScribbleCircle className="absolute inset-0 w-full h-full text-[var(--accent)]" />
+                    </span>
+                    <div className="space-y-0.5">
+                      <p className="font-mono text-xs text-[var(--fg-primary)] font-medium">
+                        {edu.period}
+                      </p>
+                      <p className="font-mono text-[11px] text-[var(--fg-muted)]">
+                        {edu.status}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="font-mono text-xs text-[var(--fg-muted)] pt-1">
+                    {edu.location}
+                  </p>
+                </div>
+
+                <div className="lg:col-span-8 space-y-1.5">
+                  <h3 className="font-display text-xl sm:text-2xl font-semibold text-[var(--fg-primary)]">
+                    {edu.degree}
+                  </h3>
+                  <p className="text-sm sm:text-base text-[var(--fg-secondary)]">
+                    {edu.institution}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      <SketchDivider className="w-full h-3 text-[var(--border-strong)]" />
+
+      {/* How I work */}
+      <section className="py-12 md:py-16">
+        <Reveal>
+          <SectionHeader title="How I work" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+            {PROFILE.principles.map((principle) => (
+              <article
+                key={principle.index}
+                className="notebook-card rounded-xl p-5 flex flex-col gap-2"
+              >
+                <span className="font-mono text-xs text-[var(--fg-muted)]">
+                  {principle.index}
+                </span>
+                <h3 className="font-display text-lg font-semibold text-[var(--fg-primary)]">
+                  {principle.title}
+                </h3>
+                <p className="text-sm text-[var(--fg-secondary)] leading-relaxed">
+                  {principle.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      <SketchDivider className="w-full h-3 text-[var(--border-strong)]" />
+
+      {/* Links */}
+      <section className="py-12 md:py-16">
+        <Reveal>
+          <SectionHeader title="Links" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <a
+              href={`mailto:${SITE_CONFIG.email}`}
+              className="group sm:col-span-2 lg:col-span-1 pt-3 border-t border-[var(--border-subtle)] flex flex-col justify-between gap-2.5 hover:border-[var(--accent)] transition-colors"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-mono text-xs uppercase tracking-wider text-[var(--fg-muted)]">
+                  Email
+                </span>
+                <Mail className="w-4 h-4 text-[var(--fg-muted)] group-hover:text-[var(--accent)] transition-colors" />
+              </div>
+              <p className="font-display text-sm font-semibold text-[var(--fg-primary)] group-hover:text-[var(--accent)] transition-colors break-all">
+                {SITE_CONFIG.email}
+              </p>
+            </a>
+
+            {SOCIAL_LINKS.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group pt-3 border-t border-[var(--border-subtle)] flex flex-col justify-between gap-2.5 hover:border-[var(--accent)] transition-colors"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[var(--fg-muted)]">
+                    {social.name}
+                  </span>
+                  <ArrowUpRight className="w-4 h-4 text-[var(--fg-muted)] group-hover:text-[var(--accent)] transition-colors" />
+                </div>
+                <p className="font-display text-sm font-semibold text-[var(--fg-primary)] group-hover:text-[var(--accent)] transition-colors">
+                  {social.handle}
+                </p>
+              </a>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+    </div>
+  );
 }

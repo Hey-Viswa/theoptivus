@@ -1,4 +1,5 @@
-import { ID, Storage } from 'node-appwrite';
+import { ID } from 'node-appwrite';
+import { InputFile } from 'node-appwrite/file';
 import { createAdminClient } from './server/appwrite';
 
 /**
@@ -9,38 +10,30 @@ import { createAdminClient } from './server/appwrite';
  * @returns File ID or null if upload fails
  */
 export async function uploadToAppwriteBucket(
-    file: Buffer | Blob,
-    fileName: string,
-    bucketId: string = 'project-assets'
+  file: Buffer | Blob,
+  fileName: string,
+  bucketId: string = 'project-assets'
 ): Promise<string | null> {
-    try {
-        const { storage } = await createAdminClient();
+  try {
+    const { storage } = await createAdminClient();
+    let buffer: Buffer;
 
-        // Convert Buffer/Blob to InputFile using require
-        const { InputFile } = require('node-appwrite');
-        let buffer: Buffer;
-
-        if (file instanceof Buffer) {
-            buffer = file;
-        } else {
-            // Blob - convert to Buffer
-            buffer = Buffer.from(await (file as Blob).arrayBuffer());
-        }
-
-        const inputFile = InputFile.fromBuffer(buffer, fileName);
-
-        const result = await storage.createFile(
-            bucketId,
-            ID.unique(),
-            inputFile
-        );
-
-        console.log(`File uploaded successfully: ${result.$id}`);
-        return result.$id;
-    } catch (error) {
-        console.error('Error uploading file to Appwrite:', error);
-        return null;
+    if (file instanceof Buffer) {
+      buffer = file;
+    } else {
+      buffer = Buffer.from(await (file as Blob).arrayBuffer());
     }
+
+    const inputFile = InputFile.fromBuffer(buffer, fileName);
+
+    const result = await storage.createFile(bucketId, ID.unique(), inputFile);
+
+    console.log(`File uploaded successfully: ${result.$id}`);
+    return result.$id;
+  } catch (error) {
+    console.error('Error uploading file to Appwrite:', error);
+    return null;
+  }
 }
 
 /**
@@ -50,19 +43,19 @@ export async function uploadToAppwriteBucket(
  * @returns Array of file IDs
  */
 export async function uploadMultipleFiles(
-    files: Array<{ buffer: Buffer | Blob; name: string }>,
-    bucketId: string = 'project-assets'
+  files: Array<{ buffer: Buffer | Blob; name: string }>,
+  bucketId: string = 'project-assets'
 ): Promise<string[]> {
-    const fileIds: string[] = [];
+  const fileIds: string[] = [];
 
-    for (const file of files) {
-        const fileId = await uploadToAppwriteBucket(file.buffer, file.name, bucketId);
-        if (fileId) {
-            fileIds.push(fileId);
-        }
+  for (const file of files) {
+    const fileId = await uploadToAppwriteBucket(file.buffer, file.name, bucketId);
+    if (fileId) {
+      fileIds.push(fileId);
     }
+  }
 
-    return fileIds;
+  return fileIds;
 }
 
 /**
@@ -72,16 +65,16 @@ export async function uploadMultipleFiles(
  * @returns Success boolean
  */
 export async function deleteFromAppwriteBucket(
-    fileId: string,
-    bucketId: string = 'project-assets'
+  fileId: string,
+  bucketId: string = 'project-assets'
 ): Promise<boolean> {
-    try {
-        const { storage } = await createAdminClient();
-        await storage.deleteFile(bucketId, fileId);
-        console.log(`File deleted successfully: ${fileId}`);
-        return true;
-    } catch (error) {
-        console.error('Error deleting file from Appwrite:', error);
-        return false;
-    }
+  try {
+    const { storage } = await createAdminClient();
+    await storage.deleteFile(bucketId, fileId);
+    console.log(`File deleted successfully: ${fileId}`);
+    return true;
+  } catch (error) {
+    console.error('Error deleting file from Appwrite:', error);
+    return false;
+  }
 }
