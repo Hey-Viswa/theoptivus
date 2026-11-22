@@ -1,12 +1,5 @@
-export type ProjectCategory = 'Live Product' | 'Client Work' | 'SaaS' | 'Hackathon AI';
-
-export const PROJECT_CATEGORIES = [
-  'All',
-  'Live Product',
-  'Client Work',
-  'SaaS',
-  'Hackathon AI',
-] as const;
+export type ProjectCategory = 'Native Android' | 'Live Product' | 'Client Work' | 'SaaS' | 'Hackathon AI';
+export const PROJECT_CATEGORIES = ['All', 'Native Android', 'Live Product', 'Client Work', 'SaaS', 'Hackathon AI'] as const;
 
 export type ProjectGalleryItem = {
   src: string;
@@ -40,7 +33,99 @@ export interface PortfolioProject {
   content: string;
 }
 
-export const PROJECTS: PortfolioProject[] = [
+export const FNET_POST = 'https://lnkd.in/p/di_iKsnC';
+
+export const FNET_CHAPTERS = [
+  {
+    "title": "A balance that travels with the phone",
+    "body": [
+      "I built FNet around a small promise. If I record an expense on a train with no signal, I should be able to close the app, reopen it and find both the expense and the new balance. The entry screen puts the amount, date and account in one place. Activity is where I can check what actually posted.",
+      "The save runs through one ledger command and one Room database transaction. The journal and its postings succeed or fail together. Cloud backup is a separate, optional step."
+    ],
+    "screens": [
+      4,
+      1
+    ]
+  },
+  {
+    "title": "A rupee can move without being earned",
+    "body": [
+      "Moving ₹500 from one account to another changes two balances. Treating the deposit as income would make the dashboard tell a better story than the bank account. FNet records that movement as a transfer and leaves it out of spending and income totals.",
+      "Amounts are stored in integer paise. An expense of ₹12.50 is exactly 1,250 paise throughout the calculation. The home screen reads from those records to show spendable cash beside investments, while the budget view draws attention to what can be spent today."
+    ],
+    "screens": [
+      0,
+      2
+    ]
+  },
+  {
+    "title": "Two alerts, one payment?",
+    "body": [
+      "A payment notification can arrive twice. Two customers can also pay the same amount minutes apart. Deduplicating on amount alone loses a real sale. FNet looks for a transaction reference first. Where the evidence is ambiguous, it sends the entry for review.",
+      "A settlement moving money from a payment account into a bank account is another transfer. Recording it that way keeps sales from being counted again at settlement. Alert capture is optional, so manual entry still works for someone who wants to keep notifications out of the workflow."
+    ],
+    "screens": [
+      3,
+      5
+    ]
+  }
+];
+
+const gallery: ProjectGalleryItem[] = [
+  {
+    "src": "/projects/fnet/home.webp",
+    "alt": "FNet Home dashboard",
+    "caption": "The daily spending limit sits above the cash balance and investments."
+  },
+  {
+    "src": "/projects/fnet/activity.webp",
+    "alt": "FNet Activity ledger",
+    "caption": "Expenses, transfers and scheduled entries share one searchable history."
+  },
+  {
+    "src": "/projects/fnet/budget.webp",
+    "alt": "FNet Daily budget",
+    "caption": "The daily pace and weekly spending view answer two different questions about the same ledger."
+  },
+  {
+    "src": "/projects/fnet/accounts.webp",
+    "alt": "FNet Accounts",
+    "caption": "Net worth includes investments. Spendable cash shows what is available today."
+  },
+  {
+    "src": "/projects/fnet/entry.webp",
+    "alt": "FNet Expense entry",
+    "caption": "Amount, date and account stay together on the entry screen."
+  },
+  {
+    "src": "/projects/fnet/settings.webp",
+    "alt": "FNet Settings",
+    "caption": "Bank alert capture and optional cloud sign-in are visible controls."
+  }
+];
+
+export const PROJECTS: PortfolioProject[] = [{
+  id: 'proj_fnet',
+  slug: 'fnet',
+  title: 'FNet',
+  cardSummary: 'An offline-first finance app for Android.',
+  tagline: 'Keeping the books on a phone, down to the last paisa.',
+  shortDescription: 'An Android case study in offline entry, exact accounting and payment reconciliation.',
+  category: 'Native Android',
+  year: '2026',
+  date: '2026-11-21',
+  role: 'Android development and product design',
+  client: 'Independent project',
+  status: 'Working Android build',
+  featured: true,
+  thumbnail: gallery[0].src,
+  thumbnailAlt: gallery[0].alt,
+  gallery,
+  deliverables: ['Offline entry and activity history', 'Exact-paise ledger', 'Payment alert review'],
+  techStack: ['Kotlin', 'Jetpack Compose', 'Room', 'WorkManager'],
+  techCategories: [{category: 'Android', technologies: ['Kotlin', 'Jetpack Compose', 'Room', 'WorkManager']}],
+  content: FNET_CHAPTERS.map(({title, body}) => ['## ' + title, ...body].join('\n\n')).join('\n\n'),
+},
   {
     id: 'proj_freshkatta',
     slug: 'freshkatta',
@@ -360,17 +445,4 @@ export function getProjectBySlug(slug: string): PortfolioProject | null {
 
 export function getAllProjectSlugs(): string[] {
   return PROJECTS.map((project) => project.slug);
-}
-
-export function getAdjacentProjects(slug: string): {
-  prev: PortfolioProject | null;
-  next: PortfolioProject | null;
-} {
-  const index = PROJECTS.findIndex((project) => project.slug === slug);
-  if (index === -1) {
-    return { prev: null, next: null };
-  }
-  const prev = PROJECTS[(index - 1 + PROJECTS.length) % PROJECTS.length] ?? null;
-  const next = PROJECTS[(index + 1) % PROJECTS.length] ?? null;
-  return { prev, next };
 }

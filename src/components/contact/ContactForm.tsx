@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { SITE_CONFIG } from '@/data/site';
-import { ArrowRight, ArrowUpRight, Check, Copy, Mail } from '@/components/ui/Icons';
 
 const contactFormSchema = z.object({
   name: z
@@ -48,51 +47,15 @@ export function DirectEmailCard() {
   };
 
   return (
-    <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 sm:p-6 space-y-4">
-      <div className="flex items-center justify-between gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-[var(--fg-muted)]">
-          Direct Email
-        </span>
-        <Mail className="w-4 h-4 text-[var(--fg-muted)]" />
-      </div>
-
-      <div>
-        <a
-          href={`mailto:${SITE_CONFIG.email}`}
-          className="font-display text-base sm:text-lg font-semibold text-[var(--fg-primary)] hover:text-[var(--accent)] transition-colors break-all"
-        >
-          {SITE_CONFIG.email}
-        </a>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-2.5 pt-1">
-        <a
-          href={`mailto:${SITE_CONFIG.email}`}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-mono bg-[var(--bg-inverse)] text-[#F6F5F0] hover:bg-[var(--accent)] transition-colors"
-        >
-          <span>Compose email</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
-        </a>
-
-        <button
-          type="button"
-          onClick={handleCopy}
-          aria-label={copied ? 'Email copied' : 'Copy email address'}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--fg-primary)] hover:border-[var(--border-strong)] transition-colors cursor-pointer"
-        >
-          {copied ? (
-            <>
-              <Check className="w-3.5 h-3.5 text-[var(--accent)]" />
-              <span className="text-[var(--accent)] font-medium">Copied!</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-3.5 h-3.5 text-[var(--fg-muted)]" />
-              <span>Copy address</span>
-            </>
-          )}
-        </button>
-      </div>
+    <div>
+      <p className="editorial-label">Email</p>
+      <p className="contact-address">
+        <a className="text-link" href={`mailto:${SITE_CONFIG.email}`}>{SITE_CONFIG.email}</a>
+      </p>
+      <button className="subtle-button" type="button" onClick={handleCopy}>
+        {copied ? 'Address copied' : 'Copy email address'}
+      </button>
+      <span className="sr-only" role="status">{copied ? 'Email address copied to clipboard' : ''}</span>
     </div>
   );
 }
@@ -219,32 +182,11 @@ export function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="py-6 space-y-6">
-        <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
-          <Check className="w-5 h-5" />
-        </div>
-
-        <div className="space-y-2">
-          <p className="font-mono text-xs uppercase tracking-wider text-[var(--accent)]">
-            Message Delivered
-          </p>
-          <h2 className="font-display text-2xl font-semibold text-[var(--fg-primary)]">
-            Thank you for reaching out.
-          </h2>
-          <p className="text-sm sm:text-base text-[var(--fg-secondary)] leading-relaxed max-w-lg">
-            Your message has been sent directly to my inbox. I review inquiries
-            daily and will reply to you soon.
-          </p>
-        </div>
-
-        <div className="pt-2">
-          <button
-            type="button"
-            onClick={handleResetForm}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--fg-primary)] hover:border-[var(--border-strong)] transition-colors cursor-pointer"
-          >
-            <span>Send another message</span>
-          </button>
+      <div className="contact-result">
+        <h3 role="status">Message sent</h3>
+        <p>Thanks for reaching out.</p>
+        <div className="contact-form-actions">
+          <button type="button" className="subtle-button" onClick={handleResetForm}>Send another message</button>
         </div>
       </div>
     );
@@ -252,219 +194,85 @@ export function ContactForm() {
 
   if (status === 'mailto-ready' && preparedPayload) {
     return (
-      <div className="py-4 space-y-6">
-        <div className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">
-          <Mail className="w-5 h-5" />
+      <div className="contact-result">
+        <h3 role="status">Your email draft is ready</h3>
+        <p>Open it in your email app to send, or copy the message.</p>
+        <div className="contact-preview">
+          <p>To {SITE_CONFIG.email}</p>
+          <p>From {preparedPayload.name} ({preparedPayload.email})</p>
+          <p>{preparedPayload.message}</p>
         </div>
-
-        <div className="space-y-2">
-          <p className="font-mono text-xs uppercase tracking-wider text-[var(--accent)]">
-            Ready to Send
-          </p>
-          <h2 className="font-display text-2xl font-semibold text-[var(--fg-primary)]">
-            Complete dispatch via your email client
-          </h2>
-          <p className="text-sm sm:text-base text-[var(--fg-secondary)] leading-relaxed">
-            Your message for{' '}
-            <span className="font-medium text-[var(--fg-primary)]">
-              {SITE_CONFIG.email}
-            </span>{' '}
-            has been formatted with your contact details below. Open it directly
-            in your email app or copy the formatted message.
-          </p>
-        </div>
-
-        <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-canvas)] p-4 space-y-2 font-mono text-xs text-[var(--fg-secondary)]">
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-[var(--border-subtle)]">
-            <span>
-              From: <strong className="text-[var(--fg-primary)]">{preparedPayload.name}</strong> ({preparedPayload.email})
-            </span>
-            <span className="text-[var(--fg-muted)]">To: {SITE_CONFIG.email}</span>
-          </div>
-          <p className="font-sans text-sm text-[var(--fg-primary)] whitespace-pre-wrap leading-relaxed pt-1">
-            {preparedPayload.message}
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3 pt-1">
-          <a
-            href={preparedPayload.mailtoHref}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium bg-[var(--bg-inverse)] text-[#F6F5F0] hover:bg-[var(--accent)] transition-colors"
-          >
-            <span>Open Email App</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
-
-          <button
-            type="button"
-            onClick={handleCopyPreparedMessage}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-mono border border-[var(--border-subtle)] bg-[var(--bg-canvas)] text-[var(--fg-primary)] hover:border-[var(--border-strong)] transition-colors cursor-pointer"
-          >
-            {copiedMessage ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-[var(--accent)]" />
-                <span className="text-[var(--accent)] font-medium">
-                  Copied Message
-                </span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-3.5 h-3.5 text-[var(--fg-muted)]" />
-                <span>Copy Message</span>
-              </>
-            )}
+        <div className="contact-form-actions">
+          <a className="solid-link" href={preparedPayload.mailtoHref}>Open email app</a>
+          <button className="subtle-button" type="button" onClick={handleCopyPreparedMessage}>
+            {copiedMessage ? 'Message copied' : 'Copy message'}
           </button>
-
-          <button
-            type="button"
-            onClick={() => setStatus('idle')}
-            className="inline-flex items-center px-3.5 py-2.5 rounded-full text-xs font-mono text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors cursor-pointer"
-          >
-            Edit message
-          </button>
+          <button className="subtle-button" type="button" onClick={() => setStatus('idle')}>Edit message</button>
         </div>
+        <span className="sr-only" role="status">{copiedMessage ? 'Message copied to clipboard' : ''}</span>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
-      {/* Honeypot Spam Trap */}
-      <input
-        type="text"
-        {...register('honeypot')}
-        className="hidden"
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-      />
+    <form className="contact-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+      <input type="text" {...register('honeypot')} hidden tabIndex={-1} autoComplete="off" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        {/* Name */}
-        <div className="space-y-2">
-          <label
-            htmlFor="contact-name"
-            className="block font-mono text-xs uppercase tracking-wider text-[var(--fg-secondary)]"
-          >
-            Name
-          </label>
+      <div className="contact-fields">
+        <div className="contact-field">
+          <label htmlFor="contact-name">Name</label>
           <input
             id="contact-name"
             type="text"
             autoComplete="name"
-            placeholder="Your name"
+            required
             aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? 'contact-name-error' : undefined}
             {...register('name')}
-            className={`w-full px-4 py-3 rounded-xl border bg-[var(--bg-canvas)]/50 text-sm text-[var(--fg-primary)] placeholder:text-[var(--fg-muted)] focus:outline-none focus:bg-[var(--bg-surface)] transition-colors ${
-              errors.name
-                ? 'border-[var(--accent)]'
-                : 'border-[var(--border-subtle)] focus:border-[var(--accent)]'
-            }`}
           />
-          {errors.name && (
-            <p
-              role="alert"
-              className="font-mono text-xs text-[var(--accent)] pt-0.5"
-            >
-              {errors.name.message}
-            </p>
-          )}
+          {errors.name && <p className="contact-error" id="contact-name-error" role="alert">{errors.name.message}</p>}
         </div>
 
-        {/* Email */}
-        <div className="space-y-2">
-          <label
-            htmlFor="contact-email"
-            className="block font-mono text-xs uppercase tracking-wider text-[var(--fg-secondary)]"
-          >
-            Email
-          </label>
+        <div className="contact-field">
+          <label htmlFor="contact-email">Email</label>
           <input
             id="contact-email"
             type="email"
             autoComplete="email"
-            placeholder="you@company.com"
+            required
             aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? 'contact-email-error' : undefined}
             {...register('email')}
-            className={`w-full px-4 py-3 rounded-xl border bg-[var(--bg-canvas)]/50 text-sm text-[var(--fg-primary)] placeholder:text-[var(--fg-muted)] focus:outline-none focus:bg-[var(--bg-surface)] transition-colors ${
-              errors.email
-                ? 'border-[var(--accent)]'
-                : 'border-[var(--border-subtle)] focus:border-[var(--accent)]'
-            }`}
           />
-          {errors.email && (
-            <p
-              role="alert"
-              className="font-mono text-xs text-[var(--accent)] pt-0.5"
-            >
-              {errors.email.message}
-            </p>
-          )}
+          {errors.email && <p className="contact-error" id="contact-email-error" role="alert">{errors.email.message}</p>}
         </div>
       </div>
 
-      {/* Message */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between gap-2">
-          <label
-            htmlFor="contact-message"
-            className="block font-mono text-xs uppercase tracking-wider text-[var(--fg-secondary)]"
-          >
-            Message
-          </label>
-          <span
-            className={`font-mono text-xs ${
-              messageLength > 900
-                ? 'text-[var(--accent)] font-medium'
-                : 'text-[var(--fg-muted)]'
-            }`}
-          >
-            {messageLength}/1000
-          </span>
+      <div className="contact-field">
+        <div className="contact-field-caption">
+          <label htmlFor="contact-message">Message</label>
+          <span id="contact-message-length">{messageLength}/1000 characters</span>
         </div>
-
         <textarea
           id="contact-message"
           rows={6}
-          placeholder="Share context about the role, project scope, timeline, or engineering problem..."
+          required
           aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? 'contact-message-error contact-message-length' : 'contact-message-length'}
           {...register('message', {
             onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => {
               setMessageLength(event.target.value.length);
             },
           })}
-          className={`w-full px-4 py-3 rounded-xl border bg-[var(--bg-canvas)]/50 text-sm text-[var(--fg-primary)] placeholder:text-[var(--fg-muted)] focus:outline-none focus:bg-[var(--bg-surface)] transition-colors resize-y ${
-            errors.message
-              ? 'border-[var(--accent)]'
-              : 'border-[var(--border-subtle)] focus:border-[var(--accent)]'
-          }`}
         />
-
-        {errors.message && (
-          <p
-            role="alert"
-            className="font-mono text-xs text-[var(--accent)] pt-0.5"
-          >
-            {errors.message.message}
-          </p>
-        )}
+        {errors.message && <p className="contact-error" id="contact-message-error" role="alert">{errors.message.message}</p>}
       </div>
 
-      {/* Submit Row */}
-      <div className="pt-2 flex justify-end">
-        <button
-          type="submit"
-          disabled={status === 'submitting'}
-          className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-medium bg-[var(--bg-inverse)] text-[#F6F5F0] hover:bg-[var(--accent)] disabled:opacity-60 transition-colors cursor-pointer shrink-0"
-        >
-          <span>
-            {status === 'submitting' ? 'Sending...' : 'Send message'}
-          </span>
-          <ArrowRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5" />
+      <div className="contact-form-actions">
+        <button className="solid-link" type="submit" disabled={status === 'submitting'}>
+          {status === 'submitting' ? 'Sending…' : 'Send message'}
         </button>
       </div>
     </form>
   );
 }
-
-export default ContactForm;

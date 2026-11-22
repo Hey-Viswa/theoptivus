@@ -1,22 +1,21 @@
 export const SITE_CONFIG = {
-  name: 'Viswaranjan Giri',
+  name: 'Biswaranjan Giri',
   shortName: 'Viswa',
   nativeName: 'विश्वरंजन',
   brand: 'TheOptivus',
   handle: 'Hey-Viswa',
-  filmHandle: 'dopviswaa',
-  role: 'Engineer & Visual Director',
+  role: 'Software Engineer',
   location: 'Mumbai, India',
   email: 'viswaranjan.dev@gmail.com',
   avatar: '/viswa.jpg',
   url: 'https://theoptivus.vercel.app',
   description:
-    'Portfolio of Viswaranjan Giri — full-stack, backend, and native Android engineer using Kotlin and Jetpack Compose, alongside filmmaking and visual direction (@dopviswaa).',
+    'Biswaranjan Giri is a software engineer in Mumbai building web products, backend systems, and native Android apps.',
 } as const;
 
 export const NAV_ITEMS = [
+  { label: 'Home', href: '/' },
   { label: 'Work', href: '/work' },
-  { label: 'Film', href: '/film' },
   { label: 'About', href: '/about' },
   { label: 'Skills', href: '/skills' },
   { label: 'Contact', href: '/contact' },

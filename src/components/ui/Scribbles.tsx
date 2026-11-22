@@ -18,6 +18,7 @@ export function SignatureMark({ className = 'h-7 w-auto' }: ScribbleProps) {
     >
       {/* Capital V swept down & up */}
       <path
+        pathLength="1"
         d="M5 9.5C9.2 19.5 13.8 27.6 15.8 28.4C18.2 29.2 24.5 14.5 29.5 6.8"
         stroke="currentColor"
         strokeWidth="2.15"
@@ -26,6 +27,7 @@ export function SignatureMark({ className = 'h-7 w-auto' }: ScribbleProps) {
       />
       {/* 'i' stem + dot */}
       <path
+        pathLength="1"
         d="M32.5 16.5C32.1 20.5 31.8 24.8 32.6 26.8C33.1 28 35.1 26.6 36.8 24.4"
         stroke="currentColor"
         strokeWidth="1.95"
@@ -34,6 +36,7 @@ export function SignatureMark({ className = 'h-7 w-auto' }: ScribbleProps) {
       <circle cx="33.4" cy="10.8" r="1.35" fill="currentColor" />
       {/* 's' */}
       <path
+        pathLength="1"
         d="M46.2 17.2C43.5 15.8 39.8 16.9 39.6 19.2C39.4 21.4 45.2 22.1 45 24.9C44.8 27.3 40.4 28.1 37.6 26.4"
         stroke="currentColor"
         strokeWidth="1.9"
@@ -42,6 +45,7 @@ export function SignatureMark({ className = 'h-7 w-auto' }: ScribbleProps) {
       />
       {/* 'w' */}
       <path
+        pathLength="1"
         d="M49.5 17.2C50.2 22.2 51.6 26.8 53.2 26.8C54.9 26.8 56.5 21.5 57.9 18.2C58.8 22.6 60.2 26.7 62.1 26.7C64.2 26.7 66.2 20.5 67.3 16.8"
         stroke="currentColor"
         strokeWidth="1.9"
@@ -50,6 +54,7 @@ export function SignatureMark({ className = 'h-7 w-auto' }: ScribbleProps) {
       />
       {/* 'a' + relaxed tail */}
       <path
+        pathLength="1"
         d="M78.8 18.8C76.2 15.8 71.1 17.2 70.3 21.4C69.6 24.9 72.1 27.4 75.2 26.6C77.5 26 79.1 22.8 79.5 18.8C79.1 22.8 79.3 26.5 81.8 26.7C84.2 26.8 87.2 24.5 91.5 22.8"
         stroke="currentColor"
         strokeWidth="1.95"
@@ -58,6 +63,7 @@ export function SignatureMark({ className = 'h-7 w-auto' }: ScribbleProps) {
       />
       {/* Subtle underscore flourish */}
       <path
+        pathLength="1"
         d="M14 31.8C36 30.6 64 29.8 88 30.9"
         stroke="currentColor"
         strokeWidth="1.15"
@@ -86,12 +92,14 @@ export function ScribbleUnderline({
       className={className}
     >
       <path
+        pathLength="1"
         d="M2.5 8.8C36.5 4.2 78.2 3.1 119.5 5.4C144.8 6.8 164.2 6.1 177.5 3.8"
         stroke="currentColor"
         strokeWidth="2.2"
         strokeLinecap="round"
       />
       <path
+        pathLength="1"
         d="M8.5 11.4C48.2 7.8 97.6 7.4 142.4 9.2C156.2 9.8 167.8 9.1 174.5 7.9"
         stroke="currentColor"
         strokeWidth="1.25"
@@ -118,6 +126,7 @@ export function ScribbleCircle({
       className={className}
     >
       <path
+        pathLength="1"
         d="M116 14.5C94.5 5.2 44.8 4.8 19.2 18.6C2.4 27.6 5.2 47.4 29.8 54.8C58.6 63.4 111.5 58.2 128.4 40.6C141.2 27.3 125.5 11.4 94.2 9.8"
         stroke="currentColor"
         strokeWidth="2.1"
