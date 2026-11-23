@@ -1,10 +1,29 @@
 import type { Metadata } from 'next';
+import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import './portfolio.css';
-import { getFeaturedProjects } from '@/data/projects';
-import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SITE_CONFIG } from '@/data/site';
 import { PublicShell } from '@/components/layout/PublicShell';
+
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
@@ -45,14 +64,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+    >
       <body
         suppressHydrationWarning
-        className="antialiased bg-[var(--bg-canvas)] text-[var(--fg-primary)] font-sans selection:bg-[var(--accent-soft)] selection:text-[var(--fg-primary)]"
+        className="antialiased bg-[var(--bg-canvas)] text-[var(--fg-primary)] selection:bg-[var(--accent-soft)] selection:text-[var(--fg-primary)]"
       >
-        <PublicShell navigation={<SiteHeader projects={getFeaturedProjects().map(project => ({
-          slug: project.slug, name: project.shortTitle ?? project.title, image: project.thumbnail, category: project.category,
-        }))} />}>{children}</PublicShell>
+        <PublicShell>{children}</PublicShell>
       </body>
     </html>
   );

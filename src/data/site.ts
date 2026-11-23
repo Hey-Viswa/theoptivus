@@ -1,5 +1,5 @@
 export const SITE_CONFIG = {
-  name: 'Biswaranjan Giri',
+  name: 'Viswaranjan Giri',
   shortName: 'Viswa',
   nativeName: 'विश्वरंजन',
   brand: 'TheOptivus',
@@ -10,7 +10,7 @@ export const SITE_CONFIG = {
   avatar: '/viswa.jpg',
   url: 'https://theoptivus.vercel.app',
   description:
-    'Biswaranjan Giri is a software engineer in Mumbai building web products, backend systems, and native Android apps.',
+    'Viswaranjan Giri is a software engineer in Mumbai building web products, backend systems, and native Android apps.',
 } as const;
 
 export const NAV_ITEMS = [

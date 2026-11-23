@@ -4,6 +4,7 @@ interface ExperienceItem {
   period: string;
   location: string;
   summary: string;
+  highlights?: string[];
 }
 
 interface EducationItem {
@@ -14,9 +15,11 @@ interface EducationItem {
 }
 
 export const PROFILE = {
+  headline: 'Software engineer building dependable web products, backend systems, and Android apps.',
   bioParagraphs: [
-    'I’m Viswa, a software engineer in Mumbai. I build web products, backend systems, and Android apps.',
-    'I built FNet to keep financial records on the phone. Most of the interesting work happens after tapping Save, from making sure a transfer balances to spotting a payment alert that has already been recorded.',
+    'I’m Viswaranjan Giri (Viswa), a software engineer in Mumbai. I build full-stack web products, backend systems, and native Android apps.',
+    'I built FNet to keep reliable financial records on a phone without needing a network connection. Most of the careful engineering happens after tapping Save, from ensuring transfers move balances without inflating income to sending ambiguous payment alerts for review.',
+    'Outside software engineering, I have an ongoing interest in short films and visual storytelling, and plan to share a deliberate creative preview once a personal collection is ready.',
   ],
   experience: [
     {
@@ -24,7 +27,13 @@ export const PROFILE = {
       company: 'JSW Steel, Dolvi',
       period: 'Jun – Jul 2023',
       location: 'Dolvi, Maharashtra',
-      summary: 'Built an internal Android app for managing feedback and integrated it with REST APIs.',
+      summary:
+        'Built and delivered an internal Android Feedback Management System during an on-site summer software engineering internship at JSW Steel Dolvi, integrating REST APIs within an enterprise engineering environment.',
+      highlights: [
+        'Built and delivered an Android Feedback Management System for internal plant use.',
+        'Integrated REST APIs and applied structured Android architecture patterns.',
+        'Worked within an enterprise engineering environment with exposure to SAP-based workflows.',
+      ],
     },
   ] satisfies ExperienceItem[],
   education: [

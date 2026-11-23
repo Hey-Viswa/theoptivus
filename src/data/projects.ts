@@ -108,7 +108,7 @@ export const PROJECTS: PortfolioProject[] = [{
   id: 'proj_fnet',
   slug: 'fnet',
   title: 'FNet',
-  cardSummary: 'An offline-first finance app for Android.',
+  cardSummary: 'A ledger that works between stations.',
   tagline: 'Keeping the books on a phone, down to the last paisa.',
   shortDescription: 'An Android case study in offline entry, exact accounting and payment reconciliation.',
   category: 'Native Android',
@@ -122,15 +122,15 @@ export const PROJECTS: PortfolioProject[] = [{
   thumbnailAlt: gallery[0].alt,
   gallery,
   deliverables: ['Offline entry and activity history', 'Exact-paise ledger', 'Payment alert review'],
-  techStack: ['Kotlin', 'Jetpack Compose', 'Room', 'WorkManager'],
-  techCategories: [{category: 'Android', technologies: ['Kotlin', 'Jetpack Compose', 'Room', 'WorkManager']}],
+  techStack: ['Kotlin', 'Jetpack Compose', 'Room', 'WorkManager', 'DataStore'],
+  techCategories: [{category: 'Android', technologies: ['Kotlin', 'Jetpack Compose', 'Room', 'WorkManager', 'DataStore']}],
   content: FNET_CHAPTERS.map(({title, body}) => ['## ' + title, ...body].join('\n\n')).join('\n\n'),
 },
   {
     id: 'proj_freshkatta',
     slug: 'freshkatta',
     title: 'FreshKatta',
-    cardSummary: 'Solo D2C storefront, Cloud Functions checkout & Flutter rider app.',
+    cardSummary: 'From checkout to the rider’s route.',
     tagline: 'Production D2C fresh-meat storefront, operations console, and Flutter rider delivery app.',
     shortDescription:
       'D2C fresh-meat e-commerce and last-mile delivery platform built solo end-to-end with Next.js 15, Firebase Cloud Functions, Razorpay checkout, admin console, and a Flutter GPS rider app.',
@@ -202,7 +202,7 @@ export const PROJECTS: PortfolioProject[] = [{
     slug: 'harsh-portfolio',
     title: 'Harsh Savale Portfolio & CMS',
     shortTitle: 'Harsh Savale CMS',
-    cardSummary: 'Portfolio and custom headless CMS for a Mumbai designer.',
+    cardSummary: 'A designer’s portfolio, with the editor behind it.',
     tagline: 'Design portfolio and custom headless CMS built for Mumbai communication designer Harsh Savale.',
     shortDescription:
       'Custom portfolio and headless admin CMS built for Mumbai communication designer Harsh Savale, with dynamic case studies, filtered work archives, and cloud media management.',
@@ -279,7 +279,7 @@ I architected a two-part system: a quiet, typography-led public showcase paired 
     id: 'proj_studioflow',
     slug: 'studioflow',
     title: 'StudioFlow',
-    cardSummary: 'Agency SaaS with Socket.IO collaboration, Redis queues & Razorpay.',
+    cardSummary: 'Multi-role agency workspace for projects, file revisions, and invoices.',
     tagline: 'Multi-role agency & client workflow SaaS with real-time revisions, Redis/Bull job queues, and Razorpay invoicing.',
     shortDescription:
       'Full-stack MERN SaaS platform for creative studios to manage client projects, file revisions, real-time notifications, AWS S3 asset delivery, and Razorpay invoice payments under strict RBAC.',
@@ -358,7 +358,7 @@ I architected a two-part system: a quiet, typography-led public showcase paired 
     id: 'proj_civiclens',
     slug: 'civiclens',
     title: 'CivicLens',
-    cardSummary: 'AI civic reporting platform with Flask + CLIP & Mapbox GL.',
+    cardSummary: 'Hackathon AI platform for reporting municipal issues and tracking repairs.',
     tagline: 'AI civic issue reporting and municipal dispatch platform built for HackOverflow 2026 (SIH25031).',
     shortDescription:
       'Geospatial civic infrastructure platform built for HackOverflow 2026 / SIH25031 with a React + Mapbox GL dashboard, Node/Express + MongoDB Atlas API, native WebSockets, and a Flask + CLIP image verifier.',
@@ -445,4 +445,18 @@ export function getProjectBySlug(slug: string): PortfolioProject | null {
 
 export function getAllProjectSlugs(): string[] {
   return PROJECTS.map((project) => project.slug);
+}
+
+export function getAdjacentProjects(slug: string): {
+  prev: PortfolioProject | null;
+  next: PortfolioProject | null;
+} {
+  const index = PROJECTS.findIndex((project) => project.slug === slug);
+  if (index === -1) {
+    return { prev: null, next: null };
+  }
+  return {
+    prev: index > 0 ? PROJECTS[index - 1] : null,
+    next: index < PROJECTS.length - 1 ? PROJECTS[index + 1] : null,
+  };
 }
